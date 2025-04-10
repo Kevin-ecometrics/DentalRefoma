@@ -1,16 +1,14 @@
 ---
-import Header from "../components/Header.astro";
+import "../styles/global.css";
+import "@fontsource-variable/montserrat";
 
-// Configuración SEO básica
-const title = "Dentista Reforma | Especialistas en Odontología";
-const description =
-  "Clínica dental especializada en implantes, ortodoncia y más.";
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
 ---
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
-  rel="stylesheet"
-/>
 
 <html lang="es">
   <head>
@@ -18,12 +16,15 @@ const description =
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="stylesheet" href="/styles/global.css" />
   </head>
 
   <body class="font-sans bg-white">
-    <Header />
     <slot />
-    <!-- Aquí se inyecta el contenido -->
   </body>
 </html>
+
+<style is:global>
+  body {
+    font-family: "Montserrat Variable", sans-serif;
+  }
+</style>

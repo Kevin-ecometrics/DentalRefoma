@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+.hero-section{
+    @apply relative w-full h-screen overflow-hidden;
+}
+
+@theme {
+    --color-reforma: #9cc115;
+    --color-reforma-hover: #8abf14;
+}
