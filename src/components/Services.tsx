@@ -98,7 +98,7 @@ const Services: React.FC = () => {
                 key={tratamiento.id}
                 className={`flex items-center gap-4 p-4 mb-4 rounded-lg cursor-pointer transition-all duration-300 ${
                   selectedTratamiento.id === tratamiento.id
-                    ? "bg-[#f8fcec] border-l-4 border-[#9cc115]"
+                    ? "bg-reforma-hover border-l-4 border-white shadow-lg text-white"
                     : "bg-white hover:shadow-md"
                 }`}
                 onClick={() => setSelectedTratamiento(tratamiento)}
@@ -108,9 +108,7 @@ const Services: React.FC = () => {
                   alt={tratamiento.nombre}
                   className="w-12 h-12 object-contain"
                 />
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {tratamiento.nombre}
-                </h3>
+                <h3 className="text-lg font-semibold ">{tratamiento.nombre}</h3>
               </div>
             ))}
           </div>
