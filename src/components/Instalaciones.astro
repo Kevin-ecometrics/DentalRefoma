@@ -28,7 +28,8 @@ const instalaciones = [
     <h2 class="section-main-title">Nuestras Instalaciones</h2>
     <p class="section-subtitle">Diseñadas para tu comodidad y seguridad</p>
 
-    <div class="cards-container">
+    <!-- DESKTOP -->
+    <div class="md:flex hidden gap-12 mb-8 flex-col">
       {
         instalaciones.map((instalacion, index) => (
           <div class={`diagonal-card ${index % 2 !== 0 ? "reverse" : ""}`}>
@@ -55,9 +56,41 @@ const instalaciones = [
       }
     </div>
 
+    <!-- MOBILE -->
+    <div class="md:hidden flex gap-8 mb-8 flex-col">
+      {
+        instalaciones.map((instalacion, index) => (
+          <div
+            class={`diagonal-card ${index % 2 !== 0 ? "reverse" : ""}`}
+            style="flex-direction: column; min-height: auto;"
+          >
+            <div class="card-image-part" style="width: 100%;">
+              <img
+                src={instalacion.img}
+                alt={instalacion.title}
+                class="card-img"
+                style="height: auto;"
+              />
+              <div class="card-overlay" />
+            </div>
+            <div class="card-content-part" style="width: 100%; padding: 20px;">
+              <h3 class="card-title">{instalacion.title}</h3>
+              <div class="card-divider" />
+              <p class="card-text">{instalacion.subtitle}</p>
+              <ul class="card-features">
+                {instalacion.features.map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
     <!-- AGENDAR CITA -->
 
-    <div class="cta-container">
+    <div class="cta-container mb-8">
       <a href="#contacto" class="cta-button">
         <span>Agendar Cita</span>
         <svg
@@ -90,13 +123,6 @@ const instalaciones = [
     --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  .cards-section {
-    padding: 100px 0;
-    background-color: var(--white);
-    position: relative;
-    overflow: hidden;
-  }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -117,13 +143,6 @@ const instalaciones = [
     text-align: center;
     max-width: 700px;
     margin: 0 auto 60px;
-  }
-
-  .cards-container {
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-    margin-bottom: 60px;
   }
 
   .diagonal-card {
