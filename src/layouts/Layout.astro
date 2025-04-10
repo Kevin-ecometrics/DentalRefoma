@@ -1,7 +1,7 @@
 ---
 import "@styles/global.css";
-import "@fontsource-variable/montserrat";
-
+import "@fontsource-variable/archivo-narrow";
+import "@fontsource-variable/roboto";
 interface Props {
   title: string;
   description: string;
@@ -18,7 +18,7 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
   </head>
 
-  <body class="font-sans bg-white">
+  <body>
     <slot />
   </body>
 </html>
@@ -28,6 +28,11 @@ const { title, description } = Astro.props;
     scroll-behavior: smooth;
   }
   body {
-    font-family: "Montserrat Variable", sans-serif;
+    font-family: "Archivo Narrow Variable", sans-serif;
+  }
+
+  h1,
+  a {
+    font-family: "Roboto Variable", sans-serif;
   }
 </style>

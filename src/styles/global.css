@@ -16,7 +16,19 @@
     @apply inline-block px-9 py-3 bg-reforma text-white text-[1.1rem] font-semibold rounded-md transition-all duration-300 ease-in-out cursor-pointer shadow-md uppercase tracking-wider hover:bg-reforma-hover hover:-translate-y-1 hover:shadow-lg;
 }
 
+.mision-container {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-6xl mx-auto;
+}
+
+.mision-card {
+    @apply bg-white rounded-lg p-6 text-center shadow-md border border-reforma-hover transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+
+
 @theme {
     --color-reforma: #9cc115;
     --color-reforma-hover: #8abf14;
+    --color-reforma-background: #f8fcec;
+
 }
