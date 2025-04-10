@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
+import Header from "@/components/Header";
 import Hero from "@components/Hero.astro";
 import Mision from "@components/Mision.astro";
 import Instalaciones from "@components/Instalaciones.astro";
@@ -12,7 +12,7 @@ import Footer from "@components/Footer.astro";
   title="Clínica Dental"
   description="Bienvenido a nuestra clínica dental, donde la salud bucal es nuestra prioridad. Ofrecemos servicios de odontología de alta calidad para toda la familia."
 >
-  <Header />
+  <Header client:visible />
   <Hero />
   <Mision />
   <Instalaciones />
