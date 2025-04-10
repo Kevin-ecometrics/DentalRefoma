@@ -1,178 +1,170 @@
----
-// social.astro
-import Layout from "../layouts/Layout.astro";
----
+<div id="fb-root"></div>
+<script
+  async
+  defer
+  crossorigin="anonymous"
+  src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v22.0"
+></script>
 
-<Layout title="Publicaciones Sociales">
-  <!-- SDK de Facebook (solo una vez) -->
-  <div id="fb-root"></div>
-  <script
-    async
-    defer
-    crossorigin="anonymous"
-    src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v22.0"
-  ></script>
+<section class="social-section">
+  <div class="container">
+    <h2 class="section-title">Nuestras Redes Sociales</h2>
+    <p class="section-subtitle">
+      Mantente conectado con nuestras últimas publicaciones
+    </p>
 
-  <section class="social-section">
-    <div class="container">
-      <h2 class="section-title">Nuestras Redes Sociales</h2>
-      <p class="section-subtitle">
-        Mantente conectado con nuestras últimas publicaciones
-      </p>
-
-      <div class="social-grid">
-        <!-- Publicación 1 -->
-        <div class="social-card">
-          <div
-            class="fb-post"
-            data-href="https://www.facebook.com/photo/?fbid=1247108386878805&set=a.797094705213511"
-            data-width="750"
-            data-show-text="true"
+    <div class="social-grid">
+      <!-- Publicación 1 -->
+      <div class="social-card">
+        <div
+          class="fb-post"
+          data-href="https://www.facebook.com/photo/?fbid=1247108386878805&set=a.797094705213511"
+          data-width="750"
+          data-show-text="true"
+        >
+          <blockquote
+            cite="https://es-la.facebook.com/DentistaReforma/posts/1247108403545470"
+            class="fb-xfbml-parse-ignore"
           >
-            <blockquote
-              cite="https://es-la.facebook.com/DentistaReforma/posts/1247108403545470"
-              class="fb-xfbml-parse-ignore"
+            <p>
+              Meet Dr. Karen Perez, a disciplined, passionate, and bold
+              endodontist. and teacher whose passion inspires and energizes...
+            </p>
+            Publicado por <a href="https://www.facebook.com/DentistaReforma"
+              >Dental Reforma</a
+            > en <a
+              href="https://es-la.facebook.com/DentistaReforma/posts/1247108403545470"
+              >Sábado, 8 de marzo de 2025</a
             >
-              <p>
-                Meet Dr. Karen Perez, a disciplined, passionate, and bold
-                endodontist. and teacher whose passion inspires and energizes...
-              </p>
-              Publicado por <a href="https://www.facebook.com/DentistaReforma"
-                >Dental Reforma</a
-              > en <a
-                href="https://es-la.facebook.com/DentistaReforma/posts/1247108403545470"
-                >Sábado, 8 de marzo de 2025</a
-              >
-            </blockquote>
-          </div>
+          </blockquote>
         </div>
+      </div>
 
-        <!-- Publicación 2 -->
-        <div class="social-card">
-          <div
-            class="fb-post"
-            data-href="https://www.facebook.com/photo?fbid=1237807401142237&set=a.797094705213511"
-            data-width="750"
-            data-show-text="true"
+      <!-- Publicación 2 -->
+      <div class="social-card">
+        <div
+          class="fb-post"
+          data-href="https://www.facebook.com/photo?fbid=1237807401142237&set=a.797094705213511"
+          data-width="750"
+          data-show-text="true"
+        >
+          <blockquote
+            cite="https://es-la.facebook.com/DentistaReforma/posts/1237807417808902"
+            class="fb-xfbml-parse-ignore"
           >
-            <blockquote
-              cite="https://es-la.facebook.com/DentistaReforma/posts/1237807417808902"
-              class="fb-xfbml-parse-ignore"
+            <p>Hoy celebramos nuestro aniversario #9</p>
+            Publicado por <a href="https://www.facebook.com/DentistaReforma"
+              >Dental Reforma</a
+            > en <a
+              href="https://es-la.facebook.com/DentistaReforma/posts/1237807417808902"
+              >Lunes, 24 de febrero de 2025</a
             >
-              <p>Hoy celebramos nuestro aniversario #9</p>
-              Publicado por <a href="https://www.facebook.com/DentistaReforma"
-                >Dental Reforma</a
-              > en <a
-                href="https://es-la.facebook.com/DentistaReforma/posts/1237807417808902"
-                >Lunes, 24 de febrero de 2025</a
-              >
-            </blockquote>
-          </div>
+          </blockquote>
         </div>
+      </div>
 
-        <!-- Publicación 3 -->
-        <div class="social-card">
-          <div
-            class="fb-post"
-            data-href="https://www.facebook.com/photo?fbid=1222013052721672&set=a.797094705213511"
-            data-width="750"
-            data-show-text="true"
+      <!-- Publicación 3 -->
+      <div class="social-card">
+        <div
+          class="fb-post"
+          data-href="https://www.facebook.com/photo?fbid=1222013052721672&set=a.797094705213511"
+          data-width="750"
+          data-show-text="true"
+        >
+          <blockquote
+            cite="https://es-la.facebook.com/DentistaReforma/posts/1222013079388336"
+            class="fb-xfbml-parse-ignore"
           >
-            <blockquote
-              cite="https://es-la.facebook.com/DentistaReforma/posts/1222013079388336"
-              class="fb-xfbml-parse-ignore"
+            <p>
+              En San Valentín 💕queremos celebrar a lo grande y compartir
+              contigo esta PROMOCIÓN💖❤️para que luzcas una bella...
+            </p>
+            Publicado por <a href="https://www.facebook.com/DentistaReforma"
+              >Dental Reforma</a
+            > en <a
+              href="https://es-la.facebook.com/DentistaReforma/posts/1222013079388336"
+              >Martes, 4 de febrero de 2025</a
             >
-              <p>
-                En San Valentín 💕queremos celebrar a lo grande y compartir
-                contigo esta PROMOCIÓN💖❤️para que luzcas una bella...
-              </p>
-              Publicado por <a href="https://www.facebook.com/DentistaReforma"
-                >Dental Reforma</a
-              > en <a
-                href="https://es-la.facebook.com/DentistaReforma/posts/1222013079388336"
-                >Martes, 4 de febrero de 2025</a
-              >
-            </blockquote>
-          </div>
+          </blockquote>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <style>
-    .social-section {
-      padding: 3rem 0;
-      background-color: #f8fcec; /* Color de fondo solicitado */
-    }
+<style>
+  .social-section {
+    padding: 3rem 0;
+    background-color: #f8fcec; /* Color de fondo solicitado */
+  }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+    font-size: 2.25rem;
+    font-weight: 700;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .social-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    display: flex; /* Añade esto */
+    flex-direction: column; /* Añade esto */
+  }
+
+  .social-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .fb-post {
+    width: 100% !important;
+    max-width: 750px;
+    margin: 0 auto;
+    flex: 1;
+  }
+
+  .fb-post span,
+  .fb-post iframe {
+    display: block !important;
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width: 768px) {
+    .social-grid {
+      grid-template-columns: 1fr;
     }
 
     .section-title {
-      text-align: center;
-      margin-bottom: 0.5rem;
-      color: #2d3748;
-      font-size: 2.25rem;
-      font-weight: 700;
+      font-size: 1.8rem;
     }
-
-    .section-subtitle {
-      text-align: center;
-      color: #4a5568;
-      margin-bottom: 2.5rem;
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
-      justify-content: center;
-    }
-
-    .social-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      border: 1px solid #e2e8f0;
-      display: flex; /* Añade esto */
-      flex-direction: column; /* Añade esto */
-    }
-
-    .social-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-
-    .fb-post {
-      width: 100% !important;
-      max-width: 750px;
-      margin: 0 auto;
-      flex: 1;
-    }
-
-    .fb-post span,
-    .fb-post iframe {
-      display: block !important;
-      margin-bottom: 0 !important;
-    }
-
-    @media (max-width: 768px) {
-      .social-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
-</Layout>
+  }
+</style>
