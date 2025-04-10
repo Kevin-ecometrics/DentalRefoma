@@ -10,22 +10,35 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    img: "images/solucion-bucal.jpg",
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/237902_610886.png",
     title: "Todo problema bucal tiene una solución",
     description: "Atendemos todas las problemáticas de tu boca desde la raíz.",
     alt: "Solución integral para problemas bucales",
   },
   {
-    img: "images/guarda-dental.jpg",
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/462545_623754.png",
     title: "¿Te recomendaron una guarda?",
     description: "Protege tus dientes del bruxismo y el desgaste.",
     alt: "Guarda dental personalizada",
   },
   {
-    img: "images/odontopediatria.jpg",
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/469513_798641.png",
     title: "¿35 años atendiendo Emergencias infantiles?",
     description: "Odontopediatría especializada en que tus niños sonrían.",
     alt: "Atención dental para niños",
+  },
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/586984_902110.png",
+    title: "¿Síntomas de Hipersensibilidad?",
+    description:
+      "Vuelve a disfrutar de la comida y bebida que tanto te gusta atendiendo tu esmalte.",
+    alt: "Tratamiento para sensibilidad dental",
+  },
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/920394_354067.png",
+    title: "¿Con miedo al dentista?",
+    description: "Encuentra la calidez y ternura donde el paciente es primero.",
+    alt: "Atención dental sin miedo",
   },
 ];
 
@@ -90,11 +103,11 @@ const Carrousel: React.FC = () => {
                 className="flex-shrink-0 w-full flex flex-col lg:flex-row items-center bg-white rounded-lg shadow-md overflow-hidden"
               >
                 {/* Imagen */}
-                <div className="w-full lg:w-1/3">
+                <div className="w-full ">
                   <img
                     src={slide.img}
                     alt={slide.alt}
-                    className="w-full h-40 lg:h-48 object-cover"
+                    className="w-full object-cover"
                   />
                 </div>
                 {/* Contenido */}
@@ -116,11 +129,11 @@ const Carrousel: React.FC = () => {
             ))}
           </div>
           {/* Indicadores */}
-          <div className="flex justify-center mt-6 gap-2">
+          <div className="flex justify-center mt-6 mb-6 gap-2">
             {slides.map((_, index) => (
               <span
                 key={index}
-                className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
+                className={`w-4 h-4 rounded-full cursor-pointer transition-all ${
                   index === currentIndex
                     ? "bg-reforma scale-125"
                     : "bg-gray-300"
