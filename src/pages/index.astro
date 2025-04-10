@@ -5,7 +5,7 @@ import Hero from "@components/Hero.astro";
 import Mision from "@components/Mision.astro";
 import Instalaciones from "@components/Instalaciones.astro";
 import Services from "@components/Services.astro";
-import Carrousel from "@components/Carrousel.astro";
+import Carrousel from "@components/Carrousel";
 import Footer from "@components/Footer.astro";
 ---
 
@@ -17,7 +17,7 @@ import Footer from "@components/Footer.astro";
   <Hero />
   <Mision />
   <Instalaciones />
-  <Carrousel />
+  <Carrousel client:visible />
   <Services />
   <Footer />
 </Layout>
