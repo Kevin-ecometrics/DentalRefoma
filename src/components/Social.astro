@@ -102,7 +102,7 @@ import Layout from "../layouts/Layout.astro";
   <style>
     .social-section {
       padding: 3rem 0;
-      background-color: #f8fcec; /* Color de fondo solicitado */
+      background-color: #f8fcec;
     }
 
     .container {
@@ -143,8 +143,9 @@ import Layout from "../layouts/Layout.astro";
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
       border: 1px solid #e2e8f0;
-      display: flex; /* Añade esto */
-      flex-direction: column; /* Añade esto */
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0 !important;
     }
 
     .social-card:hover {
@@ -157,12 +158,25 @@ import Layout from "../layouts/Layout.astro";
       max-width: 750px;
       margin: 0 auto;
       flex: 1;
+      margin-bottom: -5px !important;
     }
 
+    /* Estilos específicos para los elementos de Facebook */
     .fb-post span,
     .fb-post iframe {
       display: block !important;
       margin-bottom: 0 !important;
+      border: none !important;
+    }
+
+    /* Elimina el padding adicional que Facebook podría añadir */
+    .fb_iframe_widget,
+    .fb_iframe_widget span,
+    .fb_iframe_widget iframe {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      display: block !important;
     }
 
     @media (max-width: 768px) {

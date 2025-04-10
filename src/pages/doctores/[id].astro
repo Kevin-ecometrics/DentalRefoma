@@ -1,4 +1,6 @@
 ---
+import Doctores from "@/components/Doctores.astro";
+
 // src/pages/doctores/[id].astro
 
 export async function getStaticPaths() {
@@ -92,6 +94,15 @@ export async function getStaticPaths() {
 }
 
 const { doctor } = Astro.props;
+
+// Obtener lista ordenada de IDs de doctores para navegación
+const allDoctors = ["DraKaren", "DraJulieta", "DrFrancisco", "DraItzel"];
+
+const currentIndex = allDoctors.indexOf(doctor.id);
+const prevIndex = (currentIndex - 1 + allDoctors.length) % allDoctors.length;
+const nextIndex = (currentIndex + 1) % allDoctors.length;
+const prevDoctorId = allDoctors[prevIndex];
+const nextDoctorId = allDoctors[nextIndex];
 ---
 
 <style>
@@ -325,6 +336,42 @@ const { doctor } = Astro.props;
     transform: translateY(-2px);
   }
 
+  .doctor-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .nav-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-button:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+
+  .nav-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--color-text-light);
+  }
+
   @media (max-width: 1200px) {
     .doctor-container {
       grid-template-columns: 1fr;
@@ -356,6 +403,10 @@ const { doctor } = Astro.props;
     .specialties-grid {
       grid-template-columns: 1fr;
     }
+
+    .doctor-navigation {
+      flex-direction: column;
+    }
   }
 </style>
 
@@ -370,6 +421,13 @@ const { doctor } = Astro.props;
       <div class="doctor-header">
         <h1 class="doctor-name">{doctor.nombre}</h1>
         <p class="doctor-title">{doctor.experiencia}</p>
+
+        <div class="doctor-stats">
+          <div class="stat-item">
+            <div class="stat-circle">{doctor.pacientes.replace("+", "")}</div>
+            <div class="stat-label">Pacientes atendidos</div>
+          </div>
+        </div>
 
         <div class="doctor-meta">
           <div class="meta-item">
@@ -464,23 +522,53 @@ const { doctor } = Astro.props;
           </div>
         </div>
 
-        <a href="/doctores" class="btn-back">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+        <div class="doctor-navigation">
+          <a
+            href={`/doctores/${prevDoctorId}`}
+            class="nav-button"
+            aria-label="Doctor anterior"
           >
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Volver al Equipo
-        </a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Anterior
+          </a>
+
+          <a href="/doctores" class="btn-back"> Volver al Equipo </a>
+
+          <a
+            href={`/doctores/${nextDoctorId}`}
+            class="nav-button"
+            aria-label="Siguiente doctor"
+          >
+            Siguiente
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
