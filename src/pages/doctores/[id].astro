@@ -1,4 +1,6 @@
 ---
+import Doctores from "@/components/Doctores.astro";
+
 // src/pages/doctores/[id].astro
 
 export async function getStaticPaths() {
@@ -102,138 +104,6 @@ const nextIndex = (currentIndex + 1) % allDoctors.length;
 const prevDoctorId = allDoctors[prevIndex];
 const nextDoctorId = allDoctors[nextIndex];
 ---
-
-<Layout
-  title="Conoce a Nuestros Doctores"
-  description="Conoce a nuestros doctores, su experiencia y especialidades. En Dental Reforma, tu sonrisa es nuestra prioridad."
->
-  <div class="doctor-detail">
-    <div class="doctor-container">
-      <div class="doctor-image-container">
-        <img src={doctor.imagen} alt={doctor.nombre} class="doctor-image" />
-        <div class="doctor-badge">{doctor.titulo}</div>
-      </div>
-
-      <div class="doctor-info">
-        <div class="doctor-header">
-          <h1 class="doctor-name">{doctor.nombre}</h1>
-          <p class="doctor-title">{doctor.experiencia}</p>
-
-          <div class="doctor-meta">
-            <div class="meta-item">
-              <div class="meta-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path
-                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="meta-content">
-                <h3>Formación Académica</h3>
-                <p>{doctor.formacion}</p>
-              </div>
-            </div>
-
-            <div class="meta-item">
-              <div class="meta-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-              </div>
-              <div class="meta-content">
-                <h3>Horario de Atención</h3>
-                <p>{doctor.horario}</p>
-              </div>
-            </div>
-
-            <div class="meta-item">
-              <div class="meta-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                  <path d="M2 17l10 5 10-5"></path>
-                  <path d="M2 12l10 5 10-5"></path>
-                </svg>
-              </div>
-              <div class="meta-content">
-                <h3>Certificaciones</h3>
-                <p>{doctor.certificaciones.join(", ")}</p>
-              </div>
-            </div>
-          </div>
-
-          <h2 class="section-title">Biografía Profesional</h2>
-          <p class="doctor-bio">{doctor.bio}</p>
-
-          <div class="specialties-container">
-            <h2 class="section-title">Especialidades</h2>
-            <div class="specialties-grid">
-              {
-                doctor.especialidades.map((especialidad, index) => (
-                  <div class="specialty-item">
-                    <div class="specialty-icon">{index + 1}</div>
-                    <div class="specialty-name">{especialidad}</div>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-
-          <a href="/" class="btn-back">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            Volver al Equipo
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</Layout>
 
 <style>
   :root {
@@ -552,6 +422,13 @@ const nextDoctorId = allDoctors[nextIndex];
         <h1 class="doctor-name">{doctor.nombre}</h1>
         <p class="doctor-title">{doctor.experiencia}</p>
 
+        <div class="doctor-stats">
+          <div class="stat-item">
+            <div class="stat-circle">{doctor.pacientes.replace("+", "")}</div>
+            <div class="stat-label">Pacientes atendidos</div>
+          </div>
+        </div>
+
         <div class="doctor-meta">
           <div class="meta-item">
             <div class="meta-icon">
@@ -645,23 +522,53 @@ const nextDoctorId = allDoctors[nextIndex];
           </div>
         </div>
 
-        <a href="/doctores" class="btn-back">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+        <div class="doctor-navigation">
+          <a
+            href={`/doctores/${prevDoctorId}`}
+            class="nav-button"
+            aria-label="Doctor anterior"
           >
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Volver al Equipo
-        </a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Anterior
+          </a>
+
+          <a href="/#home" class="btn-back"> Volver al Equipo </a>
+
+          <a
+            href={`/doctores/${nextDoctorId}`}
+            class="nav-button"
+            aria-label="Siguiente doctor"
+          >
+            Siguiente
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
