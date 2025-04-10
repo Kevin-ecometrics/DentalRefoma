@@ -1,0 +1,196 @@
+<section id="mision" class="mision-section">
+  <div class="mision-header">
+    <h2 class="mision-main-title">35 años de experiencia</h2>
+    <p class="mision-subtitle">
+      En el Consultorio Dental de la Clínica Reforma
+    </p>
+    <div class="green-divider"></div>
+    <h3 class="mision-values-title">
+      Construimos nuestros Valores con dedicación
+    </h3>
+  </div>
+
+  <div class="mision-grid">
+    <!-- Profesionalismo -->
+    <div class="mision-card">
+      <div class="card-icon">🦷</div>
+      <h4 class="card-title">Profesionalismo</h4>
+      <p class="card-text">
+        El personal que conforma Dental Reforma es ampliamente capacitado en la
+        salud integral. Entrenado para dar las mejores soluciones a cualquier
+        procedimiento odontológico con la mayor calidez.
+      </p>
+    </div>
+
+    <!-- Experiencia -->
+    <div class="mision-card">
+      <div class="card-icon">🎖️</div>
+      <!-- Nuevo emoji medalla -->
+      <h4 class="card-title">Experiencia</h4>
+      <p class="card-text">
+        Además de que cada miembro cuenta con su cédula, título y certificados,
+        los 35 años de la clínica dan el respaldo de que cualquier procedimiento
+        es integral. No sólo para tu boca sino para tu salud general.
+      </p>
+    </div>
+
+    <!-- Alivio del dolor -->
+    <div class="mision-card">
+      <div class="card-icon">❤️</div>
+      <h4 class="card-title">Aliviamos el dolor</h4>
+      <p class="card-text">
+        La herencia de proteger a la población vulnerable de la zona generó que
+        el principal enfoque de la clínica sea aliviar el sufrimiento y el dolor
+        que conlleva una gran infección, una mala praxis o una urgencia dental.
+      </p>
+    </div>
+
+    <!-- Estética -->
+    <div class="mision-card">
+      <div class="card-icon">😁</div>
+      <!-- Nuevo emoji sonrisa con dientes -->
+      <h4 class="card-title">Sonrisas y Estética</h4>
+      <p class="card-text">
+        Cuidamos primero tu salud y el estado funcional de tu boca. Una vez
+        logrado, hacemos todo tipo de procedimiento estético relacionado con tus
+        dientes, maxilares y cachetes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --primary-green: #9cc115;
+    --light-bg: #f8fcec;
+    --dark-text: #2e2e2f;
+    --white: #ffffff;
+    --gray-border: #e1ecb8;
+  }
+
+  .mision-section {
+    background-color: var(--light-bg);
+    padding: 80px 20px;
+    position: relative;
+  }
+
+  .mision-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+  }
+
+  .mision-main-title {
+    font-size: 2.8rem;
+    color: var(--primary-green);
+    margin-bottom: 10px;
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 700;
+  }
+
+  .mision-subtitle {
+    font-size: 1.3rem;
+    color: var(--dark-text);
+    margin-bottom: 20px;
+    font-family: "Archivo Narrow", sans-serif;
+  }
+
+  .green-divider {
+    width: 100px;
+    height: 3px;
+    background-color: var(--primary-green);
+    margin: 20px auto;
+  }
+
+  .mision-values-title {
+    font-size: 1.5rem;
+    color: var(--dark-text);
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 600;
+  }
+
+  .mision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .mision-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--gray-border);
+    transition: all 0.3s ease;
+  }
+
+  .mision-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(156, 193, 21, 0.15);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-green);
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+    color: var(--primary-green);
+    margin-bottom: 15px;
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 600;
+  }
+
+  .card-text {
+    color: var(--dark-text);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .mision-main-title {
+      font-size: 2.3rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mision-main-title {
+      font-size: 2rem;
+    }
+
+    .mision-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .mision-values-title {
+      font-size: 1.3rem;
+    }
+
+    .mision-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mision-section {
+      padding: 60px 15px;
+    }
+
+    .mision-main-title {
+      font-size: 1.8rem;
+    }
+
+    .mision-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+    }
+  }
+</style>

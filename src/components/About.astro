@@ -1,0 +1,35 @@
+---
+const { title, description, image } = Astro.props;
+---
+
+<section id="about" class="py-16 bg-white">
+  <div class="container mx-auto px-4 md:flex items-center gap-12">
+    <div class="md:w-1/2 mb-8 md:mb-0">
+      <img
+        src={image}
+        alt={title}
+        class="rounded-lg shadow-xl w-full max-w-md mx-auto"
+        width="500"
+        height="600"
+      />
+    </div>
+    <div class="md:w-1/2">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">
+        Conoce al <span class="text-primary">{title}</span>
+      </h2>
+      <p class="text-lg text-gray-600 mb-6">{description}</p>
+      <ul class="space-y-3">
+        <li class="flex items-center">
+          <span class="bg-primary/10 p-2 rounded-full mr-3">🦷</span>
+          <span class="text-gray-700"
+            >Certificado por la Asociación Dental Mexicana</span
+          >
+        </li>
+        <li class="flex items-center">
+          <span class="bg-primary/10 p-2 rounded-full mr-3">🏆</span>
+          <span class="text-gray-700">15+ años de experiencia</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

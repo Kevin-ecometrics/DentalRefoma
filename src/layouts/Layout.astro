@@ -1,0 +1,29 @@
+---
+import Header from "../components/Header.astro";
+
+// Configuración SEO básica
+const title = "Dentista Reforma | Especialistas en Odontología";
+const description =
+  "Clínica dental especializada en implantes, ortodoncia y más.";
+---
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+
+  <body class="font-sans bg-white">
+    <Header />
+    <slot />
+    <!-- Aquí se inyecta el contenido -->
+  </body>
+</html>

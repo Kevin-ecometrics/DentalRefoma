@@ -1,0 +1,416 @@
+---
+const tratamientos = [
+  {
+    id: 1,
+    nombre: "Endodoncia",
+    imagen: "images/endo.png",
+    descripcion:
+      "La endodoncia es un tratamiento dental que consiste en la extracción de la pulpa del diente, un tejido pequeño en forma de hebra, que se encuentra en el centro del conducto del diente.",
+  },
+  {
+    id: 2,
+    nombre: "Ortodoncia",
+    imagen: "images/orto.png",
+    descripcion:
+      "La ortodoncia es una especialidad de la odontología que se encarga de la corrección de los dientes y huesos posicionados incorrectamente.",
+  },
+  {
+    id: 3,
+    nombre: "Implantes Dentales",
+    imagen: "images/implante.png",
+    descripcion:
+      "Los implantes dentales son raíces artificiales que se colocan en el hueso maxilar para sostener dientes de reemplazo.",
+  },
+  {
+    id: 4,
+    nombre: "Cirugía Oral",
+    imagen: "images/cirugia.png",
+    descripcion:
+      "Los implantes dentales son raíces artificiales que se colocan en el hueso maxilar para sostener dientes de reemplazo.",
+  },
+  {
+    id: 5,
+    nombre: "Prótesis Dentales",
+    imagen: "images/protesis.png",
+    descripcion:
+      "Dispositivos que reemplazan dientes perdidos, pueden ser fijos o removibles.",
+  },
+  {
+    id: 6,
+    nombre: "Coronas",
+    imagen: "images/corona.png",
+    descripcion:
+      "Fundas que cubren un diente dañado para restaurar su forma, tamaño y función.",
+  },
+  {
+    id: 7,
+    nombre: "Ortopediatra",
+    imagen: "images/orto.png",
+    descripcion:
+      "Ortodoncia especializada en niños para guiar el crecimiento facial y dental.",
+  },
+  {
+    id: 8,
+    nombre: "Resinas",
+    imagen: "images/resinas.png",
+    descripcion:
+      "Material estético para restaurar dientes cariados o fracturados.",
+  },
+  {
+    id: 9,
+    nombre: "Periodoncia",
+    imagen: "images/perio.png",
+    descripcion: "Tratamiento de las encías y hueso que sostiene los dientes.",
+  },
+];
+---
+
+<section
+  id="servicios-dentales"
+  class="servicios-section"
+  style="background-color: #f8fcec;"
+>
+  <div class="container">
+    <h2 class="section-title">Nuestros Tratamientos</h2>
+    <p class="section-subtitle">Profesionales en tu salud dental</p>
+
+    <div class="tratamientos-container">
+      <div class="lista-tratamientos">
+        {
+          tratamientos.map((tratamiento, index) => (
+            <div
+              class={`item-tratamiento ${index === 0 ? "active" : ""}`}
+              data-index={index}
+            >
+              <div class="servicio-icono">
+                <img
+                  src={tratamiento.imagen}
+                  alt={tratamiento.nombre}
+                  title={tratamiento.nombre}
+                  width="40"
+                  height="40"
+                />
+              </div>
+              <h3 class="servicio-titulo-alt">{tratamiento.nombre}</h3>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="detalle-tratamiento">
+        <div class="detalle-contenido">
+          <div class="detalle-icono">
+            <img
+              id="detalle-imagen"
+              src={tratamientos[0].imagen}
+              alt={tratamientos[0].nombre}
+              width="80"
+              height="80"
+            />
+          </div>
+          <h3 id="detalle-titulo" class="detalle-titulo">
+            {tratamientos[0].nombre}
+          </h3>
+          <div class="servicio-linea"></div>
+          <p id="detalle-descripcion" class="detalle-descripcion">
+            {tratamientos[0].descripcion}
+          </p>
+          <p id="detalle-texto" class="detalle-texto">
+            {tratamientos[0].detalles}
+          </p>
+          <button class="boton-consulta">Solicitar consulta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .servicios-section {
+    padding: 80px 0;
+    background-color: #f8fcec;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 700;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 60px;
+    font-family: "Archivo Narrow", sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* Contenedor principal */
+  .tratamientos-container {
+    display: flex;
+    gap: 30px;
+    min-height: 500px;
+  }
+
+  /* Lista de tratamientos (izquierda) */
+  .lista-tratamientos {
+    width: 30%;
+    border-right: 1px solid #e0e0e0;
+    padding-right: 20px;
+    overflow-y: auto;
+    max-height: 600px;
+  }
+
+  .item-tratamiento {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    border: 1px solid #e0e0e0;
+  }
+
+  .item-tratamiento:hover {
+    transform: translateX(5px);
+    border-color: #9cc115;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .item-tratamiento.active {
+    border-left: 4px solid #9cc115;
+    background-color: #f8fcec;
+  }
+
+  .servicio-titulo-alt {
+    font-size: 1rem;
+    color: #2c3e50;
+    margin: 0;
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 600;
+  }
+
+  /* Detalle del tratamiento (derecha) */
+  .detalle-tratamiento {
+    width: 70%;
+    padding: 20px;
+  }
+
+  .detalle-contenido {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    height: 100%;
+  }
+
+  .detalle-icono {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .detalle-titulo {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 700;
+  }
+
+  .servicio-linea {
+    width: 50px;
+    height: 3px;
+    background: #9cc115;
+    margin: 0 auto 25px;
+  }
+
+  .detalle-descripcion {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #34495e;
+    margin-bottom: 20px;
+  }
+
+  .detalle-texto {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+  }
+
+  .boton-consulta {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 30px;
+    background-color: #9cc115;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .boton-consulta:hover {
+    background-color: #7a9a12;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .tratamientos-container {
+      flex-direction: column;
+    }
+
+    .lista-tratamientos,
+    .detalle-tratamiento {
+      width: 100%;
+    }
+
+    .lista-tratamientos {
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+      padding-right: 0;
+      padding-bottom: 20px;
+      max-height: 300px;
+    }
+
+    .item-tratamiento {
+      padding: 12px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .detalle-contenido {
+      padding: 20px 15px;
+    }
+
+    .detalle-titulo {
+      font-size: 1.3rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tratamientosData = [
+      {
+        id: 1,
+        nombre: "Endodoncia",
+        imagen: "images/endo.png",
+        descripcion:
+          "La endodoncia es un tratamiento dental que consiste en la extracción de la pulpa del diente, un tejido pequeño en forma de hebra, que se encuentra en el centro del conducto del diente.",
+      },
+      {
+        id: 2,
+        nombre: "Ortodoncia",
+        imagen: "images/orto.png",
+        descripcion:
+          "La ortodoncia es una especialidad de la odontología que se encarga de la corrección de los dientes y huesos posicionados incorrectamente.",
+      },
+      {
+        id: 3,
+        nombre: "Implantes Dentales",
+        imagen: "images/implante.png",
+        descripcion:
+          "Los implantes dentales son raíces artificiales que se colocan en el hueso maxilar para sostener dientes de reemplazo.",
+      },
+      {
+        id: 4,
+        nombre: "Cirugía Oral",
+        imagen: "images/cirugia.png",
+        descripcion:
+          "Incluye extracciones complejas, tratamiento de infecciones y procedimientos reconstructivos.",
+      },
+      {
+        id: 5,
+        nombre: "Prótesis Dentales",
+        imagen: "images/protesis.png",
+        descripcion:
+          "Dispositivos que reemplazan dientes perdidos, pueden ser fijos o removibles.",
+      },
+      {
+        id: 6,
+        nombre: "Coronas",
+        imagen: "images/corona.png",
+        descripcion:
+          "Las coronas son una reconstrucción que funciona como una cubierta para el diente con la simetría y el color natural del diente, este procedimiento se realiza para que el paciente tenga una buena estética dental. La corona dental es un recubrimiento que se aplica a un diente dañado, aunque este recurso se puede utilizar para mejorar la apariencia, la forma o la estética de un diente. Están hechos de porcelana o cerámica, pero también se pueden usar piezas de metal, oro o resina. Por lo general, se usa para reemplazar alguna parte del diente que se ha perdido, ya que la corona es la encargada de proteger el diente dañado si tiene fracturas graves, a veces se usa después del tratamiento de conducto.",
+      },
+      {
+        id: 7,
+        nombre: "Ortopediatra",
+        imagen: "images/orto.png",
+        descripcion:
+          "Ortodoncia especializada en niños para guiar el crecimiento facial y dental.",
+      },
+      {
+        id: 8,
+        nombre: "Resinas",
+        imagen: "images/resinas.png",
+        descripcion:
+          "Material estético para restaurar dientes cariados o fracturados.",
+      },
+      {
+        id: 9,
+        nombre: "Periodoncia",
+        imagen: "images/perio.png",
+        descripcion:
+          "Tratamiento de las encías y hueso que sostiene los dientes.",
+      },
+    ];
+
+    // Seleccionar elementos del DOM
+    const itemsTratamiento = document.querySelectorAll(".item-tratamiento");
+    const detalleImagen = document.getElementById("detalle-imagen");
+    const detalleTitulo = document.getElementById("detalle-titulo");
+    const detalleDescripcion = document.getElementById("detalle-descripcion");
+    const detalleTexto = document.getElementById("detalle-texto");
+
+    // Función para actualizar el detalle del tratamiento
+    function actualizarDetalleTratamiento(index) {
+      const tratamiento = tratamientosData[index];
+
+      detalleImagen.src = tratamiento.imagen;
+      detalleImagen.alt = tratamiento.nombre;
+      detalleTitulo.textContent = tratamiento.nombre;
+      detalleDescripcion.textContent = tratamiento.descripcion;
+      detalleTexto.textContent = tratamiento.detalles;
+    }
+
+    // Añadir event listeners a cada item de tratamiento
+    itemsTratamiento.forEach((item, index) => {
+      item.addEventListener("click", function () {
+        // Remover clase 'active' de todos los items
+        itemsTratamiento.forEach((i) => i.classList.remove("active"));
+
+        // Añadir clase 'active' al item clickeado
+        this.classList.add("active");
+
+        // Actualizar el detalle del tratamiento
+        actualizarDetalleTratamiento(index);
+      });
+    });
+  });
+</script>
