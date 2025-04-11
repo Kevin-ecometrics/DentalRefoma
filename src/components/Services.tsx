@@ -11,63 +11,63 @@ const tratamientos: Tratamiento[] = [
   {
     id: 1,
     nombre: "Endodoncia",
-    imagen: "images/endo.png",
+    imagen: "/images/endo.png",
     descripcion:
       "La endodoncia es un tratamiento dental que consiste en la extracción de la pulpa del diente, un tejido pequeño en forma de hebra, que se encuentra en el centro del conducto del diente.",
   },
   {
     id: 2,
     nombre: "Ortodoncia",
-    imagen: "images/orto.png",
+    imagen: "/images/orto.png",
     descripcion:
       "La ortodoncia es una especialidad de la odontología que se encarga de la corrección de los dientes y huesos posicionados incorrectamente.",
   },
   {
     id: 3,
     nombre: "Implantes Dentales",
-    imagen: "images/implante.png",
+    imagen: "/images/implante.png",
     descripcion:
       "Los implantes dentales son raíces artificiales que se colocan en el hueso maxilar para sostener dientes de reemplazo.",
   },
   {
     id: 4,
     nombre: "Cirugía Oral",
-    imagen: "images/cirugia.png",
+    imagen: "/images/cirugia.png",
     descripcion:
       "Incluye extracciones complejas, tratamiento de infecciones y procedimientos reconstructivos.",
   },
   {
     id: 5,
     nombre: "Prótesis Dentales",
-    imagen: "images/protesis.png",
+    imagen: "/images/protesis.png",
     descripcion:
       "Dispositivos que reemplazan dientes perdidos, pueden ser fijos o removibles.",
   },
   {
     id: 6,
     nombre: "Coronas",
-    imagen: "images/corona.png",
+    imagen: "/images/corona.png",
     descripcion:
       "Las coronas son una reconstrucción que funciona como una cubierta para el diente con la simetría y el color natural del diente.",
   },
   {
     id: 7,
     nombre: "Ortopediatra",
-    imagen: "images/orto.png",
+    imagen: "/images/orto.png",
     descripcion:
       "Ortodoncia especializada en niños para guiar el crecimiento facial y dental.",
   },
   {
     id: 8,
     nombre: "Resinas",
-    imagen: "images/resinas.png",
+    imagen: "/images/resinas.png",
     descripcion:
       "Material estético para restaurar dientes cariados o fracturados.",
   },
   {
     id: 9,
     nombre: "Periodoncia",
-    imagen: "images/perio.png",
+    imagen: "/images/perio.png",
     descripcion: "Tratamiento de las encías y hueso que sostiene los dientes.",
   },
 ];

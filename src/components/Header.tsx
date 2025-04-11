@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 
 interface Link {
@@ -11,6 +11,7 @@ const Header: React.FC = () => {
     window.location.pathname.startsWith("/en/") ? "en" : "es"
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState<string>("home"); // Track the active link
   const navRef = useRef<HTMLUListElement>(null);
 
   const links: Record<"es" | "en", Link[]> = {
@@ -52,6 +53,37 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleLinkClick = (id: string) => {
+    setActiveLink(id); // Update the active link when clicked
+  };
+
+  // Intersection Observer setup
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          if (entry.isIntersecting) {
+            setActiveLink(id); // Set the active link when the section is in view
+          }
+        });
+      },
+      { threshold: 0.5 } // Trigger when 50% of the element is in the viewport
+    );
+
+    // Observe each section based on the ids
+    links[currentLanguage].forEach((link) => {
+      const element = document.getElementById(link.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect(); // Clean up the observer on component unmount
+    };
+  }, [currentLanguage]); // Re-run this effect if the language changes
+
   return (
     <header className="fixed top-0 z-50 w-full bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
@@ -80,7 +112,10 @@ const Header: React.FC = () => {
               <li key={item.id} className="relative">
                 <a
                   href={`#${item.id}`}
-                  className="px-4 py-2 text-sm font-medium rounded-md transition-all text-gray-700 hover:bg-gray-100"
+                  onClick={() => handleLinkClick(item.id)} // Set active link on click
+                  className={`px-4 py-2 text-sm font-medium rounded-md transition-all text-gray-700 hover:bg-gray-100 ${
+                    activeLink === item.id ? "bg-reforma text-white" : ""
+                  }`}
                 >
                   {item.label}
                 </a>
@@ -160,8 +195,13 @@ const Header: React.FC = () => {
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="text-lg font-medium text-gray-700 hover:text-reforma transition-colors"
-                  onClick={toggleMobileMenu}
+                  onClick={(e) => {
+                    handleLinkClick(item.id); // Set active link on click
+                    toggleMobileMenu(); // Close mobile menu
+                  }}
+                  className={`text-lg font-medium text-gray-700 hover:text-reforma transition-colors ${
+                    activeLink === item.id ? "bg-reforma text-white" : ""
+                  }`}
                 >
                   {item.label}
                 </a>
