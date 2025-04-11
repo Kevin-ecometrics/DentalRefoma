@@ -1,7 +1,9 @@
 ---
 // src/components/Doctores.astro
 
-const doctores = [
+const isEnglish = Astro.url.pathname.startsWith("/en/");
+
+const doctores_es = [
   {
     id: "DraKaren",
     nombre: "Dra. Karen Haylin Pérez Álvarez",
@@ -43,6 +45,51 @@ const doctores = [
     bio: "Especialista en tratamientos de conductos con tecnología de vanguardia. Enfoque en procedimientos mínimamente invasivos para mayor comodidad del paciente.",
   },
 ];
+
+const doctores_en = [
+  {
+    id: "DraKaren",
+    nombre: "Dr. Karen Haylin Pérez Álvarez",
+    imagen: "/images/drakaren.JPG",
+    titulo: "Orthodontist",
+    experiencia: "12 years of experience",
+    formacion: "Autonomous University of Baja California",
+    horario: "Monday to Friday: 9:00 AM - 6:00 PM",
+    bio: "Specialist in orthodontics with over 10 years of experience transforming smiles. Active member of the Mexican Dental Association and pioneer in invisible orthodontics techniques.",
+  },
+  {
+    id: "DraJulieta",
+    nombre: "Dr. Julieta Cárdenas",
+    imagen: "/images/drajulieta.JPG",
+    titulo: "Dental Surgeon",
+    experiencia: "8 years of experience",
+    formacion: "National Autonomous University of Mexico",
+    horario: "Tuesday to Saturday: 10:00 AM - 7:00 PM",
+    bio: "Specialized in reconstructive surgeries and dental implant treatments. Certified by the Mexican Council of Dental Surgery with extensive experience in complex cases.",
+  },
+  {
+    id: "DrFrancisco",
+    nombre: "Dr. Francisco Pérez Ruvalcaba",
+    imagen: "/images/drfrancisco.JPG",
+    titulo: "Maxillofacial Surgeon",
+    experiencia: "15 years of experience",
+    formacion: "Technological Institute of Higher Studies of Monterrey",
+    horario: "Monday to Thursday: 8:00 AM - 5:00 PM",
+    bio: "Expert in facial reconstruction and orthognathic surgery. Completed specialization abroad and has participated in numerous international conferences.",
+  },
+  {
+    id: "DraItzel",
+    nombre: "Dr. Itzel Lyncet",
+    imagen: "/images/caradraitzel.JPG",
+    titulo: "Endodontist",
+    experiencia: "6 years of experience",
+    formacion: "Autonomous University of Guadalajara",
+    horario: "Wednesday to Sunday: 11:00 AM - 8:00 PM",
+    bio: "Specialist in root canal treatments with cutting-edge technology. Focus on minimally invasive procedures for greater patient comfort.",
+  },
+];
+
+const doctores = isEnglish ? doctores_en : doctores_es;
 ---
 
 <style>
@@ -210,17 +257,29 @@ const doctores = [
 
 <section class="equipo-section" id="doctores">
   <h2 class="titulo-seccion">
-    Conoce nuestro equipo de especialistas y dentistas
+    {
+      isEnglish
+        ? "Meet our team of specialists and dentists"
+        : "Conoce nuestro equipo de especialistas y dentistas"
+    }
   </h2>
   <p class="subtitulo-seccion">
-    Doctores y doctoras especialistas en el cuidado de tu boca y tu salud
-    integral.
+    {
+      isEnglish
+        ? "Doctors specialized in oral care and your overall health."
+        : "Doctores y doctoras especialistas en el cuidado de tu boca y tu salud integral."
+    }
   </p>
 
   <div class="grid-doctores">
     {
       doctores.map((doctor) => (
-        <a href={`/doctores/${doctor.id}`} class="doctor-card">
+        <a
+          href={
+            isEnglish ? `/en/doctores/${doctor.id}` : `/doctores/${doctor.id}`
+          }
+          class="doctor-card"
+        >
           <div class="doctor-imagen-container">
             <img
               src={doctor.imagen}
@@ -267,7 +326,9 @@ const doctores = [
               <span>{doctor.horario}</span>
             </div>
 
-            <button class="ver-perfil">Ver perfil completo</button>
+            <button class="ver-perfil">
+              {isEnglish ? "View full profile" : "Ver perfil completo"}
+            </button>
           </div>
         </a>
       ))

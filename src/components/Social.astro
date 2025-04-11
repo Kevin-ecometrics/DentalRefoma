@@ -1,3 +1,7 @@
+---
+const isEnglish = Astro.url.pathname.startsWith("/en/");
+---
+
 <!-- SDK de Facebook (solo una vez) -->
 <div id="fb-root"></div>
 <script
@@ -9,9 +13,15 @@
 
 <section class="social-section" id="redes">
   <div class="container">
-    <h2 class="section-title">Nuestras Redes Sociales</h2>
+    <h2 class="section-title">
+      {isEnglish ? "Our Social Networks" : "Nuestra Redes Sociales"}
+    </h2>
     <p class="section-subtitle">
-      Mantente conectado con nuestras últimas publicaciones
+      {
+        isEnglish
+          ? "Stay connected with our latest publications"
+          : "Mantente conectado con nuestras últimas publicaciones"
+      }
     </p>
 
     <div class="social-grid">

@@ -11,11 +11,6 @@ import Agenda from "@components/Agenda";
 import Social from "@components/Social.astro";
 import Mapa from "@components/Mapa.astro";
 import Doctores from "@/components/Doctores.astro";
-
-import { getLangFromUrl, useTranslations } from "@i18n/utils";
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 ---
 
 <Layout

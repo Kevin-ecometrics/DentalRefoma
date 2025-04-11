@@ -1,3 +1,7 @@
+---
+const isEnglish = Astro.url.pathname.startsWith("/en/");
+---
+
 <section
   id="ubicacion"
   class="location-section py-12 lg:py-16 bg-no-repeat bg-cover bg-center"
@@ -6,10 +10,14 @@
   <div class="container mx-auto px-4 max-w-6xl">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold text-gray-800 mb-3">
-        ¿Necesitas ubicarnos?
+        {isEnglish ? "Need to find us?" : "¿Necesitas ubicarnos?"}
       </h1>
       <h2 class="text-xl text-gray-600">
-        Si tienes alguna duda, deja tu mensaje y con gusto te atenderemos
+        {
+          isEnglish
+            ? "If you have any questions, leave us a message and we'll gladly assist you."
+            : "Si tienes alguna duda, deja tu mensaje y con gusto te atenderemos"
+        }
       </h2>
     </div>
 
@@ -35,7 +43,11 @@
                 rel="noopener noreferrer"
                 class="text-gray-700 hover:text-[#9cc115] transition-colors"
               >
-                Av. Paseo Reforma 5304, Tijuana.
+                {
+                  isEnglish
+                    ? "Av. Paseo Reforma 5304, Tijuana."
+                    : "Av. Paseo Reforma 5304, Tijuana."
+                }
               </a>
             </div>
 
@@ -51,7 +63,11 @@
                   ></path>
                 </svg>
               </div>
-              <p class="text-gray-700">9am - 6 pm<br />Lunes a Sábado</p>
+              <p class="text-gray-700">
+                {isEnglish ? "9am - 6 pm" : "9am - 6 pm"}
+                <br />
+                {isEnglish ? "Monday to Saturday" : "Lunes a Sábado"}
+              </p>
             </div>
 
             <div class="flex items-start">
@@ -69,8 +85,9 @@
               <a
                 href="tel:+526645358869"
                 class="text-gray-700 hover:text-[#9cc115] transition-colors"
-                >+52 (664) 535-8869</a
               >
+                +52 (664) 535-8869
+              </a>
             </div>
 
             <div class="flex items-start">
@@ -88,8 +105,9 @@
               <a
                 href="mailto:dentistareforma@gmail.com"
                 class="text-gray-700 hover:text-[#9cc115] transition-colors"
-                >dentistareforma@gmail.com</a
               >
+                dentistareforma@gmail.com
+              </a>
             </div>
           </div>
         </div>
@@ -97,8 +115,8 @@
         <button
           id="showMapButton"
           class="location-button flex items-center justify-center gap-2 px-6 py-3 bg-[#9cc115] hover:bg-[#85a810] text-white rounded-lg font-bold transition-colors w-full"
-          data-show-text="Mostrar mapa"
-          data-hide-text="Ocultar mapa"
+          data-show-text={isEnglish ? "Show map" : "Mostrar mapa"}
+          data-hide-text={isEnglish ? "Hide map" : "Ocultar mapa"}
         >
           <svg
             class="location-icon w-5 h-5"
@@ -111,7 +129,7 @@
               d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
             ></path>
           </svg>
-          <span>Mostrar mapa</span>
+          <span>{isEnglish ? "Show map" : "Mostrar mapa"}</span>
         </button>
       </div>
 

@@ -65,6 +65,13 @@ const Header: React.FC = () => {
           const id = entry.target.id;
           if (entry.isIntersecting) {
             setActiveLink(id); // Set the active link when the section is in view
+
+            // Update the URL hash when the section is in view
+            window.history.pushState(
+              {},
+              "",
+              `#${id}` // Set the URL hash to the current section ID
+            );
           }
         });
       },
