@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
-import QRCode from "qrcode";
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image as PdfImage } from '@react-pdf/renderer';
 
 interface Cita {
   nombre_paciente: string;
@@ -18,92 +17,64 @@ interface CitaOcupada {
   hora: string;
 }
 
-// Estilos para el PDF
-const styles = StyleSheet.create({
-  page: {
-    padding: 30,
-    fontFamily: 'Helvetica'
-  },
-  section: {
-    marginBottom: 15
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center'
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10
-  },
-  text: {
-    fontSize: 12,
-    marginBottom: 5
-  },
-  qrContainer: {
-    marginTop: 20,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20
-  },
-  logo: {
-    width: 80,
-    height: 80
-  }
-});
-
 // Componente para el PDF
-const CitaPDF = ({ cita, qrValue }: { cita: Cita, qrValue: string }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Comprobante de Cita</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>Información del Paciente:</Text>
-        <Text style={styles.text}>Nombre: {cita.nombre_paciente}</Text>
-        <Text style={styles.text}>Correo: {cita.correo}</Text>
-        <Text style={styles.text}>Teléfono: {cita.telefono}</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>Detalles de la Cita:</Text>
-        <Text style={styles.text}>
-          Fecha: {format(parseISO(`${cita.fecha}T${cita.hora}`), "EEEE, d 'de' MMMM 'de' yyyy", { locale: es })}
-        </Text>
-        <Text style={styles.text}>
-          Hora: {format(parseISO(`${cita.fecha}T${cita.hora}`), "hh:mm a")}
-        </Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>Ubicación:</Text>
-        <Text style={styles.text}>Av. Paseo Reforma 5304, Tijuana</Text>
-      </View>
-      
-      <View style={styles.qrContainer}>
-        <Image 
-          src={`data:image/svg+xml;utf8,${encodeURIComponent(
-            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${new QRCode({
-              value: qrValue,
-              size: 100,
-              level: 'H'
-            }).toString()}</svg>`
-          )}`}
-          style={{ width: 150, height: 150 }}
-        />
-      </View>
-    </Page>
-  </Document>
-);
+const CitaPDF = ({ cita }: { cita: Cita }) => {
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'column',
+      backgroundColor: '#FFFFFF',
+      padding: 20,
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexGrow: 1,
+    },
+    logoContainer: {
+      alignItems: 'center',
+      marginBottom: 20
+    },
+    title: {
+      fontSize: 24,
+      textAlign: 'center',
+      marginBottom: 20,
+      color: '#9cc115',
+      fontWeight: 'bold',
+    },
+    subtitle: {
+      fontSize: 18,
+      marginBottom: 10,
+      fontWeight: 'bold',
+    },
+    text: {
+      fontSize: 14,
+      marginBottom: 5,
+    }
+  });
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <View style={styles.logoContainer}>
+            <PdfImage src="/images/logo.webp" style={{ width: 100, height: 100 }} />
+          </View>
+          
+          <Text style={styles.title}>Comprobante de Cita</Text>
+          
+          <Text style={styles.subtitle}>Información del Paciente:</Text>
+          <Text style={styles.text}>Nombre: {cita.nombre_paciente}</Text>
+          <Text style={styles.text}>Correo: {cita.correo}</Text>
+          <Text style={styles.text}>Teléfono: {cita.telefono}</Text>
+          
+          <Text style={styles.subtitle}>Detalles de la Cita:</Text>
+          <Text style={styles.text}>Fecha: {format(parseISO(cita.fecha), 'PPPP', { locale: es })}</Text>
+          <Text style={styles.text}>Hora: {cita.hora.substring(0, 5)}</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export default function Agenda() {
   const [formData, setFormData] = useState<Cita>({
@@ -116,14 +87,14 @@ export default function Agenda() {
 
   const [citasOcupadas, setCitasOcupadas] = useState<CitaOcupada[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [initialLoad, setInitialLoad] = useState(true);
   const [showAllDays, setShowAllDays] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [qrValue, setQrValue] = useState('https://maps.app.goo.gl/ChJasXTaFvvXdn6W8');
-  const [successData, setSuccessData] = useState<Cita | null>(null);
+  const [successCita, setSuccessCita] = useState<Cita | null>(null);
 
   // Función para formatear fecha como YYYY-MM-DD
   const formatDate = (date: Date) => {
@@ -142,6 +113,15 @@ export default function Agenda() {
     return months[date.getMonth()];
   };
 
+  // Verificar si una fecha está completamente ocupada
+  const isDateFull = (date: Date) => {
+    const formattedDate = formatDate(date);
+    const horasOcupadas = citasOcupadas.filter(c => c.fecha === formattedDate).length;
+    const totalHorasDisponibles = 9; // De 9am a 6pm son 9 horas
+    
+    return horasOcupadas >= totalHorasDisponibles;
+  };
+
   // Generar días disponibles para el mes actual
   const generateAvailableDays = () => {
     const days = [];
@@ -155,7 +135,7 @@ export default function Agenda() {
     endDate.setMonth(endDate.getMonth() + 1);
     endDate.setDate(0);
     
-    // Ajustar para mostrar semanas completas
+    // Ajustar para mostrar semanas completas (empezando en Lunes)
     const startDay = startDate.getDay();
     const prevMonthDays = startDay === 0 ? 6 : startDay - 1;
     startDate.setDate(startDate.getDate() - prevMonthDays);
@@ -200,30 +180,35 @@ export default function Agenda() {
     if (!date) return [];
 
     const formattedDate = formatDate(date);
+
+      // Obtener todas las horas ocupadas para esta fecha
+  const horasOcupadasParaFecha = citasOcupadas
+  .filter(cita => cita.fecha === formattedDate)
+  .map(cita => cita.hora.substring(0, 5)); // Solo comparamos HH:MM
     
-    for (let hour = startHour; hour < endHour; hour++) {
-      const timeValue = `${hour < 10 ? '0' + hour : hour}:00:00`;
-      const isOccupied = citasOcupadas.some(
-        cita => cita.fecha === formattedDate && cita.hora === timeValue
-      );
+  for (let hour = startHour; hour < endHour; hour++) {
+    const timeValue = `${hour < 10 ? '0' + hour : hour}:00`;
+    const isOccupied = horasOcupadasParaFecha.includes(timeValue);
       
-      if (!isOccupied) {
+    if (!isOccupied) {
         hours.push({
-          value: timeValue,
+          value: `${timeValue}:00`, // Mantener formato completo para el valor
           label: `${hour}:00 ${hour < 12 ? 'AM' : 'PM'}`,
           hour: hour
         });
       }
     }
+  
     
     return hours;
   };
 
   // Manejar selección de fecha
   const handleDateSelection = (date: Date) => {
-    // Solo permitir seleccionar fechas futuras o hoy, y no domingos
+    // Solo permitir seleccionar fechas futuras o hoy, no domingos y no completamente ocupadas
     if (isPastDate(date) && !isToday(date)) return;
     if (isSunday(date)) return;
+    if (isDateFull(date)) return;
     
     setSelectedDate(date);
     setFormData(prev => ({
@@ -243,24 +228,88 @@ export default function Agenda() {
   // Obtener citas ocupadas
   const fetchCitasOcupadas = async () => {
     try {
-      const response = await fetch('/api/citas-ocupadas');
+      setLoading(true);
+      setError(null);
+      const response = await fetch('http://localhost:3001/api/citas/ocupadas');
+      
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      
       const data = await response.json();
+      console.log('citas:', data)
       setCitasOcupadas(data);
     } catch (err) {
       console.error('Error al obtener citas ocupadas:', err);
+      setError('No se pudieron cargar las citas disponibles. Por favor intenta recargar la página.');
+    } finally {
+      setInitialLoad(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchCitasOcupadas();
+    const fetchData = async () => {
+      await fetchCitasOcupadas();
+    };
+    
+    fetchData();
+    
+    const interval = setInterval(fetchData, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    
+    // Validación especial para teléfono
+    if (name === 'telefono') {
+      // Solo permitir números y máximo 10 dígitos
+      const numericValue = value.replace(/\D/g, '').slice(0, 10);
+      setFormData({
+        ...formData,
+        [name]: numericValue
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
+
+  const handleSubmitForm = (e: FormEvent) => {
+    e.preventDefault();
+    
+    // Validar que no sea una cita ya ocupada
+    if (selectedDate) {
+      const fechaSeleccionada = formatDate(selectedDate);
+      const horaSeleccionada = formData.hora;
+      
+      const citaOcupada = citasOcupadas.some(
+        c => c.fecha === fechaSeleccionada && c.hora === horaSeleccionada
+      );
+      
+      if (citaOcupada) {
+        setError('Esta cita ya ha sido reservada, por favor selecciona otra hora');
+        return;
+      }
+    }
+    
+    // Validar teléfono
+    if (formData.telefono.length !== 10) {
+      setError('El teléfono debe tener exactamente 10 dígitos');
+      return;
+    }
+    
+    // Validar campos requeridos
+    if (!selectedDate || !formData.hora) {
+      setError('Por favor selecciona una fecha y hora');
+      return;
+    }
+    
+    setError('');
+    setShowConfirmModal(true);
   };
 
   const handleSubmit = async () => {
@@ -276,17 +325,16 @@ export default function Agenda() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error('Error al agendar la cita');
-      }
+      if (!response.ok) throw new Error('Error al agendar la cita (Elija otra fecha u hora)');
 
-      // Actualizar lista de citas ocupadas
-      setCitasOcupadas([...citasOcupadas, {
+      const nuevaCita = {
         fecha: formData.fecha,
         hora: formData.hora
-      }]);
-
-      setSuccessData({...formData});
+      };
+      setCitasOcupadas(prev => [...prev, nuevaCita]);
+      
+      // Mostrar modal de éxito
+      setSuccessCita({...formData});
       setShowConfirmModal(false);
       setShowSuccessModal(true);
       
@@ -299,6 +347,9 @@ export default function Agenda() {
         hora: ''
       });
       setSelectedDate(null);
+      
+      // Recargar citas ocupadas para asegurar consistencia
+      fetchCitasOcupadas();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ocurrió un error al agendar la cita');
     } finally {
@@ -316,15 +367,20 @@ export default function Agenda() {
         </h2>
         
         {error && (
-          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg border border-red-200">
-            {error}
-          </div>
-        )}
+  <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded-lg border border-yellow-200">
+    <div className="flex items-center">
+      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      {error}
+    </div>
+  </div>
+)}
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Formulario a la izquierda */}
           <div className="w-full md:w-1/2">
-            <form onSubmit={(e) => { e.preventDefault(); setShowConfirmModal(true); }} className="space-y-6">
+            <form onSubmit={handleSubmitForm} className="space-y-6">
               <div>
                 <label htmlFor="nombre_paciente" className="block text-sm font-medium text-gray-700 mb-1">
                   Nombre completo
@@ -366,8 +422,13 @@ export default function Agenda() {
                   value={formData.telefono}
                   onChange={handleChange}
                   required
+                  maxLength={10}
+                  pattern="[0-9]{10}"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
                 />
+                {formData.telefono.length !== 10 && formData.telefono.length > 0 && (
+                  <p className="text-red-500 text-sm mt-1">El teléfono debe tener exactamente 10 dígitos</p>
+                )}
               </div>
 
               {selectedDate && (
@@ -399,14 +460,14 @@ export default function Agenda() {
               <div className="pt-4">
                 <button
                   type="submit"
-                  disabled={loading || !selectedDate || !formData.hora}
+                  disabled={loading}
                   className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${
-                    loading || !selectedDate || !formData.hora
+                    loading
                       ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-[#9cc115] hover:bg-[#8ab013]'
                   }`}
                 >
-                  {loading ? 'Agendando...' : 'Agendar cita'}
+                  Agendar cita
                 </button>
               </div>
             </form>
@@ -437,8 +498,9 @@ export default function Agenda() {
                 </button>
               </div>
 
+              {/* Encabezados de días (Lunes a Domingo) */}
               <div className="grid grid-cols-7 gap-1 mb-2">
-                {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map((day) => (
+                {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map((day) => (
                   <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
                     {day}
                   </div>
@@ -449,7 +511,7 @@ export default function Agenda() {
                 {generateAvailableDays().map((day) => {
                   const dayFormatted = formatDate(day);
                   const isCurrentMonth = day.getMonth() === currentMonth.getMonth();
-                  const isDisabled = isSunday(day) || isPastDate(day) || !isCurrentMonth;
+                  const isDisabled = isSunday(day) || isPastDate(day) || !isCurrentMonth || isDateFull(day);
                   const isSelected = selectedDate && formatDate(selectedDate) === dayFormatted;
 
                   return (
@@ -478,7 +540,6 @@ export default function Agenda() {
               </div>
             </div>
 
-            {/* Información de cita seleccionada con logo */}
             {selectedDate && (
               <div className="mt-6 bg-white p-4 rounded-lg border border-gray-200 flex justify-between items-center">
                 <div>
@@ -496,7 +557,7 @@ export default function Agenda() {
                   </p>
                 </div>
                 <img 
-                  src="/logo-pequeno.png" 
+                  src="/images/logo.webp" 
                   alt="Logo DentalReforma" 
                   className="w-12 h-12 object-contain"
                 />
@@ -506,97 +567,81 @@ export default function Agenda() {
         </div>
       </div>
 
-      {/* Modal de Confirmación */}
-      {showConfirmModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full shadow-xl border border-gray-200">
-            <h3 className="text-xl font-bold mb-4">Confirmar cita</h3>
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium mb-2">Detalles de la cita:</h4>
-              <p>Nombre: {formData.nombre_paciente}</p>
-              <p>Fecha: {selectedDate?.toLocaleDateString('es-ES', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}</p>
-              <p>Hora: {formData.hora?.substring(0, 5)}</p>
-            </div>
-            
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={() => setShowConfirmModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="px-4 py-2 bg-[#9cc115] text-white rounded-lg hover:bg-[#8ab013] disabled:bg-gray-400"
-              >
-                {loading ? 'Confirmando...' : 'Confirmar'}
-              </button>
-            </div>
-          </div>
+{/* Modal de Confirmación */}
+{showConfirmModal && (
+  <div className="fixed inset-0 bg-transparent bg-opacity-70 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg max-w-md w-full border-1 border-black">
+      <h3 className="text-xl font-bold mb-4">Confirmar cita</h3>
+      <p className="mb-6">¿Estás seguro de agendar esta cita?</p>
+      
+      <div className="flex justify-end gap-4">
+        <button
+          onClick={() => setShowConfirmModal(false)}
+          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+        >
+          Cancelar
+        </button>
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="px-4 py-2 bg-[#9cc115] text-white rounded-lg hover:bg-[#8ab013] disabled:bg-gray-400"
+        >
+          {loading ? 'Confirmando...' : 'Confirmar'}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+{/* Modal de Éxito con logo */}
+{showSuccessModal && successCita && (
+  <div className="fixed inset-0 bg-transparent bg-opacity-70 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg max-w-md w-full border-1 border-black">
+      <div className="text-center mb-2">
+        <h3 className="text-xl font-bold mb-2">¡Cita agendada con éxito!</h3>
+        <p className="text-gray-600 mb-4">Tu cita ha sido registrada correctamente.</p>
+        
+        {/* Logo agregado aquí */}
+        <div className="flex justify-center my-4">
+          <img 
+            src="/images/logo.webp" 
+            alt="Logo DentalReforma" 
+            className="w-20 h-20 object-contain"
+          />
         </div>
-      )}
+      </div>
 
-      {/* Modal de Éxito */}
-      {showSuccessModal && successData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full shadow-xl">
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2">¡Cita agendada con éxito!</h3>
-              <p className="text-gray-600">Tu cita ha sido registrada correctamente.</p>
-            </div>
+      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+        <h4 className="font-medium mb-2">Detalles de la cita:</h4>
+        <p>Nombre: {successCita.nombre_paciente}</p>
+        <p>Correo: {successCita.correo}</p>
+        <p>Teléfono: {successCita.telefono}</p>
+        <p>Fecha: {format(parseISO(successCita.fecha), 'PPPP', { locale: es })}</p>
+        <p>Hora: {successCita.hora.substring(0, 5)}</p>
+      </div>
 
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium mb-2">Detalles de la cita:</h4>
-              <p>Nombre: {successData.nombre_paciente}</p>
-              <p>
-                Fecha: {format(parseISO(`${successData.fecha}T${successData.hora}`), "EEEE, d 'de' MMMM 'de' yyyy", { locale: es })}
-              </p>
-              <p>
-                Hora: {format(parseISO(`${successData.fecha}T${successData.hora}`), "hh:mm a")}
-              </p>
-              
-              <div className="mt-4 text-center">
-                <p className="text-sm mb-2">Ubicación: Av. Paseo Reforma 5304, Tijuana</p>
-                <div className="bg-white p-2 inline-block">
-                  <QRCode 
-                    value={qrValue} 
-                    size={128}
-                    level="H"
-                    includeMargin={true}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <button
-                onClick={() => setShowSuccessModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
-              >
-                Cerrar
-              </button>
-              <PDFDownloadLink
-                document={<CitaPDF cita={successData} qrValue={qrValue} />}
-                fileName={`cita-dentalreforma-${successData.fecha}.pdf`}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex-1 text-center"
-              >
-                {({ loading }) => (loading ? 'Preparando PDF...' : 'Descargar PDF')}
-              </PDFDownloadLink>
-            </div>
-          </div>
-        </div>
-      )}
+      <div className="flex justify-between gap-4">
+        <button
+          onClick={() => {
+            setShowSuccessModal(false);
+            setSuccessCita(null);
+          }}
+          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
+        >
+          Cerrar
+        </button>
+        
+        <PDFDownloadLink 
+          document={<CitaPDF cita={successCita} />} 
+          fileName={`cita_dentalreforma_${successCita.fecha}.pdf`}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex-1 text-center"
+        >
+          {({ loading }) => loading ? 'Preparando PDF...' : 'Descargar PDF'}
+        </PDFDownloadLink>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
