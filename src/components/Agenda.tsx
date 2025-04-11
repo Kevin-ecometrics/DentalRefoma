@@ -1,5 +1,5 @@
 const Agenda = () => {
-  return <div></div>;
+  return <div className="h-screen">AGENDA</div>;
 };
 
 export default Agenda;

@@ -1,3 +1,7 @@
+---
+const YEAR = new Date().getFullYear();
+---
+
 <style is:global>
   .neo-footer {
     --primary-bg: #f8fcec;
@@ -233,9 +237,9 @@
     <!-- Sección Logo -->
     <div class="footer-logo-section">
       <img
-        src="/logo-dental-reforma.svg"
+        src="/images/logo.webp"
         alt="Dentista Reforma"
-        class="footer-logo"
+        class="w-12 h-12 mb-4"
       />
       <p class="footer-tagline">
         Transformando sonrisas con tecnología de vanguardia y cuidado compasivo.
@@ -337,7 +341,7 @@
 
     <!-- Copyright -->
     <div class="footer-bottom">
-      <p>© 2023 Dentista Reforma. Todos los derechos reservados.</p>
+      <p>&copy; {YEAR} Dentista Reforma. Todos los derechos reservados.</p>
     </div>
   </div>
 </footer>
