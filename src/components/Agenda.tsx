@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { format, parseISO } from "date-fns";
-import { es } from "date-fns/locale";
+import { es, enUS } from "date-fns/locale";
 import {
   PDFDownloadLink,
   Document,
@@ -25,8 +25,114 @@ interface CitaOcupada {
   hora: string;
 }
 
+// Textos en español e inglés
+const translations = {
+  es: {
+    title: "Agenda tu cita en DentalReforma",
+    nombre: "Nombre completo",
+    correo: "Correo electrónico",
+    telefono: "Teléfono",
+    hora: "Hora",
+    selectHour: "Selecciona una hora",
+    agendar: "Agendar cita",
+    confirmTitle: "Confirmar cita",
+    confirmText: "¿Estás seguro de agendar esta cita?",
+    cancel: "Cancelar",
+    confirm: "Confirmar",
+    successTitle: "¡Cita agendada con éxito!",
+    successText: "Tu cita ha sido registrada correctamente.",
+    close: "Cerrar",
+    download: "Descargar PDF",
+    preparing: "Preparando PDF...",
+    details: "Detalles de la cita:",
+    phoneError: "El teléfono debe tener exactamente 10 dígitos",
+    requiredError: "Por favor selecciona una fecha y hora",
+    bookedError:
+      "Esta cita ya ha sido reservada, por favor selecciona otra hora",
+    loadError:
+      "No se pudieron cargar las citas disponibles. Por favor intenta recargar la página.",
+    months: [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ],
+    days: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+    am: "AM",
+    pm: "PM",
+    pdfTitle: "Comprobante de Cita",
+    pdfPatient: "Información del Paciente:",
+    pdfDetails: "Detalles de la Cita:",
+    pdfName: "Nombre",
+    pdfEmail: "Correo",
+    pdfPhone: "Teléfono",
+    pdfDate: "Fecha",
+    pdfTime: "Hora",
+  },
+  en: {
+    title: "Book your appointment at DentalReforma",
+    nombre: "Full name",
+    correo: "Email",
+    telefono: "Phone",
+    hora: "Time",
+    selectHour: "Select a time",
+    agendar: "Book appointment",
+    confirmTitle: "Confirm appointment",
+    confirmText: "Are you sure you want to book this appointment?",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    successTitle: "Appointment booked successfully!",
+    successText: "Your appointment has been registered correctly.",
+    close: "Close",
+    download: "Download PDF",
+    preparing: "Preparing PDF...",
+    details: "Appointment details:",
+    phoneError: "Phone must have exactly 10 digits",
+    requiredError: "Please select a date and time",
+    bookedError:
+      "This appointment has already been booked, please select another time",
+    loadError:
+      "Could not load available appointments. Please try reloading the page.",
+    months: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    am: "AM",
+    pm: "PM",
+    pdfTitle: "Appointment Receipt",
+    pdfPatient: "Patient Information:",
+    pdfDetails: "Appointment Details:",
+    pdfName: "Name",
+    pdfEmail: "Email",
+    pdfPhone: "Phone",
+    pdfDate: "Date",
+    pdfTime: "Time",
+  },
+};
+
 // Componente para el PDF
-const CitaPDF = ({ cita }: { cita: Cita }) => {
+const CitaPDF = ({ cita, lang }: { cita: Cita; lang: string }) => {
+  const t = translations[lang as keyof typeof translations];
+
   const styles = StyleSheet.create({
     page: {
       flexDirection: "column",
@@ -71,18 +177,29 @@ const CitaPDF = ({ cita }: { cita: Cita }) => {
             />
           </View>
 
-          <Text style={styles.title}>Comprobante de Cita</Text>
+          <Text style={styles.title}>{t.pdfTitle}</Text>
 
-          <Text style={styles.subtitle}>Información del Paciente:</Text>
-          <Text style={styles.text}>Nombre: {cita.nombre_paciente}</Text>
-          <Text style={styles.text}>Correo: {cita.correo}</Text>
-          <Text style={styles.text}>Teléfono: {cita.telefono}</Text>
-
-          <Text style={styles.subtitle}>Detalles de la Cita:</Text>
+          <Text style={styles.subtitle}>{t.pdfPatient}</Text>
           <Text style={styles.text}>
-            Fecha: {format(parseISO(cita.fecha), "PPPP", { locale: es })}
+            {t.pdfName}: {cita.nombre_paciente}
           </Text>
-          <Text style={styles.text}>Hora: {cita.hora.substring(0, 5)}</Text>
+          <Text style={styles.text}>
+            {t.pdfEmail}: {cita.correo}
+          </Text>
+          <Text style={styles.text}>
+            {t.pdfPhone}: {cita.telefono}
+          </Text>
+
+          <Text style={styles.subtitle}>{t.pdfDetails}</Text>
+          <Text style={styles.text}>
+            {t.pdfDate}:{" "}
+            {format(parseISO(cita.fecha), "PPPP", {
+              locale: lang === "es" ? es : enUS,
+            })}
+          </Text>
+          <Text style={styles.text}>
+            {t.pdfTime}: {cita.hora.substring(0, 5)}
+          </Text>
         </View>
       </Page>
     </Document>
@@ -90,6 +207,12 @@ const CitaPDF = ({ cita }: { cita: Cita }) => {
 };
 
 export default function Agenda() {
+  // Detectar el idioma basado en la URL
+  const [lang, setLang] = useState<"es" | "en">(
+    window.location.pathname.startsWith("/en/") ? "en" : "es"
+  );
+  const t = translations[lang];
+
   const [formData, setFormData] = useState<Cita>({
     nombre_paciente: "",
     correo: "",
@@ -119,21 +242,7 @@ export default function Agenda() {
 
   // Función para obtener nombre del mes
   const getMonthName = (date: Date) => {
-    const months = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-    return months[date.getMonth()];
+    return t.months[date.getMonth()];
   };
 
   // Verificar si una fecha está completamente ocupada
@@ -160,7 +269,7 @@ export default function Agenda() {
     endDate.setMonth(endDate.getMonth() + 1);
     endDate.setDate(0);
 
-    // Ajustar para mostrar semanas completas (empezando en Lunes)
+    // Ajustar para mostrar semanas completas (empezando en Lunes/Domingo según idioma)
     const startDay = startDate.getDay();
     const prevMonthDays = startDay === 0 ? 6 : startDay - 1;
     startDate.setDate(startDate.getDate() - prevMonthDays);
@@ -222,7 +331,7 @@ export default function Agenda() {
       if (!isOccupied) {
         hours.push({
           value: `${timeValue}:00`, // Mantener formato completo para el valor
-          label: `${hour}:00 ${hour < 12 ? "AM" : "PM"}`,
+          label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
           hour: hour,
         });
       }
@@ -268,9 +377,7 @@ export default function Agenda() {
       setCitasOcupadas(data);
     } catch (err) {
       console.error("Error al obtener citas ocupadas:", err);
-      setError(
-        "No se pudieron cargar las citas disponibles. Por favor intenta recargar la página."
-      );
+      setError(t.loadError);
     } finally {
       setInitialLoad(false);
       setLoading(false);
@@ -286,7 +393,7 @@ export default function Agenda() {
 
     const interval = setInterval(fetchData, 60000);
     return () => clearInterval(interval);
-  }, []);
+  }, [lang]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -323,22 +430,20 @@ export default function Agenda() {
       });
 
       if (citaOcupada) {
-        setError(
-          "Esta cita ya ha sido reservada, por favor selecciona otra hora"
-        );
+        setError(t.bookedError);
         return;
       }
     }
 
     // Validar teléfono
     if (formData.telefono.length !== 10) {
-      setError("El teléfono debe tener exactamente 10 dígitos");
+      setError(t.phoneError);
       return;
     }
 
     // Validar campos requeridos
     if (!selectedDate || !formData.hora) {
-      setError("Por favor selecciona una fecha y hora");
+      setError(t.requiredError);
       return;
     }
 
@@ -404,8 +509,7 @@ export default function Agenda() {
     <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="p-6 pb-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Agenda tu cita en{" "}
-          <span className="text-[#9cc115]">DentalReforma</span>
+          {t.title}
         </h2>
 
         {error && (
@@ -437,7 +541,7 @@ export default function Agenda() {
                   htmlFor="nombre_paciente"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
-                  Nombre completo
+                  {t.nombre}
                 </label>
                 <input
                   type="text"
@@ -455,7 +559,7 @@ export default function Agenda() {
                   htmlFor="correo"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
-                  Correo electrónico
+                  {t.correo}
                 </label>
                 <input
                   type="email"
@@ -473,7 +577,7 @@ export default function Agenda() {
                   htmlFor="telefono"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
-                  Teléfono
+                  {t.telefono}
                 </label>
                 <input
                   type="tel"
@@ -488,9 +592,7 @@ export default function Agenda() {
                 />
                 {formData.telefono.length !== 10 &&
                   formData.telefono.length > 0 && (
-                    <p className="text-red-500 text-sm mt-1">
-                      El teléfono debe tener exactamente 10 dígitos
-                    </p>
+                    <p className="text-red-500 text-sm mt-1">{t.phoneError}</p>
                   )}
               </div>
 
@@ -500,7 +602,7 @@ export default function Agenda() {
                     htmlFor="hora"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Hora
+                    {t.hora}
                   </label>
                   <select
                     id="hora"
@@ -510,7 +612,7 @@ export default function Agenda() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
                   >
-                    <option value="">Selecciona una hora</option>
+                    <option value="">{t.selectHour}</option>
                     {availableHours.map((horario) => (
                       <option key={horario.value} value={horario.value}>
                         {horario.label}
@@ -530,7 +632,7 @@ export default function Agenda() {
                       : "bg-[#9cc115] hover:bg-[#8ab013]"
                   }`}
                 >
-                  Agendar cita
+                  {t.agendar}
                 </button>
               </div>
             </form>
@@ -585,16 +687,14 @@ export default function Agenda() {
 
               {/* Encabezados de días (Lunes a Domingo) */}
               <div className="grid grid-cols-7 gap-1 mb-2">
-                {["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map(
-                  (day) => (
-                    <div
-                      key={day}
-                      className="text-center text-sm font-medium text-gray-500 py-2"
-                    >
-                      {day}
-                    </div>
-                  )
-                )}
+                {t.days.map((day) => (
+                  <div
+                    key={day}
+                    className="text-center text-sm font-medium text-gray-500 py-2"
+                  >
+                    {day}
+                  </div>
+                ))}
               </div>
 
               <div className="grid grid-cols-7 gap-1">
@@ -640,15 +740,20 @@ export default function Agenda() {
               <div className="mt-6 bg-white p-4 rounded-lg border border-gray-200 flex justify-between items-center">
                 <div>
                   <h3 className="font-medium text-gray-800 mb-1">
-                    Cita seleccionada:
+                    {lang === "es"
+                      ? "Cita seleccionada:"
+                      : "Selected appointment:"}
                   </h3>
                   <p className="text-gray-700">
-                    {selectedDate.toLocaleDateString("es-ES", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+                    {selectedDate.toLocaleDateString(
+                      lang === "es" ? "es-ES" : "en-US",
+                      {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }
+                    )}
                     {formData.hora && `, ${formData.hora.substring(0, 5)}`}
                   </p>
                 </div>
@@ -667,22 +772,26 @@ export default function Agenda() {
       {showConfirmModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4">Confirmar cita</h3>
-            <p className="mb-6">¿Estás seguro de agendar esta cita?</p>
+            <h3 className="text-xl font-bold mb-4">{t.confirmTitle}</h3>
+            <p className="mb-6">{t.confirmText}</p>
 
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowConfirmModal(false)}
                 className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
               >
-                Cancelar
+                {t.cancel}
               </button>
               <button
                 onClick={handleSubmit}
                 disabled={loading}
                 className="px-4 py-2 bg-[#9cc115] text-white rounded-lg hover:bg-[#8ab013] disabled:bg-gray-400"
               >
-                {loading ? "Confirmando..." : "Confirmar"}
+                {loading
+                  ? lang === "es"
+                    ? "Confirmando..."
+                    : "Confirming..."
+                  : t.confirm}
               </button>
             </div>
           </div>
@@ -694,12 +803,8 @@ export default function Agenda() {
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg max-w-md w-full">
             <div className="text-center mb-2">
-              <h3 className="text-xl font-bold mb-2">
-                ¡Cita agendada con éxito!
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Tu cita ha sido registrada correctamente.
-              </p>
+              <h3 className="text-xl font-bold mb-2">{t.successTitle}</h3>
+              <p className="text-gray-600 mb-4">{t.successText}</p>
 
               {/* Logo agregado aquí */}
               <div className="flex justify-center my-4">
@@ -712,15 +817,25 @@ export default function Agenda() {
             </div>
 
             <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium mb-2">Detalles de la cita:</h4>
-              <p>Nombre: {successCita.nombre_paciente}</p>
-              <p>Correo: {successCita.correo}</p>
-              <p>Teléfono: {successCita.telefono}</p>
+              <h4 className="font-medium mb-2">{t.details}</h4>
               <p>
-                Fecha:{" "}
-                {format(parseISO(successCita.fecha), "PPPP", { locale: es })}
+                {t.nombre}: {successCita.nombre_paciente}
               </p>
-              <p>Hora: {successCita.hora.substring(0, 5)}</p>
+              <p>
+                {t.correo}: {successCita.correo}
+              </p>
+              <p>
+                {t.telefono}: {successCita.telefono}
+              </p>
+              <p>
+                {lang === "es" ? "Fecha" : "Date"}:{" "}
+                {format(parseISO(successCita.fecha), "PPPP", {
+                  locale: lang === "es" ? es : enUS,
+                })}
+              </p>
+              <p>
+                {t.hora}: {successCita.hora.substring(0, 5)}
+              </p>
             </div>
 
             <div className="flex justify-between gap-4">
@@ -731,17 +846,15 @@ export default function Agenda() {
                 }}
                 className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
               >
-                Cerrar
+                {t.close}
               </button>
 
               <PDFDownloadLink
-                document={<CitaPDF cita={successCita} />}
-                fileName={`cita_dentalreforma_${successCita.fecha}.pdf`}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex-1 text-center"
+                document={<CitaPDF cita={successCita} lang={lang} />}
+                fileName={`appointment_dentalreforma_${successCita.fecha}.pdf`}
+                className="px-4 py-2 bg-reforma text-white rounded-lg hover:bg-reforma-hover flex-1 text-center"
               >
-                {({ loading }) =>
-                  loading ? "Preparando PDF..." : "Descargar PDF"
-                }
+                {({ loading }) => (loading ? t.preparing : t.download)}
               </PDFDownloadLink>
             </div>
           </div>
