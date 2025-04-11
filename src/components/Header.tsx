@@ -7,7 +7,9 @@ interface Link {
 }
 
 const Header: React.FC = () => {
-  const [currentLanguage, setCurrentLanguage] = useState<"es" | "en">("es");
+  const [currentLanguage, setCurrentLanguage] = useState<"es" | "en">(
+    window.location.pathname.startsWith("/en/") ? "en" : "es"
+  );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLUListElement>(null);
 
@@ -37,6 +39,13 @@ const Header: React.FC = () => {
   const toggleLanguage = () => {
     const newLanguage = currentLanguage === "es" ? "en" : "es";
     setCurrentLanguage(newLanguage);
+
+    // Redirige a la ruta correspondiente
+    if (newLanguage === "es") {
+      window.location.pathname = "/"; // Redirige a la ruta raíz para español
+    } else {
+      window.location.pathname = "/en/"; // Redirige a la ruta /en/ para inglés
+    }
   };
 
   const toggleMobileMenu = () => {
@@ -136,28 +145,16 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full">
-          {/* Logo */}
-          <div className="absolute top-6 left-6">
-            <a href="/" onClick={toggleMobileMenu}>
-              <img
-                src="/images/logo.webp"
-                alt="Logo Clínica Dental"
-                className="w-16 h-16"
-                loading="lazy"
-              />
-            </a>
-          </div>
-
-          {/* Close Button */}
-          <button
-            onClick={toggleMobileMenu}
-            className="absolute top-6 right-6 text-gray-700 hover:text-reforma focus:outline-none"
-            aria-label="Close menu"
-          >
-            <HiX className="w-8 h-8" />
-          </button>
-
           {/* Navigation Links */}
+          <div className="absolute top-4 right-4">
+            <button
+              onClick={toggleMobileMenu}
+              className="text-gray-700 hover:text-reforma focus:outline-none"
+              aria-label="Close menu"
+            >
+              <HiX className="w-8 h-8" />
+            </button>
+          </div>
           <ul className="flex flex-col items-center gap-6">
             {links[currentLanguage].map((item) => (
               <li key={item.id}>
