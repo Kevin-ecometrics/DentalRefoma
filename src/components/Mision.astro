@@ -1,54 +1,91 @@
 ---
-// filepath: /home/kevin-ortega/Dev/Ecommetrica/DentalRefoma/src/components/Mision.astro
+// filepath: /src/components/Mision.astro
 
-// Datos de las tarjetas
-const misionCards = [
-  {
-    icon: "🦷",
-    title: "Profesionalismo",
-    description:
-      "El personal que conforma Dental Reforma es ampliamente capacitado en la salud integral. Entrenado para dar las mejores soluciones a cualquier procedimiento odontológico con la mayor calidez.",
+const currentLang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
+
+const misionContent = {
+  es: {
+    heading: "35 años de experiencia",
+    subtitle: "En el Consultorio Dental de la Clínica Reforma",
+    subheading: "Construimos nuestros Valores con dedicación",
+    cards: [
+      {
+        icon: "🦷",
+        title: "Profesionalismo",
+        description:
+          "El personal que conforma Dental Reforma es ampliamente capacitado en la salud integral. Entrenado para dar las mejores soluciones a cualquier procedimiento odontológico con la mayor calidez.",
+      },
+      {
+        icon: "🎖️",
+        title: "Experiencia",
+        description:
+          "Además de que cada miembro cuenta con su cédula, título y certificados, los 35 años de la clínica dan el respaldo de que cualquier procedimiento es integral. No sólo para tu boca sino para tu salud general.",
+      },
+      {
+        icon: "❤️",
+        title: "Aliviamos el dolor",
+        description:
+          "La herencia de proteger a la población vulnerable de la zona generó que el principal enfoque de la clínica sea aliviar el sufrimiento y el dolor que conlleva una gran infección, una mala praxis o una urgencia dental.",
+      },
+      {
+        icon: "😁",
+        title: "Sonrisas y Estética",
+        description:
+          "Cuidamos primero tu salud y el estado funcional de tu boca. Una vez logrado, hacemos todo tipo de procedimiento estético relacionado con tus dientes, maxilares y cachetes.",
+      },
+    ],
   },
-  {
-    icon: "🎖️",
-    title: "Experiencia",
-    description:
-      "Además de que cada miembro cuenta con su cédula, título y certificados, los 35 años de la clínica dan el respaldo de que cualquier procedimiento es integral. No sólo para tu boca sino para tu salud general.",
+  en: {
+    heading: "35 Years of Experience",
+    subtitle: "At the Dental Office of Clínica Reforma",
+    subheading: "We Build Our Values with Dedication",
+    cards: [
+      {
+        icon: "🦷",
+        title: "Professionalism",
+        description:
+          "The staff at Dental Reforma is highly trained in holistic health. Prepared to offer the best solutions for any dental procedure with the utmost warmth and professionalism.",
+      },
+      {
+        icon: "🎖️",
+        title: "Experience",
+        description:
+          "In addition to having degrees, licenses, and certifications, the clinic's 35 years provide solid backing for every procedure, not just for your mouth, but for your overall health.",
+      },
+      {
+        icon: "❤️",
+        title: "Pain Relief",
+        description:
+          "The legacy of caring for the vulnerable population of the area made pain and suffering relief the main focus of the clinic, especially in cases of severe infection, malpractice, or dental emergencies.",
+      },
+      {
+        icon: "😁",
+        title: "Smiles and Aesthetics",
+        description:
+          "We first care for your health and your mouth's function. Once that's ensured, we offer a variety of aesthetic treatments for your teeth, jaw, and cheeks.",
+      },
+    ],
   },
-  {
-    icon: "❤️",
-    title: "Aliviamos el dolor",
-    description:
-      "La herencia de proteger a la población vulnerable de la zona generó que el principal enfoque de la clínica sea aliviar el sufrimiento y el dolor que conlleva una gran infección, una mala praxis o una urgencia dental.",
-  },
-  {
-    icon: "😁",
-    title: "Sonrisas y Estética",
-    description:
-      "Cuidamos primero tu salud y el estado funcional de tu boca. Una vez logrado, hacemos todo tipo de procedimiento estético relacionado con tus dientes, maxilares y cachetes.",
-  },
-];
+};
+
+const { heading, subtitle, subheading, cards } = misionContent[currentLang];
 ---
 
 <section id="mision" class="bg-reforma-background py-20 px-5 relative">
   <div class="text-center max-w-3xl mx-auto mb-12">
-    <h2 class="text-5xl text-reforma mb-2 font-bold">35 años de experiencia</h2>
-    <p class="text-xl text-[#2e2e2f] mb-5">
-      En el Consultorio Dental de la Clínica Reforma
-    </p>
+    <h2 class="text-5xl text-reforma mb-2 font-bold">{heading}</h2>
+    <p class="text-xl text-[#2e2e2f] mb-5">{subtitle}</p>
     <div class="w-95 h-[3px] bg-black text-reforma mx-auto my-5"></div>
-    <h3 class="text-2xl text-[#2e2e2f] font-semibold">
-      Construimos nuestros Valores con dedicación
-    </h3>
+    <h3 class="text-2xl text-[#2e2e2f] font-semibold">{subheading}</h3>
   </div>
 
   <div class="mision-container">
     {
-      misionCards.map((card) => (
+      cards.map((card) => (
         <div class="mision-card">
           <div class="text-5xl mb-5 text-reforma">{card.icon}</div>
           <h4 class="text-xl text-reforma mb-4 font-semibold">{card.title}</h4>
-          <p class="text-[#2e2e2f] leading-relaxed text-base text-xl">
+          <p class="text-[#2e2e2f] leading-relaxed text-xl">
             {card.description}
           </p>
         </div>

@@ -1,37 +1,65 @@
 ---
-const instalaciones = [
-  {
-    img: "/images/insta1.jpeg",
-    title: "Atención Personalizada",
-    subtitle:
-      "Queremos atenderte a tu tiempo y con espacio. Contamos con instalaciones y equipo de primer nivel.",
-    features: [
-      "Amplios sillones ergonómicos",
-      "Espacios diseñados para tu comodidad",
-    ],
-  },
-  {
-    img: "/images/insta2.jpeg",
-    title: "Privacidad Garantizada",
-    subtitle:
-      "Espacios individuales y privados para tu tranquilidad durante cada tratamiento.",
-    features: [
-      "Cabinas completamente privadas",
-      "Tecnología de última generación",
-    ],
-  },
-];
+const currentLang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
+
+const instalaciones = {
+  es: [
+    {
+      img: "/images/insta1.jpeg",
+      title: "Atención Personalizada",
+      subtitle:
+        "Queremos atenderte a tu tiempo y con espacio. Contamos con instalaciones y equipo de primer nivel.",
+      features: [
+        "Amplios sillones ergonómicos",
+        "Espacios diseñados para tu comodidad",
+      ],
+    },
+    {
+      img: "/images/insta2.jpeg",
+      title: "Privacidad Garantizada",
+      subtitle:
+        "Espacios individuales y privados para tu tranquilidad durante cada tratamiento.",
+      features: [
+        "Cabinas completamente privadas",
+        "Tecnología de última generación",
+      ],
+    },
+  ],
+  en: [
+    {
+      img: "/images/insta1.jpeg",
+      title: "Personalized Attention",
+      subtitle:
+        "We aim to treat you on your schedule and with space. Our facilities and equipment are top-notch.",
+      features: ["Wide ergonomic chairs", "Spaces designed for your comfort"],
+    },
+    {
+      img: "/images/insta2.jpeg",
+      title: "Guaranteed Privacy",
+      subtitle:
+        "Private and individual rooms to ensure your peace of mind during every treatment.",
+      features: ["Fully private cabins", "State-of-the-art technology"],
+    },
+  ],
+};
 ---
 
 <section id="instalaciones" class="cards-section">
   <div class="container">
-    <h2 class="section-main-title">Nuestras Instalaciones</h2>
-    <p class="section-subtitle">Diseñadas para tu comodidad y seguridad</p>
+    <h2 class="section-main-title">
+      {currentLang === "es" ? "Nuestras Instalaciones" : "Our Facilities"}
+    </h2>
+    <p class="section-subtitle">
+      {
+        currentLang === "es"
+          ? "Diseñadas para tu comodidad y seguridad"
+          : "Designed for your comfort and safety"
+      }
+    </p>
 
     <!-- DESKTOP -->
     <div class="md:flex hidden gap-12 mb-8 flex-col">
       {
-        instalaciones.map((instalacion, index) => (
+        instalaciones[currentLang].map((instalacion, index) => (
           <div class={`diagonal-card ${index % 2 !== 0 ? "reverse" : ""}`}>
             <div class="card-image-part">
               <img
@@ -59,7 +87,7 @@ const instalaciones = [
     <!-- MOBILE -->
     <div class="md:hidden flex gap-8 mb-8 flex-col">
       {
-        instalaciones.map((instalacion, index) => (
+        instalaciones[currentLang].map((instalacion, index) => (
           <div
             class={`diagonal-card ${index % 2 !== 0 ? "reverse" : ""}`}
             style="flex-direction: column; min-height: auto;"
@@ -89,10 +117,11 @@ const instalaciones = [
     </div>
 
     <!-- AGENDAR CITA -->
-
     <div class="cta-container mb-8">
       <a href="#contacto" class="cta-button">
-        <span>Agendar Cita</span>
+        <span>
+          {currentLang === "es" ? "Agendar Cita" : "Book Appointment"}
+        </span>
         <svg
           viewBox="0 0 24 24"
           width="20"

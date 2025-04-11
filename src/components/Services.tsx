@@ -1,133 +1,208 @@
 import React, { useState } from "react";
 
-interface Tratamiento {
+interface Treatment {
   id: number;
-  nombre: string;
-  imagen: string;
-  descripcion: string;
+  name: string;
+  image: string;
+  description: string;
 }
 
-const tratamientos: Tratamiento[] = [
+const treatmentsES: Treatment[] = [
   {
     id: 1,
-    nombre: "Endodoncia",
-    imagen: "/images/endo.png",
-    descripcion:
+    name: "Endodoncia",
+    image: "/images/endo.png",
+    description:
       "La endodoncia es un tratamiento dental que consiste en la extracción de la pulpa del diente, un tejido pequeño en forma de hebra, que se encuentra en el centro del conducto del diente.",
   },
   {
     id: 2,
-    nombre: "Ortodoncia",
-    imagen: "/images/orto.png",
-    descripcion:
+    name: "Ortodoncia",
+    image: "/images/orto.png",
+    description:
       "La ortodoncia es una especialidad de la odontología que se encarga de la corrección de los dientes y huesos posicionados incorrectamente.",
   },
   {
     id: 3,
-    nombre: "Implantes Dentales",
-    imagen: "/images/implante.png",
-    descripcion:
+    name: "Implantes Dentales",
+    image: "/images/implante.png",
+    description:
       "Los implantes dentales son raíces artificiales que se colocan en el hueso maxilar para sostener dientes de reemplazo.",
   },
   {
     id: 4,
-    nombre: "Cirugía Oral",
-    imagen: "/images/cirugia.png",
-    descripcion:
+    name: "Cirugía Oral",
+    image: "/images/cirugia.png",
+    description:
       "Incluye extracciones complejas, tratamiento de infecciones y procedimientos reconstructivos.",
   },
   {
     id: 5,
-    nombre: "Prótesis Dentales",
-    imagen: "/images/protesis.png",
-    descripcion:
+    name: "Prótesis Dentales",
+    image: "/images/protesis.png",
+    description:
       "Dispositivos que reemplazan dientes perdidos, pueden ser fijos o removibles.",
   },
   {
     id: 6,
-    nombre: "Coronas",
-    imagen: "/images/corona.png",
-    descripcion:
+    name: "Coronas",
+    image: "/images/corona.png",
+    description:
       "Las coronas son una reconstrucción que funciona como una cubierta para el diente con la simetría y el color natural del diente.",
   },
   {
     id: 7,
-    nombre: "Ortopediatra",
-    imagen: "/images/orto.png",
-    descripcion:
+    name: "Ortopediatra",
+    image: "/images/orto.png",
+    description:
       "Ortodoncia especializada en niños para guiar el crecimiento facial y dental.",
   },
   {
     id: 8,
-    nombre: "Resinas",
-    imagen: "/images/resinas.png",
-    descripcion:
+    name: "Resinas",
+    image: "/images/resinas.png",
+    description:
       "Material estético para restaurar dientes cariados o fracturados.",
   },
   {
     id: 9,
-    nombre: "Periodoncia",
-    imagen: "/images/perio.png",
-    descripcion: "Tratamiento de las encías y hueso que sostiene los dientes.",
+    name: "Periodoncia",
+    image: "/images/perio.png",
+    description: "Tratamiento de las encías y hueso que sostiene los dientes.",
+  },
+];
+
+const treatmentsEN: Treatment[] = [
+  {
+    id: 1,
+    name: "Endodontics",
+    image: "/images/endo.png",
+    description:
+      "Endodontics is a dental treatment that involves removing the pulp from the tooth, a small thread-like tissue in the center of the root canal.",
+  },
+  {
+    id: 2,
+    name: "Orthodontics",
+    image: "/images/orto.png",
+    description:
+      "Orthodontics is a dental specialty that focuses on correcting misaligned teeth and jaw bones.",
+  },
+  {
+    id: 3,
+    name: "Dental Implants",
+    image: "/images/implante.png",
+    description:
+      "Dental implants are artificial roots placed in the jawbone to support replacement teeth.",
+  },
+  {
+    id: 4,
+    name: "Oral Surgery",
+    image: "/images/cirugia.png",
+    description:
+      "Includes complex extractions, infection treatments, and reconstructive procedures.",
+  },
+  {
+    id: 5,
+    name: "Dental Prostheses",
+    image: "/images/protesis.png",
+    description:
+      "Devices that replace missing teeth, which can be fixed or removable.",
+  },
+  {
+    id: 6,
+    name: "Crowns",
+    image: "/images/corona.png",
+    description:
+      "Crowns are restorations that act as a cover for the tooth, matching its natural shape and color.",
+  },
+  {
+    id: 7,
+    name: "Pediatric Orthodontics",
+    image: "/images/orto.png",
+    description:
+      "Orthodontics specialized in children to guide facial and dental growth.",
+  },
+  {
+    id: 8,
+    name: "Resins",
+    image: "/images/resinas.png",
+    description:
+      "Aesthetic material used to restore decayed or fractured teeth.",
+  },
+  {
+    id: 9,
+    name: "Periodontics",
+    image: "/images/perio.png",
+    description: "Treatment of the gums and the bone that supports the teeth.",
   },
 ];
 
 const Services: React.FC = () => {
-  const [selectedTratamiento, setSelectedTratamiento] = useState<Tratamiento>(
-    tratamientos[0]
+  const isEnglish =
+    typeof window !== "undefined" && window.location.pathname.startsWith("/en");
+  const currentTreatments = isEnglish ? treatmentsEN : treatmentsES;
+
+  const [selectedTreatment, setSelectedTreatment] = useState<Treatment>(
+    currentTreatments[0]
   );
 
+  const sectionTitle = isEnglish ? "Our Treatments" : "Nuestros Tratamientos";
+  const sectionSubtitle = isEnglish
+    ? "Professionals in your dental health"
+    : "Profesionales en tu salud dental";
+  const buttonText = isEnglish ? "Request Appointment" : "Solicitar consulta";
+
   return (
-    <section id="tratamientos" className="bg-[#f8fcec] py-16 px-4 lg:px-8">
+    <section id="treatments" className="bg-[#f8fcec] py-16 px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          Nuestros Tratamientos
+          {sectionTitle}
         </h2>
         <p className="text-lg text-center text-gray-600 mb-12">
-          Profesionales en tu salud dental
+          {sectionSubtitle}
         </p>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Lista de tratamientos */}
+          {/* Treatment list */}
           <div className="w-full lg:w-1/3 border-r border-gray-300 pr-4 overflow-y-auto max-h-[600px]">
-            {tratamientos.map((tratamiento) => (
+            {currentTreatments.map((treatment) => (
               <div
-                key={tratamiento.id}
+                key={treatment.id}
                 className={`flex items-center gap-4 p-4 mb-4 rounded-lg cursor-pointer transition-all duration-300 ${
-                  selectedTratamiento.id === tratamiento.id
+                  selectedTreatment.id === treatment.id
                     ? "bg-reforma-hover border-l-4 border-white shadow-lg text-white"
                     : "bg-white hover:shadow-md"
                 }`}
-                onClick={() => setSelectedTratamiento(tratamiento)}
+                onClick={() => setSelectedTreatment(treatment)}
               >
                 <img
-                  src={tratamiento.imagen}
-                  alt={tratamiento.nombre}
+                  src={treatment.image}
+                  alt={treatment.name}
                   className="w-12 h-12 object-contain"
                 />
-                <h3 className="text-lg font-semibold ">{tratamiento.nombre}</h3>
+                <h3 className="text-lg font-semibold">{treatment.name}</h3>
               </div>
             ))}
           </div>
 
-          {/* Detalle del tratamiento */}
+          {/* Treatment detail */}
           <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-md p-6">
             <div className="text-center mb-6">
               <img
-                src={selectedTratamiento.imagen}
-                alt={selectedTratamiento.nombre}
+                src={selectedTreatment.image}
+                alt={selectedTreatment.name}
                 className="w-20 h-20 mx-auto mb-4"
               />
               <h3 className="text-2xl font-bold text-gray-800">
-                {selectedTratamiento.nombre}
+                {selectedTreatment.name}
               </h3>
               <div className="w-16 h-1 bg-[#9cc115] mx-auto mt-2"></div>
             </div>
             <p className="text-gray-700 text-lg leading-relaxed mb-6 text-center">
-              {selectedTratamiento.descripcion}
+              {selectedTreatment.description}
             </p>
             <button className="block mx-auto bg-[#9cc115] text-white px-6 py-3 rounded-full font-semibold shadow-md hover:bg-[#7a9a12] transition-all">
-              Solicitar consulta
+              {buttonText}
             </button>
           </div>
         </div>

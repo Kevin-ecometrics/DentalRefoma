@@ -8,7 +8,7 @@ interface Slide {
   alt: string;
 }
 
-const slides: Slide[] = [
+const slidesES: Slide[] = [
   {
     img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/237902_610886.png",
     title: "Todo problema bucal tiene una solución",
@@ -42,9 +42,44 @@ const slides: Slide[] = [
   },
 ];
 
+const slidesEN: Slide[] = [
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/237902_610886.png",
+    title: "Every dental problem has a solution",
+    description: "We treat all oral issues from the root.",
+    alt: "Comprehensive solutions for oral problems",
+  },
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/462545_623754.png",
+    title: "Were you recommended a night guard?",
+    description: "Protect your teeth from grinding and wear.",
+    alt: "Custom night guard",
+  },
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/469513_798641.png",
+    title: "35 years treating kids’ emergencies?",
+    description: "Pediatric dentistry that makes your kids smile.",
+    alt: "Dental care for children",
+  },
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/586984_902110.png",
+    title: "Sensitive teeth?",
+    description:
+      "Enjoy your favorite food and drinks again by taking care of your enamel.",
+    alt: "Sensitivity treatment",
+  },
+  {
+    img: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/1363639/920394_354067.png",
+    title: "Afraid of the dentist?",
+    description: "Warmth and care where the patient always comes first.",
+    alt: "Fear-free dental care",
+  },
+];
+
 const Carrousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isEnglish, setIsEnglish] = useState(false);
 
   const nextSlide = () => {
     if (isAnimating) return;
@@ -67,6 +102,12 @@ const Carrousel: React.FC = () => {
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsEnglish(window.location.pathname.startsWith("/en"));
+    }
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
   }, [currentIndex]);
@@ -76,16 +117,20 @@ const Carrousel: React.FC = () => {
     return () => clearInterval(autoSlide);
   }, []);
 
+  const slides = isEnglish ? slidesEN : slidesES;
+
   return (
     <div className="flex justify-center items-center w-full bg-gray-100 py-16 relative">
       <div className="relative max-w-5xl w-full overflow-hidden">
         {/* Título del carrusel */}
         <div className="text-center mb-8">
           <h3 className="text-3xl font-bold text-reforma mb-2">
-            Nuestros Servicios
+            {isEnglish ? "Our Services" : "Nuestros Servicios"}
           </h3>
           <p className="text-lg text-gray-700">
-            Soluciones integrales para cada necesidad dental
+            {isEnglish
+              ? "Comprehensive solutions for every dental need"
+              : "Soluciones integrales para cada necesidad dental"}
           </p>
         </div>
 
@@ -103,7 +148,7 @@ const Carrousel: React.FC = () => {
                 className="flex-shrink-0 w-full flex flex-col lg:flex-row items-center bg-white rounded-lg shadow-md overflow-hidden"
               >
                 {/* Imagen */}
-                <div className="w-full ">
+                <div className="w-full">
                   <img
                     src={slide.img}
                     alt={slide.alt}
@@ -122,7 +167,7 @@ const Carrousel: React.FC = () => {
                     href="#contacto"
                     className="inline-block bg-reforma text-white px-4 py-2 rounded-full font-semibold shadow-md hover:bg-reforma-hover transition-transform duration-300 hover:-translate-y-1"
                   >
-                    Agendar Cita
+                    {isEnglish ? "Book Appointment" : "Agendar Cita"}
                   </a>
                 </div>
               </div>
