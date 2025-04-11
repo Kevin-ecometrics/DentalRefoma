@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FaPlus, FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import {
+  FaPlus,
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaEnvelope,
+} from "react-icons/fa";
 
 const DockMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +19,8 @@ const DockMenu: React.FC = () => {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
+
+  const emailAddress = "correo@ejemplo.com"; // Reemplaza con tu correo electrónico
 
   return (
     <div className="fixed bottom-6 right-6 flex flex-col items-center">
@@ -50,6 +58,13 @@ const DockMenu: React.FC = () => {
           aria-label="WhatsApp"
         >
           <FaWhatsapp size={20} />
+        </a>
+        <a
+          href={`mailto:${emailAddress}`}
+          className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-transform duration-300 hover:scale-110"
+          aria-label="Correo electrónico"
+        >
+          <FaEnvelope size={20} />
         </a>
       </div>
 
