@@ -153,7 +153,7 @@ const Services: React.FC = () => {
   const buttonText = isEnglish ? "Request Appointment" : "Solicitar consulta";
 
   return (
-    <section id="treatments" className="bg-[#f8fcec] py-16 px-4 lg:px-8">
+    <section id="tratamientos" className="bg-[#f8fcec] py-16 px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
           {sectionTitle}
