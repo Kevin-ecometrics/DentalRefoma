@@ -1,8 +1,16 @@
-import { useState, useEffect } from 'react';
-import type { FormEvent, ChangeEvent } from 'react';
-import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image as PdfImage } from '@react-pdf/renderer';
+import { useState, useEffect } from "react";
+import type { FormEvent, ChangeEvent } from "react";
+import { format, parseISO } from "date-fns";
+import { es } from "date-fns/locale";
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Image as PdfImage,
+} from "@react-pdf/renderer";
 
 interface Cita {
   nombre_paciente: string;
@@ -21,8 +29,8 @@ interface CitaOcupada {
 const CitaPDF = ({ cita }: { cita: Cita }) => {
   const styles = StyleSheet.create({
     page: {
-      flexDirection: 'column',
-      backgroundColor: '#FFFFFF',
+      flexDirection: "column",
+      backgroundColor: "#FFFFFF",
       padding: 20,
     },
     section: {
@@ -31,25 +39,25 @@ const CitaPDF = ({ cita }: { cita: Cita }) => {
       flexGrow: 1,
     },
     logoContainer: {
-      alignItems: 'center',
-      marginBottom: 20
+      alignItems: "center",
+      marginBottom: 20,
     },
     title: {
       fontSize: 24,
-      textAlign: 'center',
+      textAlign: "center",
       marginBottom: 20,
-      color: '#9cc115',
-      fontWeight: 'bold',
+      color: "#9cc115",
+      fontWeight: "bold",
     },
     subtitle: {
       fontSize: 18,
       marginBottom: 10,
-      fontWeight: 'bold',
+      fontWeight: "bold",
     },
     text: {
       fontSize: 14,
       marginBottom: 5,
-    }
+    },
   });
 
   return (
@@ -57,18 +65,23 @@ const CitaPDF = ({ cita }: { cita: Cita }) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <View style={styles.logoContainer}>
-            <PdfImage src="/images/logo.webp" style={{ width: 100, height: 100 }} />
+            <PdfImage
+              src="/images/logo.webp"
+              style={{ width: 100, height: 100 }}
+            />
           </View>
-          
+
           <Text style={styles.title}>Comprobante de Cita</Text>
-          
+
           <Text style={styles.subtitle}>Información del Paciente:</Text>
           <Text style={styles.text}>Nombre: {cita.nombre_paciente}</Text>
           <Text style={styles.text}>Correo: {cita.correo}</Text>
           <Text style={styles.text}>Teléfono: {cita.telefono}</Text>
-          
+
           <Text style={styles.subtitle}>Detalles de la Cita:</Text>
-          <Text style={styles.text}>Fecha: {format(parseISO(cita.fecha), 'PPPP', { locale: es })}</Text>
+          <Text style={styles.text}>
+            Fecha: {format(parseISO(cita.fecha), "PPPP", { locale: es })}
+          </Text>
           <Text style={styles.text}>Hora: {cita.hora.substring(0, 5)}</Text>
         </View>
       </Page>
@@ -78,11 +91,11 @@ const CitaPDF = ({ cita }: { cita: Cita }) => {
 
 export default function Agenda() {
   const [formData, setFormData] = useState<Cita>({
-    nombre_paciente: '',
-    correo: '',
-    telefono: '',
-    fecha: '',
-    hora: ''
+    nombre_paciente: "",
+    correo: "",
+    telefono: "",
+    fecha: "",
+    hora: "",
   });
 
   const [citasOcupadas, setCitasOcupadas] = useState<CitaOcupada[]>([]);
@@ -99,16 +112,26 @@ export default function Agenda() {
   // Función para formatear fecha como YYYY-MM-DD
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   // Función para obtener nombre del mes
   const getMonthName = (date: Date) => {
     const months = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
     ];
     return months[date.getMonth()];
   };
@@ -116,9 +139,11 @@ export default function Agenda() {
   // Verificar si una fecha está completamente ocupada
   const isDateFull = (date: Date) => {
     const formattedDate = formatDate(date);
-    const horasOcupadas = citasOcupadas.filter(c => c.fecha === formattedDate).length;
+    const horasOcupadas = citasOcupadas.filter(
+      (c) => c.fecha === formattedDate
+    ).length;
     const totalHorasDisponibles = 9; // De 9am a 6pm son 9 horas
-    
+
     return horasOcupadas >= totalHorasDisponibles;
   };
 
@@ -127,27 +152,27 @@ export default function Agenda() {
     const days = [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     const startDate = new Date(currentMonth);
     startDate.setDate(1);
-    
+
     const endDate = new Date(currentMonth);
     endDate.setMonth(endDate.getMonth() + 1);
     endDate.setDate(0);
-    
+
     // Ajustar para mostrar semanas completas (empezando en Lunes)
     const startDay = startDate.getDay();
     const prevMonthDays = startDay === 0 ? 6 : startDay - 1;
     startDate.setDate(startDate.getDate() - prevMonthDays);
-    
+
     const totalDays = showAllDays ? 42 : 35; // 5 o 6 semanas
-    
+
     for (let i = 0; i < totalDays; i++) {
       const date = new Date(startDate);
       date.setDate(startDate.getDate() + i);
       days.push(date);
     }
-    
+
     return days;
   };
 
@@ -176,30 +201,33 @@ export default function Agenda() {
     const hours = [];
     const startHour = 9;
     const endHour = 18;
-    
+
     if (!date) return [];
 
     const formattedDate = formatDate(date);
 
-      // Obtener todas las horas ocupadas para esta fecha
-  const horasOcupadasParaFecha = citasOcupadas
-  .filter(cita => cita.fecha === formattedDate)
-  .map(cita => cita.hora.substring(0, 5)); // Solo comparamos HH:MM
-    
-  for (let hour = startHour; hour < endHour; hour++) {
-    const timeValue = `${hour < 10 ? '0' + hour : hour}:00`;
-    const isOccupied = horasOcupadasParaFecha.includes(timeValue);
-      
-    if (!isOccupied) {
+    // Obtener todas las horas ocupadas para esta fecha
+    const horasOcupadasParaFecha = citasOcupadas
+      .filter((cita) => {
+        // Asegurarse de que la fecha coincida exactamente
+        const citaFecha = cita.fecha.split("T")[0]; // Extraer solo la parte de la fecha (YYYY-MM-DD)
+        return citaFecha === formattedDate;
+      })
+      .map((cita) => cita.hora.substring(0, 5)); // Solo comparamos HH:MM
+
+    for (let hour = startHour; hour < endHour; hour++) {
+      const timeValue = `${hour < 10 ? "0" + hour : hour}:00`;
+      const isOccupied = horasOcupadasParaFecha.includes(timeValue);
+
+      if (!isOccupied) {
         hours.push({
           value: `${timeValue}:00`, // Mantener formato completo para el valor
-          label: `${hour}:00 ${hour < 12 ? 'AM' : 'PM'}`,
-          hour: hour
+          label: `${hour}:00 ${hour < 12 ? "AM" : "PM"}`,
+          hour: hour,
         });
       }
     }
-  
-    
+
     return hours;
   };
 
@@ -209,12 +237,12 @@ export default function Agenda() {
     if (isPastDate(date) && !isToday(date)) return;
     if (isSunday(date)) return;
     if (isDateFull(date)) return;
-    
+
     setSelectedDate(date);
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       fecha: formatDate(date),
-      hora: ''
+      hora: "",
     }));
   };
 
@@ -230,18 +258,19 @@ export default function Agenda() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:3001/api/citas/ocupadas');
-      
+      const response = await fetch("http://localhost:3001/api/citas/ocupadas");
+
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
-      console.log('citas:', data)
       setCitasOcupadas(data);
     } catch (err) {
-      console.error('Error al obtener citas ocupadas:', err);
-      setError('No se pudieron cargar las citas disponibles. Por favor intenta recargar la página.');
+      console.error("Error al obtener citas ocupadas:", err);
+      setError(
+        "No se pudieron cargar las citas disponibles. Por favor intenta recargar la página."
+      );
     } finally {
       setInitialLoad(false);
       setLoading(false);
@@ -252,137 +281,162 @@ export default function Agenda() {
     const fetchData = async () => {
       await fetchCitasOcupadas();
     };
-    
+
     fetchData();
-    
+
     const interval = setInterval(fetchData, 60000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    
+
     // Validación especial para teléfono
-    if (name === 'telefono') {
+    if (name === "telefono") {
       // Solo permitir números y máximo 10 dígitos
-      const numericValue = value.replace(/\D/g, '').slice(0, 10);
+      const numericValue = value.replace(/\D/g, "").slice(0, 10);
       setFormData({
         ...formData,
-        [name]: numericValue
+        [name]: numericValue,
       });
     } else {
       setFormData({
         ...formData,
-        [name]: value
+        [name]: value,
       });
     }
   };
 
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault();
-    
+
     // Validar que no sea una cita ya ocupada
     if (selectedDate) {
       const fechaSeleccionada = formatDate(selectedDate);
       const horaSeleccionada = formData.hora;
-      
-      const citaOcupada = citasOcupadas.some(
-        c => c.fecha === fechaSeleccionada && c.hora === horaSeleccionada
-      );
-      
+
+      const citaOcupada = citasOcupadas.some((c) => {
+        const citaFecha = c.fecha.split("T")[0]; // Extraer solo la parte de la fecha
+        return citaFecha === fechaSeleccionada && c.hora === horaSeleccionada;
+      });
+
       if (citaOcupada) {
-        setError('Esta cita ya ha sido reservada, por favor selecciona otra hora');
+        setError(
+          "Esta cita ya ha sido reservada, por favor selecciona otra hora"
+        );
         return;
       }
     }
-    
+
     // Validar teléfono
     if (formData.telefono.length !== 10) {
-      setError('El teléfono debe tener exactamente 10 dígitos');
+      setError("El teléfono debe tener exactamente 10 dígitos");
       return;
     }
-    
+
     // Validar campos requeridos
     if (!selectedDate || !formData.hora) {
-      setError('Por favor selecciona una fecha y hora');
+      setError("Por favor selecciona una fecha y hora");
       return;
     }
-    
-    setError('');
+
+    setError("");
     setShowConfirmModal(true);
   };
 
   const handleSubmit = async () => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const response = await fetch('http://localhost:3001/api/citas/agendar', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/api/citas/agendar", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error('Error al agendar la cita (Elija otra fecha u hora)');
+      if (!response.ok)
+        throw new Error("Error al agendar la cita (Elija otra fecha u hora)");
 
       const nuevaCita = {
         fecha: formData.fecha,
-        hora: formData.hora
+        hora: formData.hora,
       };
-      setCitasOcupadas(prev => [...prev, nuevaCita]);
-      
+      setCitasOcupadas((prev) => [...prev, nuevaCita]);
+
       // Mostrar modal de éxito
-      setSuccessCita({...formData});
+      setSuccessCita({ ...formData });
       setShowConfirmModal(false);
       setShowSuccessModal(true);
-      
+
       // Reset form
       setFormData({
-        nombre_paciente: '',
-        correo: '',
-        telefono: '',
-        fecha: '',
-        hora: ''
+        nombre_paciente: "",
+        correo: "",
+        telefono: "",
+        fecha: "",
+        hora: "",
       });
       setSelectedDate(null);
-      
+
       // Recargar citas ocupadas para asegurar consistencia
       fetchCitasOcupadas();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ocurrió un error al agendar la cita');
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Ocurrió un error al agendar la cita"
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const availableHours = selectedDate ? generateAvailableHours(selectedDate) : [];
+  const availableHours = selectedDate
+    ? generateAvailableHours(selectedDate)
+    : [];
 
   return (
     <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="p-6 pb-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Agenda tu cita en <span className="text-[#9cc115]">DentalReforma</span>
+          Agenda tu cita en{" "}
+          <span className="text-[#9cc115]">DentalReforma</span>
         </h2>
-        
+
         {error && (
-  <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded-lg border border-yellow-200">
-    <div className="flex items-center">
-      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-      {error}
-    </div>
-  </div>
-)}
+          <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded-lg border border-yellow-200">
+            <div className="flex items-center">
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+              {error}
+            </div>
+          </div>
+        )}
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Formulario a la izquierda */}
           <div className="w-full md:w-1/2">
             <form onSubmit={handleSubmitForm} className="space-y-6">
               <div>
-                <label htmlFor="nombre_paciente" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="nombre_paciente"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Nombre completo
                 </label>
                 <input
@@ -397,7 +451,10 @@ export default function Agenda() {
               </div>
 
               <div>
-                <label htmlFor="correo" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="correo"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Correo electrónico
                 </label>
                 <input
@@ -412,7 +469,10 @@ export default function Agenda() {
               </div>
 
               <div>
-                <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="telefono"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Teléfono
                 </label>
                 <input
@@ -426,14 +486,20 @@ export default function Agenda() {
                   pattern="[0-9]{10}"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
                 />
-                {formData.telefono.length !== 10 && formData.telefono.length > 0 && (
-                  <p className="text-red-500 text-sm mt-1">El teléfono debe tener exactamente 10 dígitos</p>
-                )}
+                {formData.telefono.length !== 10 &&
+                  formData.telefono.length > 0 && (
+                    <p className="text-red-500 text-sm mt-1">
+                      El teléfono debe tener exactamente 10 dígitos
+                    </p>
+                  )}
               </div>
 
               {selectedDate && (
                 <div>
-                  <label htmlFor="hora" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="hora"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Hora
                   </label>
                   <select
@@ -446,10 +512,7 @@ export default function Agenda() {
                   >
                     <option value="">Selecciona una hora</option>
                     {availableHours.map((horario) => (
-                      <option 
-                        key={horario.value} 
-                        value={horario.value}
-                      >
+                      <option key={horario.value} value={horario.value}>
                         {horario.label}
                       </option>
                     ))}
@@ -463,8 +526,8 @@ export default function Agenda() {
                   disabled={loading}
                   className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${
                     loading
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-[#9cc115] hover:bg-[#8ab013]'
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-[#9cc115] hover:bg-[#8ab013]"
                   }`}
                 >
                   Agendar cita
@@ -477,42 +540,75 @@ export default function Agenda() {
           <div className="w-full md:w-1/2">
             <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
               <div className="flex justify-between items-center mb-4">
-                <button 
+                <button
                   onClick={() => changeMonth(-1)}
                   className="p-2 rounded-full hover:bg-gray-100"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-gray-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
                   </svg>
                 </button>
                 <h3 className="text-xl font-semibold text-gray-800">
                   {getMonthName(currentMonth)} {currentMonth.getFullYear()}
                 </h3>
-                <button 
+                <button
                   onClick={() => changeMonth(1)}
                   className="p-2 rounded-full hover:bg-gray-100"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-gray-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </button>
               </div>
 
               {/* Encabezados de días (Lunes a Domingo) */}
               <div className="grid grid-cols-7 gap-1 mb-2">
-                {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map((day) => (
-                  <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
-                    {day}
-                  </div>
-                ))}
+                {["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map(
+                  (day) => (
+                    <div
+                      key={day}
+                      className="text-center text-sm font-medium text-gray-500 py-2"
+                    >
+                      {day}
+                    </div>
+                  )
+                )}
               </div>
 
               <div className="grid grid-cols-7 gap-1">
                 {generateAvailableDays().map((day) => {
                   const dayFormatted = formatDate(day);
-                  const isCurrentMonth = day.getMonth() === currentMonth.getMonth();
-                  const isDisabled = isSunday(day) || isPastDate(day) || !isCurrentMonth || isDateFull(day);
-                  const isSelected = selectedDate && formatDate(selectedDate) === dayFormatted;
+                  const isCurrentMonth =
+                    day.getMonth() === currentMonth.getMonth();
+                  const isDisabled =
+                    isSunday(day) ||
+                    isPastDate(day) ||
+                    !isCurrentMonth ||
+                    isDateFull(day);
+                  const isSelected =
+                    selectedDate && formatDate(selectedDate) === dayFormatted;
 
                   return (
                     <button
@@ -522,12 +618,12 @@ export default function Agenda() {
                       disabled={isDisabled}
                       className={`p-2 rounded-full text-sm font-medium flex flex-col items-center ${
                         !isCurrentMonth
-                          ? 'text-gray-300'
+                          ? "text-gray-300"
                           : isDisabled
-                            ? 'text-gray-400 cursor-not-allowed'
-                            : isSelected
-                              ? 'bg-[#9cc115] text-white'
-                              : 'text-gray-700 hover:bg-gray-100'
+                          ? "text-gray-400 cursor-not-allowed"
+                          : isSelected
+                          ? "bg-[#9cc115] text-white"
+                          : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
                       {day.getDate()}
@@ -547,18 +643,18 @@ export default function Agenda() {
                     Cita seleccionada:
                   </h3>
                   <p className="text-gray-700">
-                    {selectedDate.toLocaleDateString('es-ES', { 
-                      weekday: 'long', 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
+                    {selectedDate.toLocaleDateString("es-ES", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                     {formData.hora && `, ${formData.hora.substring(0, 5)}`}
                   </p>
                 </div>
-                <img 
-                  src="/images/logo.webp" 
-                  alt="Logo DentalReforma" 
+                <img
+                  src="/images/logo.webp"
+                  alt="Logo DentalReforma"
                   className="w-12 h-12 object-contain"
                 />
               </div>
@@ -567,81 +663,90 @@ export default function Agenda() {
         </div>
       </div>
 
-{/* Modal de Confirmación */}
-{showConfirmModal && (
-  <div className="fixed inset-0 bg-transparent bg-opacity-70 flex items-center justify-center z-50">
-    <div className="bg-white p-6 rounded-lg max-w-md w-full border-1 border-black">
-      <h3 className="text-xl font-bold mb-4">Confirmar cita</h3>
-      <p className="mb-6">¿Estás seguro de agendar esta cita?</p>
-      
-      <div className="flex justify-end gap-4">
-        <button
-          onClick={() => setShowConfirmModal(false)}
-          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
-        >
-          Cancelar
-        </button>
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="px-4 py-2 bg-[#9cc115] text-white rounded-lg hover:bg-[#8ab013] disabled:bg-gray-400"
-        >
-          {loading ? 'Confirmando...' : 'Confirmar'}
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+      {/* Modal de Confirmación */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+            <h3 className="text-xl font-bold mb-4">Confirmar cita</h3>
+            <p className="mb-6">¿Estás seguro de agendar esta cita?</p>
 
-{/* Modal de Éxito con logo */}
-{showSuccessModal && successCita && (
-  <div className="fixed inset-0 bg-transparent bg-opacity-70 flex items-center justify-center z-50">
-    <div className="bg-white p-6 rounded-lg max-w-md w-full border-1 border-black">
-      <div className="text-center mb-2">
-        <h3 className="text-xl font-bold mb-2">¡Cita agendada con éxito!</h3>
-        <p className="text-gray-600 mb-4">Tu cita ha sido registrada correctamente.</p>
-        
-        {/* Logo agregado aquí */}
-        <div className="flex justify-center my-4">
-          <img 
-            src="/images/logo.webp" 
-            alt="Logo DentalReforma" 
-            className="w-20 h-20 object-contain"
-          />
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                className="px-4 py-2 bg-[#9cc115] text-white rounded-lg hover:bg-[#8ab013] disabled:bg-gray-400"
+              >
+                {loading ? "Confirmando..." : "Confirmar"}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-        <h4 className="font-medium mb-2">Detalles de la cita:</h4>
-        <p>Nombre: {successCita.nombre_paciente}</p>
-        <p>Correo: {successCita.correo}</p>
-        <p>Teléfono: {successCita.telefono}</p>
-        <p>Fecha: {format(parseISO(successCita.fecha), 'PPPP', { locale: es })}</p>
-        <p>Hora: {successCita.hora.substring(0, 5)}</p>
-      </div>
+      {/* Modal de Éxito con logo */}
+      {showSuccessModal && successCita && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+            <div className="text-center mb-2">
+              <h3 className="text-xl font-bold mb-2">
+                ¡Cita agendada con éxito!
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Tu cita ha sido registrada correctamente.
+              </p>
 
-      <div className="flex justify-between gap-4">
-        <button
-          onClick={() => {
-            setShowSuccessModal(false);
-            setSuccessCita(null);
-          }}
-          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
-        >
-          Cerrar
-        </button>
-        
-        <PDFDownloadLink 
-          document={<CitaPDF cita={successCita} />} 
-          fileName={`cita_dentalreforma_${successCita.fecha}.pdf`}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex-1 text-center"
-        >
-          {({ loading }) => loading ? 'Preparando PDF...' : 'Descargar PDF'}
-        </PDFDownloadLink>
-      </div>
-    </div>
-  </div>
-)}
+              {/* Logo agregado aquí */}
+              <div className="flex justify-center my-4">
+                <img
+                  src="/images/logo.webp"
+                  alt="Logo DentalReforma"
+                  className="w-20 h-20 object-contain"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+              <h4 className="font-medium mb-2">Detalles de la cita:</h4>
+              <p>Nombre: {successCita.nombre_paciente}</p>
+              <p>Correo: {successCita.correo}</p>
+              <p>Teléfono: {successCita.telefono}</p>
+              <p>
+                Fecha:{" "}
+                {format(parseISO(successCita.fecha), "PPPP", { locale: es })}
+              </p>
+              <p>Hora: {successCita.hora.substring(0, 5)}</p>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <button
+                onClick={() => {
+                  setShowSuccessModal(false);
+                  setSuccessCita(null);
+                }}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
+              >
+                Cerrar
+              </button>
+
+              <PDFDownloadLink
+                document={<CitaPDF cita={successCita} />}
+                fileName={`cita_dentalreforma_${successCita.fecha}.pdf`}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex-1 text-center"
+              >
+                {({ loading }) =>
+                  loading ? "Preparando PDF..." : "Descargar PDF"
+                }
+              </PDFDownloadLink>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
