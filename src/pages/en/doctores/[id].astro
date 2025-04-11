@@ -7,59 +7,49 @@ export async function getStaticPaths() {
       id: "DraKaren",
       nombre: "Dra. Karen Haylin Pérez Álvarez",
       imagen: "/images/drakaren.JPG",
-      titulo: "Ortodoncista",
-      experiencia: "12 años de experiencia",
-      formacion: "Universidad Autónoma de Baja California",
-      horario: "Lunes a Viernes: 9:00 - 18:00",
-      bio: "Especialista en ortodoncia con más de 10 años de experiencia transformando sonrisas. Miembro activo de la Asociación Dental Mexicana y pionera en técnicas de ortodoncia invisible.",
+      titulo: "Orthodontist",
+      experiencia: "12 years of experience",
+      formacion: "Autonomous University of Baja California",
+      horario: "Monday to Friday: 9:00 AM - 6:00 PM",
+      bio: "Orthodontics specialist with over 10 years of experience transforming smiles. Active member of the Mexican Dental Association and pioneer in invisible orthodontics techniques.",
       especialidades: [
-        "Ortodoncia Invisible",
-        "Brackets Estéticos",
-        "Ortodoncia Infantil",
+        "Invisible Orthodontics",
+        "Aesthetic Braces",
+        "Pediatric Orthodontics",
       ],
-      certificaciones: [
-        "Certificada por la AMO",
-        "Diplomado en Ortodoncia Avanzada",
-      ],
+      certificaciones: ["Certified by AMO", "Advanced Orthodontics Diploma"],
       pacientes: "1,200+",
     },
     {
       id: "DraJulieta",
       nombre: "Dra. Julieta Cárdenas",
       imagen: "/images/drajulieta.JPG",
-      titulo: "Cirujana Dental",
-      experiencia: "8 años de experiencia",
-      formacion: "Universidad Nacional Autónoma de México",
-      horario: "Martes a Sábado: 10:00 - 19:00",
-      bio: "Especializada en cirugías reconstructivas y tratamientos de implantes dentales. Certificada por el Consejo Mexicano de Cirugía Dental con amplia experiencia en casos complejos.",
-      especialidades: [
-        "Implantes Dentales",
-        "Regeneración Ósea",
-        "Cirugía Oral",
-      ],
-      certificaciones: [
-        "Certificación en Implantología",
-        "Miembro de la IAOMS",
-      ],
+      titulo: "Dental Surgeon",
+      experiencia: "8 years of experience",
+      formacion: "National Autonomous University of Mexico",
+      horario: "Tuesday to Saturday: 10:00 AM - 7:00 PM",
+      bio: "Specialized in reconstructive surgeries and dental implant treatments. Certified by the Mexican Council of Dental Surgery with extensive experience in complex cases.",
+      especialidades: ["Dental Implants", "Bone Regeneration", "Oral Surgery"],
+      certificaciones: ["Implantology Certification", "Member of IAOMS"],
       pacientes: "850+",
     },
     {
       id: "DrFrancisco",
       nombre: "Dr. Francisco Pérez Ruvalcaba",
       imagen: "/images/drfrancisco.JPG",
-      titulo: "Cirujano Maxilofacial",
-      experiencia: "15 años de experiencia",
-      formacion: "Instituto Tecnológico de Estudios Superiores de Monterrey",
-      horario: "Lunes a Jueves: 8:00 - 17:00",
-      bio: "Experto en reconstrucción facial y cirugía ortognática. Realizó especialización en el extranjero y ha participado en numerosos congresos internacionales.",
+      titulo: "Maxillofacial Surgeon",
+      experiencia: "15 years of experience",
+      formacion: "Monterrey Institute of Technology and Higher Education",
+      horario: "Monday to Thursday: 8:00 AM - 5:00 PM",
+      bio: "Expert in facial reconstruction and orthognathic surgery. Completed specialization abroad and has participated in numerous international conferences.",
       especialidades: [
-        "Cirugía Ortognática",
-        "Reconstrucción Facial",
-        "Traumatismo Maxilofacial",
+        "Orthognathic Surgery",
+        "Facial Reconstruction",
+        "Maxillofacial Trauma",
       ],
       certificaciones: [
-        "Fellow del Colegio Mexicano",
-        "Especialización en Harvard",
+        "Fellow of the Mexican College",
+        "Specialization at Harvard",
       ],
       pacientes: "2,300+",
     },
@@ -67,20 +57,17 @@ export async function getStaticPaths() {
       id: "DraItzel",
       nombre: "Dra. Itzel Lyncet",
       imagen: "/images/draitzel.JPG",
-      titulo: "Endodoncista",
-      experiencia: "6 años de experiencia",
-      formacion: "Universidad Autónoma de Guadalajara",
-      horario: "Miércoles a Domingo: 11:00 - 20:00",
-      bio: "Especialista en tratamientos de conductos con tecnología de vanguardia. Enfoque en procedimientos mínimamente invasivos para mayor comodidad del paciente.",
+      titulo: "Endodontist",
+      experiencia: "6 years of experience",
+      formacion: "Autonomous University of Guadalajara",
+      horario: "Wednesday to Sunday: 11:00 AM - 8:00 PM",
+      bio: "Specialist in root canal treatments with cutting-edge technology. Focus on minimally invasive procedures for greater patient comfort.",
       especialidades: [
-        "Endodoncia Microscópica",
-        "Retratamientos",
-        "Cirugía Apical",
+        "Microscopic Endodontics",
+        "Retreatments",
+        "Apical Surgery",
       ],
-      certificaciones: [
-        "Certificación en Endodoncia Avanzada",
-        "Miembro de la AAE",
-      ],
+      certificaciones: ["Advanced Endodontics Certification", "Member of AAE"],
       pacientes: "700+",
     },
   ];
@@ -411,7 +398,11 @@ const nextDoctorId = allDoctors[nextIndex];
   <div class="doctor-detail">
     <div class="doctor-container">
       <div class="doctor-image-container">
-        <img src={doctor.imagen} alt={doctor.nombre} class="doctor-image" />
+        <img
+          src={`${doctor.imagen}`}
+          alt={doctor.nombre}
+          class="doctor-image"
+        />
         <div class="doctor-badge">{doctor.titulo}</div>
       </div>
 
@@ -423,7 +414,7 @@ const nextDoctorId = allDoctors[nextIndex];
           <div class="doctor-stats">
             <div class="stat-item">
               <div class="stat-circle">{doctor.pacientes.replace("+", "")}</div>
-              <div class="stat-label">Pacientes atendidos</div>
+              <div class="stat-label">Patients treated</div>
             </div>
           </div>
 
@@ -448,7 +439,7 @@ const nextDoctorId = allDoctors[nextIndex];
                 </svg>
               </div>
               <div class="meta-content">
-                <h3>Formación Académica</h3>
+                <h3>Education</h3>
                 <p>{doctor.formacion}</p>
               </div>
             </div>
@@ -473,7 +464,7 @@ const nextDoctorId = allDoctors[nextIndex];
                 </svg>
               </div>
               <div class="meta-content">
-                <h3>Horario de Atención</h3>
+                <h3>Schedule</h3>
                 <p>{doctor.horario}</p>
               </div>
             </div>
@@ -497,17 +488,17 @@ const nextDoctorId = allDoctors[nextIndex];
                 </svg>
               </div>
               <div class="meta-content">
-                <h3>Certificaciones</h3>
+                <h3>Certifications</h3>
                 <p>{doctor.certificaciones.join(", ")}</p>
               </div>
             </div>
           </div>
 
-          <h2 class="section-title">Biografía Profesional</h2>
+          <h2 class="section-title">Professional Biography</h2>
           <p class="doctor-bio">{doctor.bio}</p>
 
           <div class="specialties-container">
-            <h2 class="section-title">Especialidades</h2>
+            <h2 class="section-title">Specialties</h2>
             <div class="specialties-grid">
               {
                 doctor.especialidades.map((especialidad, index) => (
@@ -522,9 +513,9 @@ const nextDoctorId = allDoctors[nextIndex];
 
           <div class="doctor-navigation">
             <a
-              href={`/doctores/${prevDoctorId}`}
+              href={`/en/doctores/${prevDoctorId}`}
               class="nav-button"
-              aria-label="Doctor anterior"
+              aria-label="Previous doctor"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -540,17 +531,17 @@ const nextDoctorId = allDoctors[nextIndex];
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
               </svg>
-              Anterior
+              Previous
             </a>
 
-            <a href="/#home" class="btn-back"> Volver al Equipo </a>
+            <a href="/en/#doctores" class="btn-back"> Back to Team </a>
 
             <a
-              href={`/doctores/${nextDoctorId}`}
+              href={`/en/doctores/${nextDoctorId}`}
               class="nav-button"
-              aria-label="Siguiente doctor"
+              aria-label="Next doctor"
             >
-              Siguiente
+              Next
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
