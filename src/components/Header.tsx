@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 
 interface Link {
@@ -83,28 +82,6 @@ const Header: React.FC = () => {
 
         {/* Social Media and Language Selector */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Social Media */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://www.facebook.com/DentistaReforma"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 transition-all"
-              aria-label="Facebook"
-            >
-              <FaFacebookF className="text-reforma" />
-            </a>
-            <a
-              href="https://www.instagram.com/tuinstagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 transition-all"
-              aria-label="Instagram"
-            >
-              <FaInstagram className="text-reforma" />
-            </a>
-          </div>
-
           {/* Language Selector */}
           <div
             onClick={toggleLanguage}
@@ -223,28 +200,6 @@ const Header: React.FC = () => {
             >
               EN
             </span>
-          </div>
-
-          {/* Social Media */}
-          <div className="flex items-center gap-4 mt-8">
-            <a
-              href="https://www.facebook.com/DentistaReforma"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 transition-all"
-              aria-label="Facebook"
-            >
-              <FaFacebookF className="text-reforma" />
-            </a>
-            <a
-              href="https://www.instagram.com/tuinstagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 transition-all"
-              aria-label="Instagram"
-            >
-              <FaInstagram className="text-reforma" />
-            </a>
           </div>
         </div>
       </div>
