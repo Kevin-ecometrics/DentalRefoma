@@ -14,13 +14,13 @@ const DockMenu: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  const whatsappNumber = "5211234567890"; // Reemplaza con tu número de WhatsApp
+  const whatsappNumber = "+52 (664) 535-8869"; // Reemplaza con tu número de WhatsApp
   const whatsappMessage = "¡Hola! Me gustaría obtener más información."; // Mensaje predeterminado
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
 
-  const emailAddress = "correo@ejemplo.com"; // Reemplaza con tu correo electrónico
+  const emailAddress = "dentistareforma@gmail.com"; // Reemplaza con tu correo electrónico
 
   return (
     <div className="fixed bottom-6 right-6 flex flex-col items-center">
@@ -33,7 +33,7 @@ const DockMenu: React.FC = () => {
         }`}
       >
         <a
-          href="https://www.facebook.com"
+          href="https://www.facebook.com/DentistaReforma/"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-transform duration-300 hover:scale-110"
@@ -42,7 +42,7 @@ const DockMenu: React.FC = () => {
           <FaFacebook size={20} />
         </a>
         <a
-          href="https://www.instagram.com"
+          href="https://www.instagram.com/dentistareforma/"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-gradient-to-r from-pink-500 to-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-transform duration-300 hover:scale-110"

@@ -167,7 +167,7 @@ const CitaPDF = ({ cita, lang }: { cita: Cita; lang: string }) => {
   });
 
   return (
-    <Document>
+    <Document >
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <View style={styles.logoContainer}>
@@ -506,7 +506,7 @@ export default function Agenda() {
     : [];
 
   return (
-    <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div id="reserva" className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="p-6 pb-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           {t.title}

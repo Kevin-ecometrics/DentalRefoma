@@ -17,9 +17,224 @@ const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>Dental Reforma - Clínica Dental en Tijuana</title>
+    <meta
+      name="description"
+      content="En Dental Reforma Tijuana llevamos 35 años brindando soluciones odontológicas integrales con profesionalismo y calidez. Nuestro equipo certificado se especializa en alivio inmediato del dolor dental, tratamiento de emergencias e infecciones, implantes dentales y prótesis, ortodoncia (brackets e Invisalign), así como estética dental y blanqueamiento. Priorizamos tu salud bucal antes que la estética, garantizando resultados funcionales y hermosos. Consulta en nuestro moderno consultorio en Av. Paseo Reforma 5304, Tijuana. Horario de atención: Lunes a Sábado de 9:00 am a 6:00 pm."
+    />
+
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="keywords"
+      content="Endodoncia, Ortodoncia, Implantes Dentales, Cirugía Oral, Prótesis Dentales, Coronas, Resinas, Periodoncia, Ortopediatra"
+    />
+    <meta name="author" content="Dentista Reforma" />
+    <meta name="geo.region" content="MX-BC" />
+    <meta name="geo.placename" content="Tijuana" />
+
+    <meta property="og:title" content={`${title} | Dentista Reforma`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta
+      property="og:image"
+      content="https://www.dentistareforma.com/images/clinica-reforma-og.jpg"
+    />
+    <meta property="og:site_name" content="Dentista Reforma" />
+    <meta property="og:locale" content={lang === "es" ? "es_MX" : "en_US"} />
+
     <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "DentalClinic",
+        "name": "Dental Reforma",
+        "description": "En Dental Reforma Tijuana llevamos 35 años brindando soluciones odontológicas integrales con profesionalismo y calidez. Nuestro equipo certificado se especializa en alivio inmediato del dolor dental, tratamiento de emergencias e infecciones, implantes dentales y prótesis, ortodoncia (brackets e Invisalign), así como estética dental y blanqueamiento. Priorizamos tu salud bucal antes que la estética, garantizando resultados funcionales y hermosos. Consulta en nuestro moderno consultorio en Av. Paseo Reforma 5304, Tijuana. Horario de atención: Lunes a Sábado de 9:00 am a 6:00 pm.",
+        "url": "https://www.dentistareforma.com/",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Paseo Reforma 5304",
+          "addressLocality": "Tijuana",
+          "addressRegion": "BC",
+          "postalCode": "22000",
+          "addressCountry": "MX"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "32.5149",
+          "longitude": "-117.0382"
+        },
+        "telephone": "+52 (664) 535-8869",
+        "email": "dentistareforma@gmail.com",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ],
+        "knowsLanguage": ["es", "en"],
+        "paymentAccepted": "Efectivo, Tarjetas de crédito/débito, Transferencia bancaria",
+        "hasMap": "https://maps.app.goo.gl/PbhtibPh81px2pei8",
+        "wheelchairAccessible": true,
+        "priceRange": "$$",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "10",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": "Ramon Dávila",
+            "datePublished": "2023-05-15",
+            "reviewBody": "Muy buena atención 😃",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          },
+          {
+            "@type": "Review",
+            "author": "CD Ivonne Lepe Zamora",
+            "datePublished": "2022-11-15",
+            "reviewBody": "Recomiendo al consultorio 😃y en especial al Dra Karen por su profesionalismo y buen ser humano en el área de Endodoncia.✅",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          },
+          {
+            "@type": "Review",
+            "author": "Karina Ramos",
+            "datePublished": "2021-04-15",
+            "reviewBody": "Me encanto el lugar muy moderno y limpio, me da tranquilidad 😌, los doctores muy amables, se toman el tiempo para explicarte el tratamiento y resolver cualquier duda , me gusta saber que cuentan con especialistas 😌. Los precios muy accesibles !! 100% recomendados!!",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          },
+          {
+            "@type": "Review",
+            "author": "Jose No",
+            "datePublished": "2021-10-15",
+            "reviewBody": "Excelente espacio, excelente atención lo recomiendo totalmente , muy cerca del área. 5 estrellas por el excelente servicio.",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          },
+          {
+            "@type": "Review",
+            "author": "Cahissa Jovanna Adame Rivera",
+            "datePublished": "2021-03-15",
+            "reviewBody": "Excelente servicio",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios Dentales",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Endodoncia"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Ortodoncia"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Implantes Dentales"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Cirugía Oral"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Prótesis Dentales (Fijas y Removibles)"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Coronas y Puentes Dentales"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Resinas Dentales (Carillas y Restauraciones)"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Periodoncia (Enfermedades de las encías)"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Blanqueamiento Dental Profesional"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Odontopediatría (Dentista para niños)"
+              }
+            }
+          ]
+        },
+        "sameAs": [
+          "https://www.facebook.com/DentistaReforma",
+          "https://www.instagram.com/dentistareforma/",
+          "https://api.whatsapp.com/send/?phone=526645358869&text&type=phone_number&app_absent=0"
+        ]
+      }
+    </script>
   </head>
 
   <body>
@@ -27,17 +242,3 @@ const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
     <Whatsapp client:load />
   </body>
 </html>
-
-<style is:global>
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    font-family: "Archivo Narrow Variable", sans-serif;
-  }
-
-  h1,
-  a {
-    font-family: "Roboto Variable", sans-serif;
-  }
-</style>
