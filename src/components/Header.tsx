@@ -138,7 +138,7 @@ const Header: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-40 md:hidden"
+              className="fixed inset-0 bg-black z-[9998] md:hidden"
               onClick={toggleMenu}
             />
             
@@ -147,7 +147,7 @@ const Header: React.FC = () => {
               animate={{ x: "3%" }}  
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 w-1/2 h-full bg-white shadow-xl z-50 md:hidden"
+              className="fixed top-0 right-0 w-1/2 h-full bg-white shadow-xl z-[9999] md:hidden"
             >
               <div className="h-full flex flex-col">
                 <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
@@ -181,7 +181,6 @@ const Header: React.FC = () => {
                   ))}
                 </div>
 
-                {/* Selector de idioma */}
                 <div className="px-4 py-3 border-t border-gray-200">
                   <motion.button
                     onClick={toggleLanguage}

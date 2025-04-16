@@ -27,7 +27,7 @@ const slidesES = [
   {
     title: "Soluciones Integrales",
     description: "Desde caries complejas hasta reconstrucciones completas. Evaluamos 32 aspectos de tu salud bucal con tecnología 3D para crear un plan personalizado. Más de 200 casos exitosos en el último año.",
-    img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5",
+    img: "images/especializado.webp",
     alt: "Soluciones integrales",
     cta: "Evaluación completa"
   },
@@ -51,35 +51,35 @@ const slidesEN = [
   {
     title: "Perfect Brushing Technique",
     description: "Learn the dentist-recommended method: use gentle circular motions, tilting the brush 45° toward gums. Don't forget your tongue and brush for at least 2 minutes, 3 times daily. Your smile deserves it!",
-    img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5",
+    img: "images/cepillo.webp",
     alt: "Perfect brushing technique",
     cta: "Book dental cleaning"
   },
   {
     title: "Pain-Free Dentistry is Real",
     description: "Forget the myths: modern dentistry uses painless techniques and conscious sedation. Our humanized approach reduces stress by 80%. First consultation is free to help you overcome fear.",
-    img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118",
+    img: "images/miedo.webp",
     alt: "Pain-free dentistry",
     cta: "Overcome your fear"
   },
   {
     title: "Comprehensive Solutions",
     description: "From complex cavities to full reconstructions. We evaluate 32 aspects of your oral health with 3D technology to create a personalized plan. Over 200 success cases last year.",
-    img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5",
+    img: "images/especializado.webp",
     alt: "Comprehensive dental solutions",
     cta: "Complete evaluation"
   },
   {
     title: "Tooth Sensitivity",
     description: "Pain with hot/cold? We solve sensitivity in 1-2 sessions with laser treatments and fluoride nanoparticles. 95% proven effectiveness according to clinical studies.",
-    img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5",
+    img: "images/sensibilidad.webp",
     alt: "Tooth sensitivity treatment",
     cta: "Relieve sensitivity"
   },
   {
     title: "Specialized Pediatric Dentistry",
     description: "Our 'magic corner' makes kids love their visits. We detect early problems with interactive games and use biocompatible materials. Schedule their first positive experience.",
-    img: "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb",
+    img: "images/nino.webp",
     alt: "Pediatric dentistry",
     cta: "Appointment for your child"
   }
@@ -288,7 +288,6 @@ const DentalCarousel: React.FC = () => {
         </div>
       </div>
 
-      {/* Elementos decorativos */}
       <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#9cc115]/10 blur-3xl -z-10" />
       <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#9cc115]/10 blur-3xl -z-10" />
     </div>
