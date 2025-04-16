@@ -19,7 +19,7 @@ const Header: React.FC = () => {
       { id: "tratamientos", label: "Tratamientos" },
       { id: "doctores", label: "Doctores" },
       { id: "reserva", label: "Reserva" },
-      { id: "ubicacion", label: "Ubicación" }
+      { id: "ubicacion", label: "Ubicación" },
     ],
     en: [
       { id: "home", label: "Home" },
@@ -28,16 +28,18 @@ const Header: React.FC = () => {
       { id: "tratamientos", label: "Treatments" },
       { id: "doctores", label: "Doctors" },
       { id: "reserva", label: "Booking" },
-      { id: "ubicacion", label: "Location" }
-    ]
+      { id: "ubicacion", label: "Location" },
+    ],
   };
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
-      
-      const sections = links[currentLanguage].map(link => document.getElementById(link.id));
-      sections.forEach(section => {
+
+      const sections = links[currentLanguage].map((link) =>
+        document.getElementById(link.id)
+      );
+      sections.forEach((section) => {
         if (section) {
           const rect = section.getBoundingClientRect();
           if (rect.top <= 100 && rect.bottom >= 100) {
@@ -47,8 +49,8 @@ const Header: React.FC = () => {
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [currentLanguage]);
 
   const toggleLanguage = () => {
@@ -60,9 +62,11 @@ const Header: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <motion.header 
+    <motion.header
       className={`fixed top-0 w-full z-50 transition-colors duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-white/90 backdrop-blur-sm"
+        isScrolled || isMenuOpen
+          ? "bg-white shadow-md"
+          : "bg-white/90 backdrop-blur-sm"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -75,11 +79,7 @@ const Header: React.FC = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img 
-            src="/images/logo.webp" 
-            alt="Logo" 
-            className="h-10 w-auto"
-          />
+          <img src="/images/logo.webp" alt="Logo" className="h-10 w-auto" />
         </motion.a>
 
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
@@ -89,8 +89,8 @@ const Header: React.FC = () => {
                 key={link.id}
                 href={`#${link.id}`}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-                  activeLink === link.id 
-                    ? "bg-[#9cc115] text-white" 
+                  activeLink === link.id
+                    ? "bg-[#9cc115] text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -141,10 +141,10 @@ const Header: React.FC = () => {
               className="fixed inset-0 bg-black z-[9998] md:hidden"
               onClick={toggleMenu}
             />
-            
+
             <motion.div
               initial={{ x: "100%" }}
-              animate={{ x: "3%" }}  
+              animate={{ x: "3%" }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="fixed top-0 right-0 w-1/2 h-full bg-white shadow-xl z-[9999] md:hidden"
@@ -189,7 +189,9 @@ const Header: React.FC = () => {
                     whileTap={{ scale: 0.98 }}
                   >
                     <FaGlobeAmericas className="mr-2" />
-                    {currentLanguage === "es" ? "Cambiar a inglés" : "Switch to Spanish"}
+                    {currentLanguage === "es"
+                      ? "Cambiar a inglés"
+                      : "Switch to Spanish"}
                   </motion.button>
                 </div>
               </div>
