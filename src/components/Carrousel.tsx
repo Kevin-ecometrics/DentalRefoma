@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight, FaCalendarAlt, FaTooth } from "react-icons/fa";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaCalendarAlt,
+  FaTooth,
+} from "react-icons/fa";
 
 interface Slide {
   img: string;
@@ -12,77 +17,87 @@ interface Slide {
 const slidesES = [
   {
     title: "Técnica de Cepillado Perfecto",
-    description: "Aprende el método de cepillado que recomiendan los odontólogos: usa movimientos suaves y circulares, inclinando el cepillo 45° hacia las encías. No olvides la lengua y mínimo 2 minutos, 3 veces al día. ¡Tu sonrisa lo vale!",
-    img: "images/cepillo.webp",
+    description:
+      "Aprende el método de cepillado que recomiendan los odontólogos: usa movimientos suaves y circulares, inclinando el cepillo 45° hacia las encías. No olvides la lengua y mínimo 2 minutos, 3 veces al día. ¡Tu sonrisa lo vale!",
+    img: "/images/cepillo.webp",
     alt: "Técnica de cepillado perfecto",
-    cta: "Agendar limpieza dental"
+    cta: "Agendar limpieza dental",
   },
   {
     title: "El Dentista Sin Dolor Existe",
-    description: "Olvida los mitos: la odontología moderna usa técnicas indoloras y sedación consciente. Nuestro enfoque humanizado reduce el estrés en un 80%.",
-    img: "images/miedo.webp",
+    description:
+      "Olvida los mitos: la odontología moderna usa técnicas indoloras y sedación consciente. Nuestro enfoque humanizado reduce el estrés en un 80%.",
+    img: "/images/miedo.webp",
     alt: "Dentista sin dolor",
-    cta: "Supera tu miedo ahora"
+    cta: "Supera tu miedo ahora",
   },
   {
     title: "Soluciones Integrales",
-    description: "Desde caries complejas hasta reconstrucciones completas. Evaluamos 32 aspectos de tu salud bucal con tecnología 3D para crear un plan personalizado. Más de 200 casos exitosos en el último año.",
-    img: "images/especializado.webp",
+    description:
+      "Desde caries complejas hasta reconstrucciones completas. Evaluamos 32 aspectos de tu salud bucal con tecnología 3D para crear un plan personalizado. Más de 200 casos exitosos en el último año.",
+    img: "/images/especializado.webp",
     alt: "Soluciones integrales",
-    cta: "Evaluación completa"
+    cta: "Evaluación completa",
   },
   {
     title: "Sensibilidad Dental",
-    description: "¿Dolor con lo frío/caliente? Solucionamos la hipersensibilidad en 1-2 sesiones con nuestros tratamientos con láser y nanopartículas de flúor. Eficacia comprobada del 95% según estudios clínicos.",
-    img: "images/sensibilidad.webp",
+    description:
+      "¿Dolor con lo frío/caliente? Solucionamos la hipersensibilidad en 1-2 sesiones con nuestros tratamientos con láser y nanopartículas de flúor. Eficacia comprobada del 95% según estudios clínicos.",
+    img: "/images/sensibilidad.webp",
     alt: "Sensibilidad dental",
-    cta: "Alivia tu sensibilidad"
+    cta: "Alivia tu sensibilidad",
   },
   {
     title: "Odontopediatría Especializada",
-    description: "Nuestro 'rincón mágico' hace que los niños amen sus visitas. Detectamos problemas tempranos con juegos interactivos y usamos materiales biocompatibles. Programa su primera experiencia positiva.",
-    img: "images/nino.webp",
+    description:
+      "Nuestro 'rincón mágico' hace que los niños amen sus visitas. Detectamos problemas tempranos con juegos interactivos y usamos materiales biocompatibles. Programa su primera experiencia positiva.",
+    img: "/images/nino.webp",
     alt: "Odontopediatría especializada",
-    cta: "Cita para tu pequeño"
-  }
+    cta: "Cita para tu pequeño",
+  },
 ];
 
 const slidesEN = [
   {
     title: "Perfect Brushing Technique",
-    description: "Learn the dentist-recommended method: use gentle circular motions, tilting the brush 45° toward gums. Don't forget your tongue and brush for at least 2 minutes, 3 times daily. Your smile deserves it!",
-    img: "images/cepillo.webp",
+    description:
+      "Learn the dentist-recommended method: use gentle circular motions, tilting the brush 45° toward gums. Don't forget your tongue and brush for at least 2 minutes, 3 times daily. Your smile deserves it!",
+    img: "/images/cepillo.webp",
     alt: "Perfect brushing technique",
-    cta: "Book dental cleaning"
+    cta: "Book dental cleaning",
   },
   {
     title: "Pain-Free Dentistry is Real",
-    description: "Forget the myths: modern dentistry uses painless techniques and conscious sedation. Our humanized approach reduces stress by 80%. First consultation is free to help you overcome fear.",
-    img: "images/miedo.webp",
+    description:
+      "Forget the myths: modern dentistry uses painless techniques and conscious sedation. Our humanized approach reduces stress by 80%. First consultation is free to help you overcome fear.",
+    img: "/images/miedo.webp",
     alt: "Pain-free dentistry",
-    cta: "Overcome your fear"
+    cta: "Overcome your fear",
   },
   {
     title: "Comprehensive Solutions",
-    description: "From complex cavities to full reconstructions. We evaluate 32 aspects of your oral health with 3D technology to create a personalized plan. Over 200 success cases last year.",
-    img: "images/especializado.webp",
+    description:
+      "From complex cavities to full reconstructions. We evaluate 32 aspects of your oral health with 3D technology to create a personalized plan. Over 200 success cases last year.",
+    img: "/images/especializado.webp",
     alt: "Comprehensive dental solutions",
-    cta: "Complete evaluation"
+    cta: "Complete evaluation",
   },
   {
     title: "Tooth Sensitivity",
-    description: "Pain with hot/cold? We solve sensitivity in 1-2 sessions with laser treatments and fluoride nanoparticles. 95% proven effectiveness according to clinical studies.",
-    img: "images/sensibilidad.webp",
+    description:
+      "Pain with hot/cold? We solve sensitivity in 1-2 sessions with laser treatments and fluoride nanoparticles. 95% proven effectiveness according to clinical studies.",
+    img: "/images/sensibilidad.webp",
     alt: "Tooth sensitivity treatment",
-    cta: "Relieve sensitivity"
+    cta: "Relieve sensitivity",
   },
   {
     title: "Specialized Pediatric Dentistry",
-    description: "Our 'magic corner' makes kids love their visits. We detect early problems with interactive games and use biocompatible materials. Schedule their first positive experience.",
-    img: "images/nino.webp",
+    description:
+      "Our 'magic corner' makes kids love their visits. We detect early problems with interactive games and use biocompatible materials. Schedule their first positive experience.",
+    img: "/images/nino.webp",
     alt: "Pediatric dentistry",
-    cta: "Appointment for your child"
-  }
+    cta: "Appointment for your child",
+  },
 ];
 
 const DentalCarousel: React.FC = () => {
@@ -99,7 +114,9 @@ const DentalCarousel: React.FC = () => {
   const prevSlide = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + slides.length) % slides.length
+    );
   };
 
   const goToSlide = (index: number) => {
@@ -147,7 +164,11 @@ const DentalCarousel: React.FC = () => {
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-500 flex flex-col ${index === currentIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                className={`absolute inset-0 transition-opacity duration-500 flex flex-col ${
+                  index === currentIndex
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
+                }`}
               >
                 <div className="w-full h-48 relative">
                   <img
@@ -157,7 +178,7 @@ const DentalCarousel: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
-                
+
                 <div className="w-full bg-white p-6 flex-1 flex flex-col rounded-b-xl">
                   <div className="flex items-start gap-2 mb-4">
                     <h3 className="text-2xl font-bold text-gray-900">
@@ -165,11 +186,11 @@ const DentalCarousel: React.FC = () => {
                     </h3>
                     <FaTooth className="text-2xl text-[#9cc115] mt-1 flex-shrink-0" />
                   </div>
-                  
+
                   <p className="text-gray-600 mb-6 flex-1">
                     {slide.description}
                   </p>
-                  
+
                   <div className="mt-auto">
                     <a
                       href="#reserva"
@@ -190,12 +211,16 @@ const DentalCarousel: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-4 h-4 rounded-full transition-all ${index === currentIndex ? 'bg-[#9cc115]' : 'bg-gray-300 hover:bg-gray-400'}`}
+                  className={`w-4 h-4 rounded-full transition-all ${
+                    index === currentIndex
+                      ? "bg-[#9cc115]"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>
-            
+
             <div className="flex gap-3">
               <button
                 onClick={prevSlide}
@@ -221,7 +246,11 @@ const DentalCarousel: React.FC = () => {
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-700 flex ${index === currentIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                className={`absolute inset-0 transition-opacity duration-700 flex ${
+                  index === currentIndex
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
+                }`}
               >
                 <div className="w-1/2 h-full relative">
                   <img
@@ -231,7 +260,7 @@ const DentalCarousel: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
                 </div>
-                
+
                 <div className="w-1/2 bg-white p-12 flex flex-col justify-center rounded-r-2xl">
                   <div className="mb-8">
                     <FaTooth className="text-4xl text-[#9cc115]" />
@@ -262,12 +291,16 @@ const DentalCarousel: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${index === currentIndex ? 'bg-[#9cc115] w-6' : 'bg-gray-300 hover:bg-gray-400'}`}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === currentIndex
+                      ? "bg-[#9cc115] w-6"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>
-            
+
             <div className="flex gap-4">
               <button
                 onClick={prevSlide}
