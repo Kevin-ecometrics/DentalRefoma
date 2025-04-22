@@ -2,6 +2,7 @@
 import "@styles/global.css";
 import "@fontsource-variable/archivo-narrow";
 import "@fontsource-variable/roboto";
+import "@fontsource-variable/josefin-sans";
 import Whatsapp from "@/components/Menu";
 
 interface Props {
@@ -242,3 +243,42 @@ const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
     <Whatsapp client:load />
   </body>
 </html>
+
+<style is:global>
+  p {
+    font-family: "Josefin Sans Variable", sans-serif;
+  }
+  @font-face {
+    font-family: "Rockwell Nova";
+    src: url("/fonts/RockWellNova-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  h1 {
+    font-family: "Rockwell Nova", serif;
+    font-weight: 700; /* Coincide con el peso definido en @font-face */
+  }
+  @font-face {
+    font-family: "Gisbon";
+    src: url("/fonts/fonnts.com-Gibson_SemiBold.otf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  h2 {
+    font-family: "Gisbon", serif;
+    font-weight: 700; /* Coincide con el peso definido en @font-face */
+  }
+  @font-face {
+    font-family: "ITC Avant Garde Gothic LT Medium";
+    src: url("/fonts/ITCAvantGardeGothicLTMedium.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  h3 {
+    font-family: "ITC Avant Garde Gothic LT Medium", serif;
+    font-weight: 700; /* Coincide con el peso definido en @font-face */
+  }
+</style>
