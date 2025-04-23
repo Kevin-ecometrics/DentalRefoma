@@ -313,6 +313,12 @@ export default function Agenda() {
 
     if (!date) return [];
 
+    const now = new Date();
+    const currentHour = now.getHours();
+    const isToday = date.getDate() === now.getDate() && 
+                   date.getMonth() === now.getMonth() && 
+                   date.getFullYear() === now.getFullYear();
+
     const formattedDate = formatDate(date);
 
     // Obtener todas las horas ocupadas para esta fecha
@@ -324,18 +330,19 @@ export default function Agenda() {
       })
       .map((cita) => cita.hora.substring(0, 5)); // Solo comparamos HH:MM
 
-    for (let hour = startHour; hour < endHour; hour++) {
-      const timeValue = `${hour < 10 ? "0" + hour : hour}:00`;
-      const isOccupied = horasOcupadasParaFecha.includes(timeValue);
+      for (let hour = startHour; hour < endHour; hour++) {
+        const timeValue = `${hour.toString().padStart(2, '0')}:00`;
+        const isOccupied = horasOcupadasParaFecha.includes(timeValue);
+        const isPastHour = isToday && hour <= currentHour;
 
-      if (!isOccupied) {
-        hours.push({
-          value: `${timeValue}:00`, // Mantener formato completo para el valor
-          label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
-          hour: hour,
-        });
+        if (!isOccupied && !isPastHour) {
+          hours.push({
+            value: `${timeValue}:00`,
+            label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
+            hour: hour,
+          });
+        }
       }
-    }
 
     return hours;
   };
