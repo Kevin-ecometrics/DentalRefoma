@@ -27,7 +27,7 @@ const slidesES = [
     title: "El Dentista Sin Dolor Existe",
     description:
       "Olvida los mitos: la odontología moderna usa técnicas indoloras y sedación consciente. Nuestro enfoque humanizado reduce el estrés en un 80%.",
-    img: "/images/miedo.webp",
+    img: "/images/miedo.jpg",
     alt: "Dentista sin dolor",
     cta: "Supera tu miedo ahora",
   },
@@ -43,7 +43,7 @@ const slidesES = [
     title: "Sensibilidad Dental",
     description:
       "¿Dolor con lo frío/caliente? Solucionamos la hipersensibilidad en 1-2 sesiones con nuestros tratamientos con láser y nanopartículas de flúor. Eficacia comprobada del 95% según estudios clínicos.",
-    img: "/images/sensibilidad.webp",
+    img: "/images/sensibilidad.jpg",
     alt: "Sensibilidad dental",
     cta: "Alivia tu sensibilidad",
   },
@@ -70,7 +70,7 @@ const slidesEN = [
     title: "Pain-Free Dentistry is Real",
     description:
       "Forget the myths: modern dentistry uses painless techniques and conscious sedation. Our humanized approach reduces stress by 80%. First consultation is free to help you overcome fear.",
-    img: "/images/miedo.webp",
+    img: "/images/miedo.jpg",
     alt: "Pain-free dentistry",
     cta: "Overcome your fear",
   },
@@ -86,7 +86,7 @@ const slidesEN = [
     title: "Tooth Sensitivity",
     description:
       "Pain with hot/cold? We solve sensitivity in 1-2 sessions with laser treatments and fluoride nanoparticles. 95% proven effectiveness according to clinical studies.",
-    img: "/images/sensibilidad.webp",
+    img: "/images/sensibilidad.jpg",
     alt: "Tooth sensitivity treatment",
     cta: "Relieve sensitivity",
   },
@@ -184,59 +184,59 @@ const DentalCarousel: React.FC = () => {
                     <h3 className="text-2xl font-bold text-gray-900">
                       {slide.title}
                     </h3>
-                    <FaTooth className="text-2xl text-[#9cc115] mt-1 flex-shrink-0" />
+                    <FaTooth className="text-2xl text-[#aed136] mt-1 flex-shrink-0" />
                   </div>
 
                   <p className="text-gray-600 mb-6 flex-1">
                     {slide.description}
                   </p>
 
-                  <div className="mt-auto">
+                  <div className="mt-auto space-y-4">
                     <a
                       href="#reserva"
-                      className="flex items-center justify-center gap-2 bg-[#9cc115] hover:bg-[#8ab013] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg w-full"
+                      className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#4f646f] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg w-full"
                     >
                       <FaCalendarAlt />
                       {slide.cta}
                     </a>
+                    
+                    <div className="flex justify-between items-center">
+                      <div className="flex gap-2">
+                        {slides.map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => goToSlide(idx)}
+                            className={`w-4 h-4 rounded-full transition-all ${
+                              idx === currentIndex
+                                ? "bg-[#aed136]"
+                                : "bg-gray-300 hover:bg-gray-400"
+                            }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                          />
+                        ))}
+                      </div>
+
+                      <div className="flex gap-3">
+                        <button
+                          onClick={prevSlide}
+                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          aria-label="Previous slide"
+                        >
+                          <FaChevronLeft size={18} />
+                        </button>
+                        <button
+                          onClick={nextSlide}
+                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          aria-label="Next slide"
+                        >
+                          <FaChevronRight size={18} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-between items-center mt-6">
-            <div className="flex gap-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-4 h-4 rounded-full transition-all ${
-                    index === currentIndex
-                      ? "bg-[#9cc115]"
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={prevSlide}
-                className="p-3 rounded-full bg-white text-[#9cc115] shadow-md hover:bg-[#9cc115] hover:text-white transition-all duration-300"
-                aria-label="Previous slide"
-              >
-                <FaChevronLeft size={18} />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="p-3 rounded-full bg-white text-[#9cc115] shadow-md hover:bg-[#9cc115] hover:text-white transition-all duration-300"
-                aria-label="Next slide"
-              >
-                <FaChevronRight size={18} />
-              </button>
-            </div>
           </div>
         </div>
 
@@ -263,7 +263,7 @@ const DentalCarousel: React.FC = () => {
 
                 <div className="w-1/2 bg-white p-12 flex flex-col justify-center rounded-r-2xl">
                   <div className="mb-8">
-                    <FaTooth className="text-4xl text-[#9cc115]" />
+                    <FaTooth className="text-4xl text-[#aed136]" />
                   </div>
                   <h3 className="text-3xl font-bold text-gray-900 mb-4">
                     {slide.title}
@@ -271,58 +271,59 @@ const DentalCarousel: React.FC = () => {
                   <p className="text-lg text-gray-600 mb-8">
                     {slide.description}
                   </p>
-                  <div className="flex gap-4">
+                  
+                  <div className="space-y-8">
                     <a
                       href="#reserva"
-                      className="flex items-center justify-center gap-2 bg-[#9cc115] hover:bg-[#8ab013] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                      className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#8ab013] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl w-64"
                     >
                       <FaCalendarAlt />
                       {slide.cta}
                     </a>
+
+                    <div className="flex justify-between items-center w-64">
+                      <div className="flex gap-2">
+                        {slides.map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => goToSlide(idx)}
+                            className={`w-3 h-3 rounded-full transition-all ${
+                              idx === currentIndex
+                                ? "bg-[#aed136] w-6"
+                                : "bg-gray-300 hover:bg-[#4f646f] w-3"
+                            }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                          />
+                        ))}
+                      </div>
+
+                      <div className="flex gap-4">
+                        <button
+                          onClick={prevSlide}
+                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          aria-label="Previous slide"
+                        >
+                          <FaChevronLeft size={20} />
+                        </button>
+                        <button
+                          onClick={nextSlide}
+                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          aria-label="Next slide"
+                        >
+                          <FaChevronRight size={20} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-
-          <div className="flex justify-between items-center mt-8">
-            <div className="flex gap-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentIndex
-                      ? "bg-[#9cc115] w-6"
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <div className="flex gap-4">
-              <button
-                onClick={prevSlide}
-                className="p-3 rounded-full bg-white text-[#9cc115] shadow-md hover:bg-[#9cc115] hover:text-white transition-all duration-300"
-                aria-label="Previous slide"
-              >
-                <FaChevronLeft size={20} />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="p-3 rounded-full bg-white text-[#9cc115] shadow-md hover:bg-[#9cc115] hover:text-white transition-all duration-300"
-                aria-label="Next slide"
-              >
-                <FaChevronRight size={20} />
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#9cc115]/10 blur-3xl -z-10" />
-      <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#9cc115]/10 blur-3xl -z-10" />
+      <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#aed136] blur-3xl -z-10" />
+      <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#aed136] blur-3xl -z-10" />
     </div>
   );
 };

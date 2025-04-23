@@ -253,6 +253,7 @@ const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
   a,
   li {
     font-family: "Josefin Sans Variable", sans-serif;
+    font-size: 16px;
   }
   @font-face {
     font-family: "Rockwell Nova";
@@ -285,6 +286,13 @@ const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
   }
   h3 {
     font-family: "ITC Avant Garde Gothic LT Medium", serif;
-    font-weight: 700; /* Coincide con el peso definido en @font-face */
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .description-text {
+    font-family: "ITC Avant Garde Gothic LT Medium", serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
   }
 </style>

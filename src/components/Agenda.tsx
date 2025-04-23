@@ -152,7 +152,7 @@ const CitaPDF = ({ cita, lang }: { cita: Cita; lang: string }) => {
       fontSize: 24,
       textAlign: "center",
       marginBottom: 20,
-      color: "#9cc115",
+      color: "#aed136",
       fontWeight: "bold",
     },
     subtitle: {
@@ -416,39 +416,39 @@ export default function Agenda() {
     }
   };
 
-  const handleSubmitForm = (e: FormEvent) => {
+  const handleSubmitForm = async (e: FormEvent) => {
     e.preventDefault();
-
+  
     // Validar que no sea una cita ya ocupada
     if (selectedDate) {
       const fechaSeleccionada = formatDate(selectedDate);
       const horaSeleccionada = formData.hora;
-
+  
       const citaOcupada = citasOcupadas.some((c) => {
-        const citaFecha = c.fecha.split("T")[0]; // Extraer solo la parte de la fecha
+        const citaFecha = c.fecha.split("T")[0];
         return citaFecha === fechaSeleccionada && c.hora === horaSeleccionada;
       });
-
+  
       if (citaOcupada) {
         setError(t.bookedError);
         return;
       }
     }
-
+  
     // Validar teléfono
     if (formData.telefono.length !== 10) {
       setError(t.phoneError);
       return;
     }
-
+  
     // Validar campos requeridos
     if (!selectedDate || !formData.hora) {
       setError(t.requiredError);
       return;
     }
-
+  
     setError("");
-    setShowConfirmModal(true);
+    await handleSubmit(); // Enviar directamente sin mostrar modal de confirmación
   };
 
   const handleSubmit = async () => {
@@ -475,7 +475,6 @@ export default function Agenda() {
 
       // Mostrar modal de éxito
       setSuccessCita({ ...formData });
-      setShowConfirmModal(false);
       setShowSuccessModal(true);
 
       // Reset form
@@ -533,7 +532,6 @@ export default function Agenda() {
         )}
 
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Formulario a la izquierda */}
           <div className="w-full md:w-1/2">
             <form onSubmit={handleSubmitForm} className="space-y-6">
               <div>
@@ -550,7 +548,7 @@ export default function Agenda() {
                   value={formData.nombre_paciente}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#aed136] focus:border-transparent"
                 />
               </div>
 
@@ -568,7 +566,7 @@ export default function Agenda() {
                   value={formData.correo}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#aed136] focus:border-transparent"
                 />
               </div>
 
@@ -588,7 +586,7 @@ export default function Agenda() {
                   required
                   maxLength={10}
                   pattern="[0-9]{10}"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#aed136] focus:border-transparent"
                 />
                 {formData.telefono.length !== 10 &&
                   formData.telefono.length > 0 && (
@@ -610,7 +608,7 @@ export default function Agenda() {
                     value={formData.hora}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9cc115] focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#aed136] focus:border-transparent"
                   >
                     <option value="">{t.selectHour}</option>
                     {availableHours.map((horario) => (
@@ -623,17 +621,17 @@ export default function Agenda() {
               )}
 
               <div className="pt-4">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${
-                    loading
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-[#9cc115] hover:bg-[#8ab013]"
-                  }`}
-                >
-                  {t.agendar}
-                </button>
+              <button
+  type="submit"
+  disabled={loading}
+  className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${
+    loading
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-[#aed136] hover:bg-[#4f646f]"
+  }`}
+>
+  {loading ? (lang === "es" ? "Enviando..." : "Sending...") : t.agendar}
+</button>
               </div>
             </form>
           </div>
@@ -722,13 +720,13 @@ export default function Agenda() {
                           : isDisabled
                           ? "text-gray-400 cursor-not-allowed"
                           : isSelected
-                          ? "bg-[#9cc115] text-white"
+                          ? "bg-[#aed136] text-white"
                           : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
                       {day.getDate()}
                       {isToday(day) && !isSelected && (
-                        <span className="w-1 h-1 rounded-full bg-[#9cc115] mt-1"></span>
+                        <span className="w-1 h-1 rounded-full bg-[#aed136] mt-1"></span>
                       )}
                     </button>
                   );
@@ -768,98 +766,68 @@ export default function Agenda() {
         </div>
       </div>
 
-      {/* Modal de Confirmación */}
-      {showConfirmModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4">{t.confirmTitle}</h3>
-            <p className="mb-6">{t.confirmText}</p>
 
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={() => setShowConfirmModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
-              >
-                {t.cancel}
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="px-4 py-2 bg-[#9cc115] text-white rounded-lg hover:bg-[#8ab013] disabled:bg-gray-400"
-              >
-                {loading
-                  ? lang === "es"
-                    ? "Confirmando..."
-                    : "Confirming..."
-                  : t.confirm}
-              </button>
-            </div>
-          </div>
+{showSuccessModal && successCita && (
+  <div className="fixed inset-0 bg-transparent bg-opacity-90 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4 shadow-xl">
+      <div className="text-center mb-2">
+        <h3 className="text-xl font-bold mb-2">{t.successTitle}</h3>
+        <p className="text-gray-600 mb-4">{t.successText}</p>
+
+        {/* Logo agregado aquí */}
+        <div className="flex justify-center my-4">
+          <img
+            src="/images/logo.webp"
+            alt="Logo DentalReforma"
+            className="w-20 h-20 object-contain"
+          />
         </div>
-      )}
+      </div>
 
-      {/* Modal de Éxito con logo */}
-      {showSuccessModal && successCita && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full">
-            <div className="text-center mb-2">
-              <h3 className="text-xl font-bold mb-2">{t.successTitle}</h3>
-              <p className="text-gray-600 mb-4">{t.successText}</p>
+      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+        <h4 className="font-medium mb-2">{t.details}</h4>
+        <p>
+          {t.nombre}: {successCita.nombre_paciente}
+        </p>
+        <p>
+          {t.correo}: {successCita.correo}
+        </p>
+        <p>
+          {t.telefono}: {successCita.telefono}
+        </p>
+        <p>
+          {lang === "es" ? "Fecha" : "Date"}:{" "}
+          {format(parseISO(successCita.fecha), "PPPP", {
+            locale: lang === "es" ? es : enUS,
+          })}
+        </p>
+        <p>
+          {t.hora}: {successCita.hora.substring(0, 5)}
+        </p>
+      </div>
 
-              {/* Logo agregado aquí */}
-              <div className="flex justify-center my-4">
-                <img
-                  src="/images/logo.webp"
-                  alt="Logo DentalReforma"
-                  className="w-20 h-20 object-contain"
-                />
-              </div>
-            </div>
+      <div className="flex justify-between gap-4">
+        <button
+          onClick={() => {
+            setShowSuccessModal(false);
+            setSuccessCita(null);
+          }}
+          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
+        >
+          {t.close}
+        </button>              
 
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium mb-2">{t.details}</h4>
-              <p>
-                {t.nombre}: {successCita.nombre_paciente}
-              </p>
-              <p>
-                {t.correo}: {successCita.correo}
-              </p>
-              <p>
-                {t.telefono}: {successCita.telefono}
-              </p>
-              <p>
-                {lang === "es" ? "Fecha" : "Date"}:{" "}
-                {format(parseISO(successCita.fecha), "PPPP", {
-                  locale: lang === "es" ? es : enUS,
-                })}
-              </p>
-              <p>
-                {t.hora}: {successCita.hora.substring(0, 5)}
-              </p>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <button
-                onClick={() => {
-                  setShowSuccessModal(false);
-                  setSuccessCita(null);
-                }}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
-              >
-                {t.close}
-              </button>
-
-              <PDFDownloadLink
-                document={<CitaPDF cita={successCita} lang={lang} />}
-                fileName={`appointment_dentalreforma_${successCita.fecha}.pdf`}
-                className="px-4 py-2 bg-reforma text-white rounded-lg hover:bg-reforma-hover flex-1 text-center"
-              >
-                {({ loading }) => (loading ? t.preparing : t.download)}
-              </PDFDownloadLink>
-            </div>
-          </div>
-        </div>
-      )}
+        <PDFDownloadLink
+          document={<CitaPDF cita={successCita} lang={lang} />}
+          fileName={`appointment_dentalreforma_${successCita.fecha}.pdf`}
+          className="px-4 py-2 bg-[#aed136] text-white rounded-lg hover:bg-[#4f646f] flex-1 text-center"
+        >
+          {({ loading }) => (loading ? t.preparing : t.download)}
+        </PDFDownloadLink>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }

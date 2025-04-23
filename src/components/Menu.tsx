@@ -71,7 +71,7 @@ const DockMenu: React.FC = () => {
       {/* Botón principal (Menú flotante) */}
       <button
         onClick={toggleMenu}
-        className="bg-[#9cc115] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-[#7a9a12] transition-transform duration-300 hover:scale-110"
+        className="bg-[#aed136] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-[#7a9a12] transition-transform duration-300 hover:scale-110"
         aria-label="Abrir menú de redes sociales"
       >
         <FaPlus

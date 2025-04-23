@@ -14,55 +14,55 @@ const treatmentsES: Treatment[] = [
     id: 1,
     name: "Endodoncia",
     image: "/images/endo.png",
-    description: "Tratamiento para salvar dientes dañados o infectados."
+    description: "Tratamiento dental especializado que consiste en la remoción completa de la pulpa dental cuando esta se encuentra infectada, inflamada o necrótica. El procedimiento implica la limpieza meticulosa de los conductos radiculares, eliminando todo tejido dañado y bacterias, seguido de la desinfección con soluciones antibacterianas. Finalmente, los conductos se sellan herméticamente con materiales biocompatibles para preservar la estructura dental y prevenir nuevas infecciones. Este tratamiento permite conservar dientes que de otra manera requerirían extracción."
   },
   {
     id: 2,
     name: "Ortodoncia",
     image: "/images/orto.png",
-    description: "Corrección de dientes y mandíbulas posicionadas incorrectamente."
+    description: "Disciplina odontológica que corrige la posición anómala de los dientes y las discrepancias esqueléticas entre los maxilares. Utiliza diversos sistemas de fuerzas controladas aplicadas mediante aparatología fija (brackets) o removible (alineadores transparentes) para lograr la alineación dental ideal. Los tratamientos buscan establecer una oclusión funcional, mejorar la estética facial y prevenir problemas derivados del mal posicionamiento como desgastes dentales, problemas articulares o dificultades en la masticación y fonación."
   },
   {
     id: 3,
-    name: "Implantes",
+    name: "Implantes Dentales",
     image: "/images/implante.png",
-    description: "Reemplazo de dientes perdidos con raíces artificiales."
+    description: "Solución protésica permanente que reemplaza las raíces dentales perdidas mediante la inserción quirúrgica de tornillos de titanio en el hueso maxilar. Estos implantes, fabricados con materiales biocompatibles, se osteointegran con el hueso circundante durante un periodo de cicatrización. Posteriormente, sirven como base sólida para soportar coronas individuales, puentes o incluso prótesis completas. Ofrecen una alternativa estable y duradera a las prótesis removibles, restaurando la función masticatoria y previniendo la pérdida ósea postextracción."
   },
   {
     id: 4,
     name: "Cirugía Oral",
     image: "/images/cirugia.png",
-    description: "Procedimientos quirúrgicos para problemas bucales complejos."
+    description: "Especialidad odontológica que realiza procedimientos quirúrgicos en la cavidad bucal y estructuras adyacentes. Incluye exodoncias complejas (como muelas del juicio impactadas), cirugías preprotésicas (alveoloplastias), colocación de implantes, resección de quistes y tumores benignos, cirugía periodontal regenerativa y procedimientos reconstructivos con injertos óseos. Estos tratamientos requieren conocimientos anatómicos profundos y técnicas quirúrgicas precisas para garantizar resultados seguros y predecibles."
   },
   {
     id: 5,
-    name: "Prótesis",
+    name: "Prótesis Dentales",
     image: "/images/protesis.png",
-    description: "Reemplazo de dientes faltantes con dispositivos personalizados."
+    description: "Dispositivos médicos personalizados que reemplazan parcial o completamente las piezas dentales ausentes. Las prótesis fijas (como coronas y puentes) se cementan sobre dientes pilares o implantes, mientras las removibles (esqueléticos o acrílicos) pueden retirarse para su limpieza. Los diseños modernos incorporan materiales como zirconio, cerómeros y porcelanas de alta resistencia que imitan las propiedades ópticas del esmalte natural. Además de restaurar la función masticatoria, previenen el desplazamiento de dientes remanentes y el colapso de la dimensión vertical."
   },
   {
     id: 6,
-    name: "Coronas",
+    name: "Coronas Dentales",
     image: "/images/corona.png",
-    description: "Cubiertas protectoras para dientes dañados o débiles."
+    description: "Restauraciones protésicas que encapsulan completamente la porción visible del diente, reconstruyendo su anatomía original después de grandes destrucciones por caries, fracturas o tratamientos endodónticos. Fabricadas en materiales como zirconio, disilicato de litio o aleaciones nobles, proporcionan resistencia a las fuerzas masticatorias mientras reproducen las características ópticas del esmalte natural (translucidez, opalescencia). Su colocación requiere un tallado preciso del diente y toma de registros digitales o físicos para lograr un ajuste marginal perfecto y armonía oclusal."
   },
   {
     id: 7,
-    name: "Ortopediatra",
+    name: "Ortopediatría",
     image: "/images/orto.png",
-    description: "Cuidado dental especializado para niños."
+    description: "Rama de la odontología dedicada al cuidado integral de la salud bucal en pacientes pediátricos desde la infancia hasta la adolescencia. Abarca procedimientos preventivos (aplicación de sellantes y flúor), manejo de caries tempranas con técnicas mínimamente invasivas, tratamientos pulpares en dientes primarios, mantenedores de espacio tras pérdidas prematuras y terapia interceptiva de maloclusiones incipientes. Utiliza enfoques psicológicos adaptados a cada etapa del desarrollo para crear experiencias positivas que fomenten hábitos saludables permanentes."
   },
   {
     id: 8,
-    name: "Resinas",
+    name: "Resinas Compuestas",
     image: "/images/resinas.png",
-    description: "Restauraciones estéticas para dientes dañados."
+    description: "Materiales restauradores estéticos compuestos por una matriz resinosa y partículas de relleno inorgánico que permiten reparar dientes afectados por caries, fracturas menores o defectos estéticos. Se aplican en capas siguiendo técnicas de estratificación que reproducen las variaciones cromáticas y translucidez del esmalte natural. Su adhesión química y micromecánica al tejido dental conserva máxima estructura sana, eliminando la necesidad de tallados extensos. Ofrecen durabilidad clínica combinada con excelentes resultados estéticos en restauraciones anteriores y posteriores."
   },
   {
     id: 9,
     name: "Periodoncia",
     image: "/images/perio.png",
-    description: "Tratamiento de encías y estructuras de soporte dental."
+    description: "Especialidad que trata las enfermedades que afectan los tejidos de soporte dental (encía, ligamento periodontal y hueso alveolar). Los protocolos terapéuticos incluyen raspado y alisado radicular para eliminar cálculo y biofilm patogénico, terapia antimicrobiana localizada y en casos avanzados, cirugías resectivas o regenerativas. El control periódico y la instrucción en técnicas de higiene personalizada son esenciales para manejar estas condiciones inflamatorias crónicas de origen bacteriano, preservando la dentición natural y evitando sus consecuencias sistémicas."
   }
 ];
 
@@ -71,55 +71,55 @@ const treatmentsEN: Treatment[] = [
     id: 1,
     name: "Endodontics",
     image: "/images/endo.png",
-    description: "Treatment to save damaged or infected teeth."
+    description: "Specialized dental treatment involving the complete removal of dental pulp when it becomes infected, inflamed or necrotic. The procedure requires meticulous cleaning of root canals to eliminate damaged tissue and bacteria, followed by disinfection with antibacterial solutions. Canals are then hermetically sealed with biocompatible materials to preserve tooth structure and prevent reinfection. This therapy saves teeth that would otherwise require extraction, maintaining natural dentition and preventing bone loss."
   },
   {
     id: 2,
     name: "Orthodontics",
     image: "/images/orto.png",
-    description: "Correction of improperly positioned teeth and jaws."
+    description: "Dental specialty that corrects abnormal tooth positioning and skeletal discrepancies between jaws. It applies controlled forces through fixed appliances (braces) or removable systems (clear aligners) to achieve ideal dental alignment. Treatments aim to establish functional occlusion, improve facial aesthetics, and prevent complications from malpositioning like dental wear, joint problems, or difficulties in chewing and speech. Modern techniques include invisible lingual braces and digitally planned aligner therapy for discreet correction."
   },
   {
     id: 3,
-    name: "Implants",
+    name: "Dental Implants",
     image: "/images/implante.png",
-    description: "Replacement of missing teeth with artificial roots."
+    description: "Permanent prosthetic solution replacing lost tooth roots through surgical placement of titanium screws in the jawbone. These biocompatible implants osseointegrate with surrounding bone during healing, then serve as solid foundations for single crowns, bridges or full dentures. They offer stable, long-lasting alternatives to removable prosthetics, restoring chewing function while preventing post-extraction bone resorption. Advanced protocols allow immediate loading in select cases, and zygomatic implants for patients with severe bone loss."
   },
   {
     id: 4,
     name: "Oral Surgery",
     image: "/images/cirugia.png",
-    description: "Surgical procedures for complex oral problems."
+    description: "Dental specialty performing surgical procedures in the oral cavity and adjacent structures. Includes complex extractions (impacted wisdom teeth), pre-prosthetic surgeries (alveoloplasty), implant placement, resection of cysts and benign tumors, regenerative periodontal surgery, and reconstructive procedures with bone grafts. These treatments demand profound anatomical knowledge and precise surgical techniques to ensure safe outcomes. Modern approaches utilize piezoelectric instruments and growth factors to enhance healing."
   },
   {
     id: 5,
-    name: "Prosthetics",
+    name: "Dental Prosthetics",
     image: "/images/protesis.png",
-    description: "Replacement of missing teeth with custom devices."
+    description: "Custom medical devices replacing partial or complete dental arches. Fixed prosthetics (crowns/bridges) are cemented onto abutment teeth or implants, while removable options (partial/full dentures) can be taken out for cleaning. Contemporary designs incorporate zirconia, ceromers and high-strength porcelains mimicking natural enamel optics. Beyond restoring mastication, they prevent remaining teeth from shifting and vertical dimension collapse. Digital workflows now enable same-day ceramic restorations in many cases."
   },
   {
     id: 6,
-    name: "Crowns",
+    name: "Dental Crowns",
     image: "/images/corona.png",
-    description: "Protective covers for damaged or weak teeth."
+    description: "Prosthetic restorations fully encapsulating the visible tooth portion, rebuilding original anatomy after extensive decay, fractures or endodontic treatment. Fabricated from zirconia, lithium disilicate or noble alloys, they withstand chewing forces while replicating natural enamel's optical traits (translucency, opalescence). Placement requires precise tooth preparation and digital/physical impressions for perfect marginal fit and occlusal harmony. Modern monolithic designs combine strength and aesthetics, eliminating traditional porcelain-fused-to-metal limitations."
   },
   {
     id: 7,
-    name: "Pediatric",
+    name: "Pediatric Dentistry",
     image: "/images/orto.png",
-    description: "Specialized dental care for children."
+    description: "Dental discipline focused on comprehensive oral health for pediatric patients from infancy through adolescence. Encompasses preventive measures (sealants/fluoride), minimally invasive caries management, pulp therapies in primary teeth, space maintainers after premature loss, and interceptive treatment for developing malocclusions. Uses psychological approaches tailored to each developmental stage, creating positive experiences that establish lifelong healthy habits. Specialized behavior guidance techniques help anxious children receive care comfortably."
   },
   {
     id: 8,
-    name: "Resins",
+    name: "Composite Resins",
     image: "/images/resinas.png",
-    description: "Aesthetic restorations for damaged teeth."
+    description: "Aesthetic restorative materials combining resin matrices with inorganic filler particles to repair teeth affected by decay, minor fractures or cosmetic defects. Applied in layers using stratification techniques that mimic natural enamel's chromatic variations and light transmission. Their chemical/micro-mechanical bonding to tooth structure preserves maximum healthy tissue, avoiding extensive preparations. Contemporary nano-hybrid and bulk-fill composites offer clinical durability paired with exceptional aesthetics for anterior and posterior restorations."
   },
   {
     id: 9,
     name: "Periodontics",
     image: "/images/perio.png",
-    description: "Treatment of gums and dental support structures."
+    description: "Specialty treating diseases affecting tooth-supporting tissues (gums, periodontal ligament and alveolar bone). Therapeutic protocols include scaling/root planing to remove calculus and pathogenic biofilm, localized antimicrobial therapy, and for advanced cases, resective or regenerative surgeries. Periodic maintenance and personalized hygiene instruction are essential to manage these chronic inflammatory conditions of bacterial origin, preserving natural dentition while preventing systemic implications like cardiovascular risks or diabetes complications."
   }
 ];
 
@@ -185,7 +185,7 @@ const Services: React.FC = () => {
                   key={treatment.id}
                   className={`flex items-center gap-4 p-4 mb-4 rounded-lg cursor-pointer transition-all duration-300 ${
                     selectedTreatment.id === treatment.id
-                      ? "bg-[#9cc115] border-l-4 border-white shadow-lg text-white"
+                      ? "bg-[#aed136] border-l-4 border-white shadow-lg text-white"
                       : "bg-white hover:shadow-md"
                   }`}
                   onClick={() => setSelectedTreatment(treatment)}
@@ -210,14 +210,14 @@ const Services: React.FC = () => {
                 <h3 className="text-2xl font-bold text-gray-800">
                   {selectedTreatment.name}
                 </h3>
-                <div className="w-16 h-1 bg-[#9cc115] mx-auto mt-2"></div>
+                <div className="w-16 h-1 bg-[#aed136] mx-auto mt-2"></div>
               </div>
               <p className="text-gray-700 text-lg leading-relaxed mb-6 text-center">
                 {selectedTreatment.description}
               </p>
               <button 
                 onClick={scrollToReserva}
-                className="block mx-auto bg-[#9cc115] text-white px-6 py-3 rounded-full font-semibold shadow-md hover:bg-[#7a9a12] transition-all"
+                className="block mx-auto bg-[#aed136] text-white px-6 py-3 rounded-full font-semibold shadow-md hover:bg-[#4f646f] transition-all"
               >
                 {buttonText}
               </button>
@@ -253,13 +253,13 @@ const Services: React.FC = () => {
         <h3 className="text-2xl font-bold text-gray-800">
           {selectedTreatment.name}
         </h3>
-        <div className="w-16 h-1 bg-[#9cc115] mx-auto mt-2 mb-4"></div>
+        <div className="w-16 h-1 bg-[#aed136] mx-auto mt-2 mb-4"></div>
         <p className="text-gray-700 text-lg leading-relaxed mb-4">
           {selectedTreatment.description}
         </p>
         <button 
           onClick={scrollToReserva}
-          className="mx-auto bg-[#9cc115] text-white px-4 py-2 rounded-full font-semibold shadow-md hover:bg-[#7a9a12] transition-all flex items-center justify-center gap-2 text-sm"
+          className="mx-auto bg-[#aed136] text-white px-4 py-2 rounded-full font-semibold shadow-md hover:bg-[#4f646f] transition-all flex items-center justify-center gap-2 text-sm"
         >
           <FaCalendarAlt className="text-xs" />
           {buttonText}

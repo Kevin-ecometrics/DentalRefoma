@@ -90,7 +90,7 @@ const Header: React.FC = () => {
                 href={`#${link.id}`}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   activeLink === link.id
-                    ? "bg-[#9cc115] text-white"
+                    ? "bg-[#aed136] text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -105,7 +105,7 @@ const Header: React.FC = () => {
         <div className="hidden md:flex items-center">
           <motion.button
             onClick={toggleLanguage}
-            className="flex items-center text-gray-700 hover:text-[#9cc115] transition-colors"
+            className="flex items-center text-gray-700 hover:text-[#aed136] transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -171,7 +171,7 @@ const Header: React.FC = () => {
                       }}
                       className={`block px-4 py-3 text-base font-medium rounded-lg mb-1 ${
                         activeLink === link.id
-                          ? "bg-[#9cc115] text-white"
+                          ? "bg-[#aed136] text-white"
                           : "text-gray-700 hover:bg-gray-100"
                       }`}
                       whileHover={{ x: 5 }}
