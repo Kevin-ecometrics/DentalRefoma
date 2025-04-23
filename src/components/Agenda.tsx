@@ -756,6 +756,7 @@ export default function Agenda() {
                   </p>
                 </div>
                 <img
+                title="Logo DentalReforma"
                   src="/images/logo.webp"
                   alt="Logo DentalReforma"
                   className="w-12 h-12 object-contain"
@@ -777,6 +778,7 @@ export default function Agenda() {
         {/* Logo agregado aquí */}
         <div className="flex justify-center my-4">
           <img
+          title="Logo DentalReforma"
             src="/images/logo.webp"
             alt="Logo DentalReforma"
             className="w-20 h-20 object-contain"

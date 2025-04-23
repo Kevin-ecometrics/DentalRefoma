@@ -33,6 +33,7 @@ const DockMenu: React.FC = () => {
         }`}
       >
         <a
+          title="Facebook"
           href="https://www.facebook.com/DentistaReforma/"
           target="_blank"
           rel="noopener noreferrer"
@@ -42,6 +43,7 @@ const DockMenu: React.FC = () => {
           <FaFacebook size={20} />
         </a>
         <a
+          title="Instagram"
           href="https://www.instagram.com/dentistareforma/"
           target="_blank"
           rel="noopener noreferrer"
@@ -51,6 +53,7 @@ const DockMenu: React.FC = () => {
           <FaInstagram size={20} />
         </a>
         <a
+          title="WhatsApp"
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -60,6 +63,7 @@ const DockMenu: React.FC = () => {
           <FaWhatsapp size={20} />
         </a>
         <a
+          title="Correo electrónico"
           href={`mailto:${emailAddress}`}
           className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-transform duration-300 hover:scale-110"
           aria-label="Correo electrónico"

@@ -513,6 +513,7 @@ const nextDoctorId = allDoctors[nextIndex];
 
           <div class="doctor-navigation">
             <a
+              title="Previous doctor"
               href={`/en/doctores/${prevDoctorId}`}
               class="nav-button"
               aria-label="Previous doctor"
@@ -534,9 +535,12 @@ const nextDoctorId = allDoctors[nextIndex];
               Previous
             </a>
 
-            <a href="/en/#doctores" class="btn-back"> Back to Team </a>
+            <a title="doctor" href="/en/#doctores" class="btn-back">
+              Back to Team
+            </a>
 
             <a
+              title="Next doctor"
               href={`/en/doctores/${nextDoctorId}`}
               class="nav-button"
               aria-label="Next doctor"

@@ -6,6 +6,7 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
   id="ubicacion"
   class="location-section py-12 lg:py-16 bg-no-repeat bg-cover bg-center"
   style="background-image:url('/images/fondomapa.webp');"
+  aria-label={isEnglish ? "Location" : "Ubicación"}
 >
   <div class="container mx-auto px-4 max-w-6xl">
     <div class="text-center mb-12">
@@ -38,6 +39,12 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
                 </svg>
               </div>
               <a
+                title={isEnglish
+                  ? "Clinic location"
+                  : "Ubicación de la clínica"}
+                aria-label={isEnglish
+                  ? "Clinic location"
+                  : "Ubicación de la clínica"}
                 href="https://www.google.com/maps/place/Av.+Paseo+Reforma+5304,+Reforma,+22186+Tijuana,+B.C./@32.4666711,-116.9577486,17z/data=!3m1!4b1!4m6!3m5!1s0x80d939b4f1c51c2d:0xd18d3ee346749f2c!8m2!3d32.4666711!4d-116.9551737!16s%2Fg%2F11c1z3c9_f?entry=ttu"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -83,6 +90,9 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
                 </svg>
               </div>
               <a
+                title={isEnglish ? "Phone" : "Teléfono"}
+                aria-label={isEnglish ? "Phone" : "Teléfono"}
+                type="tel"
                 href="tel:+526645358869"
                 class="text-gray-700 hover:text-[#9cc115] transition-colors"
               >
@@ -103,6 +113,9 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
                 </svg>
               </div>
               <a
+                title={isEnglish ? "Email" : "Correo electrónico"}
+                aria-label={isEnglish ? "Email" : "Correo electrónico"}
+                type="email"
                 href="mailto:dentistareforma@gmail.com"
                 class="text-gray-700 hover:text-[#9cc115] transition-colors"
               >

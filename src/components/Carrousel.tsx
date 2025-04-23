@@ -172,6 +172,7 @@ const DentalCarousel: React.FC = () => {
               >
                 <div className="w-full h-48 relative">
                   <img
+                  title={isEnglish ? "Booking" : "Boton de reserva"}
                     src={slide.img}
                     alt={slide.alt}
                     className="w-full h-full object-cover rounded-t-xl"
@@ -193,7 +194,9 @@ const DentalCarousel: React.FC = () => {
 
                   <div className="mt-auto space-y-4">
                     <a
+                      title={isEnglish ? "Booking" : "Boton de reserva"}
                       href="#reserva"
+                      aria-label={isEnglish ? "Booking" : "Boton de reserva"}
                       className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#4f646f] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg w-full"
                     >
                       <FaCalendarAlt />
@@ -254,6 +257,7 @@ const DentalCarousel: React.FC = () => {
               >
                 <div className="w-1/2 h-full relative">
                   <img
+                  title={isEnglish ? "Booking" : "Boton de reserva"}
                     src={slide.img}
                     alt={slide.alt}
                     className="w-full h-full object-cover rounded-l-2xl"
@@ -274,9 +278,10 @@ const DentalCarousel: React.FC = () => {
                   
                   <div className="space-y-8">
                     <a
+                    title={isEnglish ? "Booking" : "Boton de reserva"}
                       href="#reserva"
                       className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#8ab013] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl w-64"
-                    >
+                      aria-label={isEnglish ? "Booking" : "Boton de reserva"}>
                       <FaCalendarAlt />
                       {slide.cta}
                     </a>

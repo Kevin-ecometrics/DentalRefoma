@@ -13,22 +13,22 @@ const Header: React.FC = () => {
 
   const links = {
     es: [
-      { id: "home", label: "Inicio" },
-      { id: "mision", label: "Misión" },
-      { id: "instalaciones", label: "Instalaciones" },
-      { id: "tratamientos", label: "Tratamientos" },
-      { id: "doctores", label: "Doctores" },
-      { id: "reserva", label: "Reserva" },
-      { id: "ubicacion", label: "Ubicación" },
+      { id: "home", label: "Inicio", title: "Inicio" },
+      { id: "mision", label: "Misión", title: "Misión" },
+      { id: "instalaciones", label: "Instalaciones", title: "Instalaciones" },
+      { id: "tratamientos", label: "Tratamientos", title: "Tratamientos" },
+      { id: "doctores", label: "Doctores", title: "Doctores" },
+      { id: "reserva", label: "Reserva", title: "Reserva" },
+      { id: "ubicacion", label: "Ubicación", title: "Ubicación" },
     ],
     en: [
-      { id: "home", label: "Home" },
-      { id: "mision", label: "Mission" },
-      { id: "instalaciones", label: "Facilities" },
-      { id: "tratamientos", label: "Treatments" },
-      { id: "doctores", label: "Doctors" },
-      { id: "reserva", label: "Booking" },
-      { id: "ubicacion", label: "Location" },
+      { id: "home", label: "Home", title: "Home" },
+      { id: "mision", label: "Mission", title: "Mission" },
+      { id: "instalaciones", label: "Facilities", title: "Facilities" },
+      { id: "tratamientos", label: "Treatments", title: "Treatments" },
+      { id: "doctores", label: "Doctors", title: "Doctors" },
+      { id: "reserva", label: "Booking", title: "Booking" },
+      { id: "ubicacion", label: "Location", title: "Location" },
     ],
   };
 
@@ -74,18 +74,22 @@ const Header: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <motion.a
+          title="logo"
+          aria-label="logo"
           href="#home"
           className="flex items-center"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img src="/images/logo.webp" alt="Logo" className="h-10 w-auto" />
+          <img title="logo" src="/images/logo.webp" alt="Logo" className="h-10 w-auto" />
         </motion.a>
 
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
           <div className="flex items-center space-x-1">
             {links[currentLanguage].map((link) => (
               <motion.a
+              title="link.title"
+              aria-label="link.title"
                 key={link.id}
                 href={`#${link.id}`}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
@@ -135,6 +139,8 @@ const Header: React.FC = () => {
         {isMenuOpen && (
           <>
             <motion.div
+              title="header"
+              aria-label="header"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
@@ -143,6 +149,8 @@ const Header: React.FC = () => {
             />
 
             <motion.div
+            title="header"
+              aria-label="header"
               initial={{ x: "100%" }}
               animate={{ x: "3%" }}
               exit={{ x: "100%" }}
@@ -163,6 +171,8 @@ const Header: React.FC = () => {
                 <div className="flex-1 overflow-y-auto px-4 py-2">
                   {links[currentLanguage].map((link) => (
                     <motion.a
+                      title={link.title}
+                      aria-label={link.title}
                       key={link.id}
                       href={`#${link.id}`}
                       onClick={() => {
@@ -183,12 +193,15 @@ const Header: React.FC = () => {
 
                 <div className="px-4 py-3 border-t border-gray-200">
                   <motion.button
+                                title="link.title"
+              aria-label="link.title"
                     onClick={toggleLanguage}
                     className="w-full px-4 py-3 flex items-center justify-center bg-gray-100 text-gray-700 rounded-lg font-medium"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <FaGlobeAmericas className="mr-2" />
+                    
                     {currentLanguage === "es"
                       ? "Cambiar a inglés"
                       : "Switch to Spanish"}

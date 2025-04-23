@@ -275,13 +275,16 @@ const doctores = isEnglish ? doctores_en : doctores_es;
     {
       doctores.map((doctor) => (
         <a
+        title={isEnglish ? "Show profile" : "Ver perfil completo"}
           href={
             isEnglish ? `/en/doctores/${doctor.id}` : `/doctores/${doctor.id}`
           }
           class="doctor-card"
+          aria-label={isEnglish ? "Show profile" : "Ver perfil completo"}
         >
           <div class="doctor-imagen-container">
             <img
+            title="Doctor"
               src={doctor.imagen}
               alt={doctor.nombre}
               class="doctor-imagen"

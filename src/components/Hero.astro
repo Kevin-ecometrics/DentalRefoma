@@ -20,6 +20,7 @@ const isHome = URL === "/";
     class="hero-card max-w-xl mx-auto px-4 py-8 bg-white/80 backdrop-blur-md shadow-lg rounded-lg text-center relative z-10"
   >
     <img
+      title="Logo Dentista Reforma"
       src="/images/logonuevo.png"
       alt="Logo Dentista Reforma"
       class="w-full mb-6"
@@ -44,7 +45,9 @@ const isHome = URL === "/";
     </h1>
 
     <a
+      title={isHome ? "Agendar Cita" : "Book Appointment"}
       href="#reserva"
+      aria-label={isHome ? "Agendar Cita" : "Book Appointment"}
       class="inline-block mt-4 px-6 py-3 bg-reforma text-white font-semibold rounded-lg hover:bg-reforma-dark transition"
     >
       {isHome ? "Agendar Cita" : "Book Appointment"}

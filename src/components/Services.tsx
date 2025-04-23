@@ -191,6 +191,7 @@ const Services: React.FC = () => {
                   onClick={() => setSelectedTreatment(treatment)}
                 >
                   <img
+                  title={isEnglish ? "Tratamientos" : "reatment"}
                     src={treatment.image}
                     alt={treatment.name}
                     className="w-12 h-12 object-contain"
@@ -203,6 +204,7 @@ const Services: React.FC = () => {
             <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-md p-6">
               <div className="text-center mb-6">
                 <img
+                title={isEnglish ? "Tratamientos" : "reatment"}
                   src={selectedTreatment.image}
                   alt={selectedTreatment.name}
                   className="w-20 h-20 mx-auto mb-4"
@@ -228,6 +230,8 @@ const Services: React.FC = () => {
   <div className="w-full bg-white rounded-lg shadow-md p-6 mb-4">
     <AnimatePresence mode="wait" custom={direction}>
       <motion.div
+      title="header"
+              aria-label="header"
         key={selectedTreatment.id}
         custom={direction}
         initial={{ 
@@ -246,6 +250,7 @@ const Services: React.FC = () => {
         className="text-center"
       >
         <img
+        title={isEnglish ? "Tratamientos" : "reatment"}
           src={selectedTreatment.image}
           alt={selectedTreatment.name}
           className="w-24 h-24 mx-auto mb-4"
@@ -274,6 +279,7 @@ const Services: React.FC = () => {
       className="flex items-center justify-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm hover:shadow-md transition-all"
     >
       <img 
+      title={isEnglish ? "Tratamientos" : "reatment"}
         src={currentTreatments[(currentTreatments.findIndex(t => t.id === selectedTreatment.id) - 1 + currentTreatments.length) % currentTreatments.length].image}
         alt="Previous"
         className="w-6 h-6 object-contain"
@@ -291,6 +297,7 @@ const Services: React.FC = () => {
         {currentTreatments[(currentTreatments.findIndex(t => t.id === selectedTreatment.id) + 1) % currentTreatments.length].name}
       </span>
       <img 
+      title={isEnglish ? "Tratamientos" : "reatment"}
         src={currentTreatments[(currentTreatments.findIndex(t => t.id === selectedTreatment.id) + 1) % currentTreatments.length].image}
         alt="Next"
         className="w-6 h-6 object-contain"
