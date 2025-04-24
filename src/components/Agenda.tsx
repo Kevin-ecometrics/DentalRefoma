@@ -28,7 +28,7 @@ interface CitaOcupada {
 // Textos en español e inglés
 const translations = {
   es: {
-    title: "Agenda tu cita en DentalReforma",
+    title: "Agenda tu cita en Dental Reforma",
     nombre: "Nombre completo",
     correo: "Correo electrónico",
     telefono: "Teléfono",
@@ -78,7 +78,7 @@ const translations = {
     pdfTime: "Hora",
   },
   en: {
-    title: "Book your appointment at DentalReforma",
+    title: "Book your appointment at Dental Reforma",
     nombre: "Full name",
     correo: "Email",
     telefono: "Phone",
@@ -167,7 +167,7 @@ const CitaPDF = ({ cita, lang }: { cita: Cita; lang: string }) => {
   });
 
   return (
-    <Document >
+    <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <View style={styles.logoContainer}>
@@ -213,25 +213,6 @@ export default function Agenda() {
   );
   const t = translations[lang];
 
-  const [formData, setFormData] = useState<Cita>({
-    nombre_paciente: "",
-    correo: "",
-    telefono: "",
-    fecha: "",
-    hora: "",
-  });
-
-  const [citasOcupadas, setCitasOcupadas] = useState<CitaOcupada[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [initialLoad, setInitialLoad] = useState(true);
-  const [showAllDays, setShowAllDays] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [successCita, setSuccessCita] = useState<Cita | null>(null);
-
   // Función para formatear fecha como YYYY-MM-DD
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
@@ -239,6 +220,35 @@ export default function Agenda() {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+
+  // Obtener la hora actual redondeada a la siguiente hora en punto
+  const getDefaultHour = () => {
+    const now = new Date();
+    const currentHour = now.getHours();
+    // Si son las 17:30, la próxima hora disponible sería 18:00
+    const nextHour = currentHour + 1;
+    // Asegurarnos de que no pasemos de las 18:00 (última hora disponible)
+    return `${Math.min(nextHour, 18).toString().padStart(2, "0")}:00:00`;
+  };
+
+  const [formData, setFormData] = useState<Cita>({
+    nombre_paciente: "",
+    correo: "",
+    telefono: "",
+    fecha: formatDate(new Date()), // Fecha actual por defecto
+    hora: getDefaultHour(), // Hora próxima por defecto
+  });
+
+  const [citasOcupadas, setCitasOcupadas] = useState<CitaOcupada[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const [showAllDays, setShowAllDays] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date()); // Fecha actual por defecto
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successCita, setSuccessCita] = useState<Cita | null>(null);
 
   // Función para obtener nombre del mes
   const getMonthName = (date: Date) => {
@@ -315,9 +325,11 @@ export default function Agenda() {
 
     const now = new Date();
     const currentHour = now.getHours();
-    const isToday = date.getDate() === now.getDate() && 
-                   date.getMonth() === now.getMonth() && 
-                   date.getFullYear() === now.getFullYear();
+    const currentMinutes = now.getMinutes();
+    const isToday =
+      date.getDate() === now.getDate() &&
+      date.getMonth() === now.getMonth() &&
+      date.getFullYear() === now.getFullYear();
 
     const formattedDate = formatDate(date);
 
@@ -330,19 +342,23 @@ export default function Agenda() {
       })
       .map((cita) => cita.hora.substring(0, 5)); // Solo comparamos HH:MM
 
-      for (let hour = startHour; hour < endHour; hour++) {
-        const timeValue = `${hour.toString().padStart(2, '0')}:00`;
-        const isOccupied = horasOcupadasParaFecha.includes(timeValue);
-        const isPastHour = isToday && hour <= currentHour;
+    for (let hour = startHour; hour < endHour; hour++) {
+      const timeValue = `${hour.toString().padStart(2, "0")}:00:00`;
+      const isOccupied = horasOcupadasParaFecha.includes(
+        `${hour.toString().padStart(2, "0")}:00`
+      );
+      const isPastHour =
+        isToday &&
+        (hour < currentHour || (hour === currentHour && currentMinutes >= 0)); // Si es la hora actual, ya no está disponible
 
-        if (!isOccupied && !isPastHour) {
-          hours.push({
-            value: `${timeValue}:00`,
-            label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
-            hour: hour,
-          });
-        }
+      if (!isOccupied && !isPastHour) {
+        hours.push({
+          value: timeValue,
+          label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
+          hour: hour,
+        });
       }
+    }
 
     return hours;
   };
@@ -350,7 +366,7 @@ export default function Agenda() {
   // Manejar selección de fecha
   const handleDateSelection = (date: Date) => {
     // Solo permitir seleccionar fechas futuras o hoy, no domingos y no completamente ocupadas
-    if (isPastDate(date) && !isToday(date)) return;
+    if (isPastDate(date)) return;
     if (isSunday(date)) return;
     if (isDateFull(date)) return;
 
@@ -360,6 +376,15 @@ export default function Agenda() {
       fecha: formatDate(date),
       hora: "",
     }));
+
+    // Seleccionar automáticamente la primera hora disponible
+    const availableHours = generateAvailableHours(date);
+    if (availableHours.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        hora: availableHours[0].value,
+      }));
+    }
   };
 
   // Cambiar mes
@@ -394,13 +419,32 @@ export default function Agenda() {
   useEffect(() => {
     const fetchData = async () => {
       await fetchCitasOcupadas();
+
+      // Después de cargar las citas ocupadas, verificar si la hora por defecto está disponible
+      if (selectedDate) {
+        const availableHours = generateAvailableHours(selectedDate);
+        const defaultHour = getDefaultHour();
+
+        // Verificar si la hora por defecto está disponible
+        const isDefaultHourAvailable = availableHours.some(
+          (h) => h.value === defaultHour
+        );
+
+        // Si no está disponible, seleccionar la primera hora disponible
+        if (!isDefaultHourAvailable && availableHours.length > 0) {
+          setFormData((prev) => ({
+            ...prev,
+            hora: availableHours[0].value,
+          }));
+        }
+      }
     };
 
     fetchData();
 
     const interval = setInterval(fetchData, 60000);
     return () => clearInterval(interval);
-  }, [lang]);
+  }, [lang, selectedDate]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -425,37 +469,37 @@ export default function Agenda() {
 
   const handleSubmitForm = async (e: FormEvent) => {
     e.preventDefault();
-  
+
     // Validar que no sea una cita ya ocupada
     if (selectedDate) {
       const fechaSeleccionada = formatDate(selectedDate);
       const horaSeleccionada = formData.hora;
-  
+
       const citaOcupada = citasOcupadas.some((c) => {
         const citaFecha = c.fecha.split("T")[0];
         return citaFecha === fechaSeleccionada && c.hora === horaSeleccionada;
       });
-  
+
       if (citaOcupada) {
         setError(t.bookedError);
         return;
       }
     }
-  
+
     // Validar teléfono
     if (formData.telefono.length !== 10) {
       setError(t.phoneError);
       return;
     }
-  
+
     // Validar campos requeridos
     if (!selectedDate || !formData.hora) {
       setError(t.requiredError);
       return;
     }
-  
+
     setError("");
-    await handleSubmit(); // Enviar directamente sin mostrar modal de confirmación
+    await handleSubmit();
   };
 
   const handleSubmit = async () => {
@@ -489,10 +533,10 @@ export default function Agenda() {
         nombre_paciente: "",
         correo: "",
         telefono: "",
-        fecha: "",
-        hora: "",
+        fecha: formatDate(new Date()),
+        hora: getDefaultHour(),
       });
-      setSelectedDate(null);
+      setSelectedDate(new Date());
 
       // Recargar citas ocupadas para asegurar consistencia
       fetchCitasOcupadas();
@@ -512,7 +556,10 @@ export default function Agenda() {
     : [];
 
   return (
-    <div id="reserva" className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div
+      id="reserva"
+      className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden"
+    >
       <div className="p-6 pb-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           {t.title}
@@ -617,7 +664,9 @@ export default function Agenda() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#aed136] focus:border-transparent"
                   >
-                    <option value="">{t.selectHour}</option>
+                    <option value="" disabled>
+                      {t.selectHour}
+                    </option>
                     {availableHours.map((horario) => (
                       <option key={horario.value} value={horario.value}>
                         {horario.label}
@@ -628,17 +677,21 @@ export default function Agenda() {
               )}
 
               <div className="pt-4">
-              <button
-  type="submit"
-  disabled={loading}
-  className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${
-    loading
-      ? "bg-gray-400 cursor-not-allowed"
-      : "bg-[#aed136] hover:bg-[#4f646f]"
-  }`}
->
-  {loading ? (lang === "es" ? "Enviando..." : "Sending...") : t.agendar}
-</button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-[#aed136] hover:bg-[#4f646f] cursor-pointer"
+                  }`}
+                >
+                  {loading
+                    ? lang === "es"
+                      ? "Enviando..."
+                      : "Sending..."
+                    : t.agendar}
+                </button>
               </div>
             </form>
           </div>
@@ -721,9 +774,9 @@ export default function Agenda() {
                       type="button"
                       onClick={() => handleDateSelection(day)}
                       disabled={isDisabled}
-                      className={`p-2 rounded-full text-sm font-medium flex flex-col items-center ${
+                      className={`p-2 rounded-full text-sm font-medium  flex flex-col items-center ${
                         !isCurrentMonth
-                          ? "text-gray-300"
+                          ? "text-gray-300 cursor-pointer"
                           : isDisabled
                           ? "text-gray-400 cursor-not-allowed"
                           : isSelected
@@ -763,7 +816,7 @@ export default function Agenda() {
                   </p>
                 </div>
                 <img
-                title="Logo DentalReforma"
+                  title="Logo DentalReforma"
                   src="/images/logo.webp"
                   alt="Logo DentalReforma"
                   className="w-12 h-12 object-contain"
@@ -774,69 +827,68 @@ export default function Agenda() {
         </div>
       </div>
 
+      {showSuccessModal && successCita && (
+        <div className="fixed inset-0 bg-transparent bg-opacity-90 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4 shadow-xl">
+            <div className="text-center mb-2">
+              <h3 className="text-xl font-bold mb-2">{t.successTitle}</h3>
+              <p className="text-gray-600 mb-4">{t.successText}</p>
 
-{showSuccessModal && successCita && (
-  <div className="fixed inset-0 bg-transparent bg-opacity-90 backdrop-blur-sm flex items-center justify-center z-50">
-    <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4 shadow-xl">
-      <div className="text-center mb-2">
-        <h3 className="text-xl font-bold mb-2">{t.successTitle}</h3>
-        <p className="text-gray-600 mb-4">{t.successText}</p>
+              {/* Logo agregado aquí */}
+              <div className="flex justify-center my-4">
+                <img
+                  title="Logo DentalReforma"
+                  src="/images/logo.webp"
+                  alt="Logo DentalReforma"
+                  className="w-20 h-20 object-contain"
+                />
+              </div>
+            </div>
 
-        {/* Logo agregado aquí */}
-        <div className="flex justify-center my-4">
-          <img
-          title="Logo DentalReforma"
-            src="/images/logo.webp"
-            alt="Logo DentalReforma"
-            className="w-20 h-20 object-contain"
-          />
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+              <h4 className="font-medium mb-2">{t.details}</h4>
+              <p>
+                {t.nombre}: {successCita.nombre_paciente}
+              </p>
+              <p>
+                {t.correo}: {successCita.correo}
+              </p>
+              <p>
+                {t.telefono}: {successCita.telefono}
+              </p>
+              <p>
+                {lang === "es" ? "Fecha" : "Date"}:{" "}
+                {format(parseISO(successCita.fecha), "PPPP", {
+                  locale: lang === "es" ? es : enUS,
+                })}
+              </p>
+              <p>
+                {t.hora}: {successCita.hora.substring(0, 5)}
+              </p>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <button
+                onClick={() => {
+                  setShowSuccessModal(false);
+                  setSuccessCita(null);
+                }}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
+              >
+                {t.close}
+              </button>
+
+              <PDFDownloadLink
+                document={<CitaPDF cita={successCita} lang={lang} />}
+                fileName={`appointment_dentalreforma_${successCita.fecha}.pdf`}
+                className="px-4 py-2 bg-[#aed136] text-white rounded-lg hover:bg-[#4f646f] flex-1 text-center"
+              >
+                {({ loading }) => (loading ? t.preparing : t.download)}
+              </PDFDownloadLink>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-        <h4 className="font-medium mb-2">{t.details}</h4>
-        <p>
-          {t.nombre}: {successCita.nombre_paciente}
-        </p>
-        <p>
-          {t.correo}: {successCita.correo}
-        </p>
-        <p>
-          {t.telefono}: {successCita.telefono}
-        </p>
-        <p>
-          {lang === "es" ? "Fecha" : "Date"}:{" "}
-          {format(parseISO(successCita.fecha), "PPPP", {
-            locale: lang === "es" ? es : enUS,
-          })}
-        </p>
-        <p>
-          {t.hora}: {successCita.hora.substring(0, 5)}
-        </p>
-      </div>
-
-      <div className="flex justify-between gap-4">
-        <button
-          onClick={() => {
-            setShowSuccessModal(false);
-            setSuccessCita(null);
-          }}
-          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex-1"
-        >
-          {t.close}
-        </button>              
-
-        <PDFDownloadLink
-          document={<CitaPDF cita={successCita} lang={lang} />}
-          fileName={`appointment_dentalreforma_${successCita.fecha}.pdf`}
-          className="px-4 py-2 bg-[#aed136] text-white rounded-lg hover:bg-[#4f646f] flex-1 text-center"
-        >
-          {({ loading }) => (loading ? t.preparing : t.download)}
-        </PDFDownloadLink>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 }
