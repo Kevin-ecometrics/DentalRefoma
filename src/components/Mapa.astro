@@ -23,8 +23,23 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
     </div>
 
     <div class="flex flex-col lg:flex-row gap-8 items-stretch">
+      <div class="w-full lg:w-1/2 h-75">
+        <div id="mapContainer" class="w-full h-full">
+          <div class="relative h-full w-full rounded-lg overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3365.123456789!2d-116.957820!3d32.466739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d939b4f1c51c2d%3A0xd18d3ee346749f2c!2sAv.%20Paseo%20Reforma%205304!5e0!3m2!1ses!2smx!4v1234567890!5m2!1ses!2smx&z=17"
+              width="100%"
+              height="80%"
+              style="border:0; min-height: 400px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+
       <div class="w-full lg:w-1/2 h-full">
-        <div class="bg-white p-8 rounded-lg h-full" id="infoContainer">
+        <div class="bg-[#f8fcec] p-8 rounded-lg h-full" id="infoContainer">
           <div class="contact-info space-y-6">
             <div class="flex items-center">
               <div class="bg-[#9cc115] p-2 rounded-full mr-4 mt-1">
@@ -122,21 +137,6 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
                 dentistareforma@gmail.com
               </a>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="w-full lg:w-1/2 h-75">
-        <div id="mapContainer" class="w-full h-full">
-          <div class="relative h-full w-full rounded-lg overflow-hidden">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3365.123456789!2d-116.957820!3d32.466739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d939b4f1c51c2d%3A0xd18d3ee346749f2c!2sAv.%20Paseo%20Reforma%205304!5e0!3m2!1ses!2smx!4v1234567890!5m2!1ses!2smx&z=17"
-              width="100%"
-              height="80%"
-              style="border:0; min-height: 400px;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>

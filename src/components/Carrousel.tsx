@@ -280,7 +280,7 @@ const DentalCarousel: React.FC = () => {
                     <a
                     title={isEnglish ? "Booking" : "Boton de reserva"}
                       href="#reserva"
-                      className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#8ab013] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl w-64"
+                      className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#4f646f] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl w-64"
                       aria-label={isEnglish ? "Booking" : "Boton de reserva"}>
                       <FaCalendarAlt />
                       {slide.cta}
