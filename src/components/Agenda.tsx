@@ -236,7 +236,7 @@ export default function Agenda() {
     correo: "",
     telefono: "",
     fecha: formatDate(new Date()), // Fecha actual por defecto
-    hora: getDefaultHour(), // Hora próxima por defecto
+    hora: "", // No seleccionar hora automáticamente
   });
 
   const [citasOcupadas, setCitasOcupadas] = useState<CitaOcupada[]>([]);
@@ -264,6 +264,12 @@ export default function Agenda() {
     const totalHorasDisponibles = 9; // De 9am a 6pm son 9 horas
 
     return horasOcupadas >= totalHorasDisponibles;
+  };
+
+  // Verificar si un día tiene horas disponibles
+  const hasAvailableHours = (date: Date) => {
+    const availableHours = generateAvailableHours(date);
+    return availableHours.length > 0;
   };
 
   // Generar días disponibles para el mes actual
@@ -374,17 +380,8 @@ export default function Agenda() {
     setFormData((prev) => ({
       ...prev,
       fecha: formatDate(date),
-      hora: "",
+      hora: "", // No seleccionar hora automáticamente
     }));
-
-    // Seleccionar automáticamente la primera hora disponible
-    const availableHours = generateAvailableHours(date);
-    if (availableHours.length > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        hora: availableHours[0].value,
-      }));
-    }
   };
 
   // Cambiar mes
@@ -399,7 +396,9 @@ export default function Agenda() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch("http://localhost:3001/api/citas/ocupadas");
+      const response = await fetch(
+        `${import.meta.env.PUBLIC_URL}api/citas/ocupadas`
+      );
 
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -419,25 +418,7 @@ export default function Agenda() {
   useEffect(() => {
     const fetchData = async () => {
       await fetchCitasOcupadas();
-
-      // Después de cargar las citas ocupadas, verificar si la hora por defecto está disponible
-      if (selectedDate) {
-        const availableHours = generateAvailableHours(selectedDate);
-        const defaultHour = getDefaultHour();
-
-        // Verificar si la hora por defecto está disponible
-        const isDefaultHourAvailable = availableHours.some(
-          (h) => h.value === defaultHour
-        );
-
-        // Si no está disponible, seleccionar la primera hora disponible
-        if (!isDefaultHourAvailable && availableHours.length > 0) {
-          setFormData((prev) => ({
-            ...prev,
-            hora: availableHours[0].value,
-          }));
-        }
-      }
+      // No seleccionar hora automáticamente al cargar la página
     };
 
     fetchData();
@@ -507,13 +488,16 @@ export default function Agenda() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3001/api/citas/agendar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${import.meta.env.PUBLIC_URL}api/citas/agendar`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok)
         throw new Error("Error al agendar la cita (Elija otra fecha u hora)");
@@ -528,13 +512,13 @@ export default function Agenda() {
       setSuccessCita({ ...formData });
       setShowSuccessModal(true);
 
-      // Reset form
+      // Reset form (mantener hora vacía)
       setFormData({
         nombre_paciente: "",
         correo: "",
         telefono: "",
         fecha: formatDate(new Date()),
-        hora: getDefaultHour(),
+        hora: "", // No seleccionar hora automáticamente
       });
       setSelectedDate(new Date());
 
@@ -764,7 +748,8 @@ export default function Agenda() {
                     isSunday(day) ||
                     isPastDate(day) ||
                     !isCurrentMonth ||
-                    isDateFull(day);
+                    isDateFull(day) ||
+                    !hasAvailableHours(day); // Deshabilitar si no hay horas disponibles
                   const isSelected =
                     selectedDate && formatDate(selectedDate) === dayFormatted;
 
@@ -774,7 +759,7 @@ export default function Agenda() {
                       type="button"
                       onClick={() => handleDateSelection(day)}
                       disabled={isDisabled}
-                      className={`p-2 rounded-full text-sm font-medium  flex flex-col items-center ${
+                      className={`p-2 rounded-full text-sm font-medium flex flex-col items-center ${
                         !isCurrentMonth
                           ? "text-gray-300 cursor-pointer"
                           : isDisabled
