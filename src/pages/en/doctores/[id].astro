@@ -80,7 +80,7 @@ export async function getStaticPaths() {
 
 const { doctor } = Astro.props;
 
-const allDoctors = ["DraKaren", "DraJulieta", "DrFrancisco", "DraItzel"];
+const allDoctors = ["DraKaren", "DrFrancisco"];
 
 const currentIndex = allDoctors.indexOf(doctor.id);
 const prevIndex = (currentIndex - 1 + allDoctors.length) % allDoctors.length;

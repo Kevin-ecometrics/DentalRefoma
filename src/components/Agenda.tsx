@@ -487,17 +487,19 @@ export default function Agenda() {
     setLoading(true);
     setError("");
 
+    const endpoint =
+      lang === "en"
+        ? `${import.meta.env.PUBLIC_URL}api/citas/agendar-en`
+        : `${import.meta.env.PUBLIC_URL}api/citas/agendar`;
+
     try {
-      const response = await fetch(
-        `${import.meta.env.PUBLIC_URL}api/citas/agendar`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok)
         throw new Error("Error al agendar la cita (Elija otra fecha u hora)");
