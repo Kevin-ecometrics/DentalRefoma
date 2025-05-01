@@ -11,21 +11,24 @@ import Agenda from "@components/Agenda";
 import Social from "@components/Social.astro";
 import Mapa from "@components/Mapa.astro";
 import Doctores from "@/components/Doctores.astro";
+import { fade } from "astro:transitions";
 ---
 
 <Layout
   title="Clinica Dental Reforma Tijuana"
   description="En Clinica Reforma Tijuana llevamos 35 años brindando soluciones odontológicas integrales con profesionalismo y calidez. Nuestro equipo certificado se especializa en alivio inmediato del dolor dental."
 >
-  <Header client:only="react" />
-  <Hero />
-  <Mision />
-  <Instalaciones />
-  <Carrousel client:visible />
-  <Services client:visible />
-  <Doctores />
-  <Agenda client:only="react" />
-  <Social />
-  <Mapa />
-  <Footer />
+  <div transition:animate={fade({ duration: "0.4s" })}>
+    <Header client:only="react" />
+    <Hero />
+    <Mision />
+    <Instalaciones />
+    <Carrousel client:visible />
+    <Services client:visible />
+    <Doctores />
+    <Agenda client:only="react" />
+    <Social />
+    <Mapa />
+    <Footer />
+  </div>
 </Layout>

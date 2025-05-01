@@ -4,6 +4,7 @@ import "@fontsource-variable/archivo-narrow";
 import "@fontsource-variable/roboto";
 import "@fontsource-variable/josefin-sans";
 import Whatsapp from "@/components/Menu";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -232,6 +233,7 @@ const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
         ]
       }
     </script>
+    <ClientRouter />
   </head>
 
   <body>

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { fade } from "astro:transitions";
 
 export async function getStaticPaths() {
   const doctores = [
@@ -384,12 +385,13 @@ const nextDoctorId = allDoctors[nextIndex];
 </style>
 
 <Layout title={doctor.nombre} description={doctor.bio}>
-  <div class="doctor-detail">
+  <div class="doctor-detail" transition:animate={fade({ duration: "0.4s" })}>
     <div class="doctor-container">
       <div class="doctor-image-container">
         <img
           src={`${doctor.imagen}`}
           alt={doctor.nombre}
+          transition:name={doctor.nombre}
           class="doctor-image"
         />
         <div class="doctor-badge">{doctor.titulo}</div>

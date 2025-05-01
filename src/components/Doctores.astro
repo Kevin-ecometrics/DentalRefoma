@@ -285,6 +285,7 @@ const doctores = isEnglish ? doctores_en : doctores_es;
           <div class="doctor-imagen-container">
             <img
             title="Doctor"
+            transition:name={doctor.nombre}
               src={doctor.imagen}
               alt={doctor.nombre}
               class="doctor-imagen"
