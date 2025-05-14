@@ -7,73 +7,53 @@ export async function getStaticPaths() {
     {
       id: "DraKaren",
       nombre: "Dra. Karen Haylin Pérez Álvarez",
-      imagen: "/images/drakaren.JPG",
+      imagen: "/images/drkarenperfil.webp",
       titulo: "Ortodoncista",
       experiencia: "12 años de experiencia",
-      formacion: "UABC Valle de las Palmas",
+      formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
+      cedula: "9964413",
+      cedula2: "12255010",
+      especialistaES: "Universidad Autónoma de Baja California Otay",
       horario: "Lunes a Viernes: 9:00 - 18:00",
-      bio: "Especialista en ortodoncia con más de 10 años de experiencia transformando sonrisas. Miembro activo de la Asociación Dental Mexicana y pionera en técnicas de ortodoncia invisible.",
+      bio: "Especialista en endodoncia con más de 10 años de experiencia transformando sonrisas. Miembro activo de la Asociación Dental Mexicana y pionera en técnicas de ortodoncia invisible.",
       especialidades: [
         "Ortodoncia Invisible",
         "Brackets Estéticos",
         "Ortodoncia Infantil",
       ],
       certificaciones: [
-        "Certificada por la AMO",
-        "Diplomado en Ortodoncia Avanzada",
+        "Certificación en Ortodoncia Invisible",
+        "Miembro de la Asociación Dental Mexicana",
       ],
     },
     {
-      id: "DraJulieta",
-      nombre: "Dra. Julieta Cárdenas",
-      imagen: "/images/drajulieta.JPG",
-      titulo: "Cirujana Dental",
-      experiencia: "8 años de experiencia",
-      formacion: "UABC Otay",
-      horario: "Martes a Sábado: 10:00 - 19:00",
-      bio: "Especializada en cirugías reconstructivas y tratamientos de implantes dentales. Certificada por el Consejo Mexicano de Cirugía Dental con amplia experiencia en casos complejos.",
-      especialidades: [
-        "Implantes Dentales",
-        "Regeneración Ósea",
-        "Cirugía Oral",
-      ],
-      certificaciones: [
-        "Certificación en Implantología",
-        "Miembro de la IAOMS",
-      ],
-    },
-    {
-      id: "DrFrancisco",
-      nombre: "Dr. Francisco Pérez Ruvalcaba",
-      imagen: "/images/drfrancisco.JPG",
-      titulo: "Médico Internista",
-      experiencia: "15 años de experiencia",
-      formacion: "Universidad de Guadalajara",
+      id: "DraLizeth",
+      nombre: "Lizeth Rocha Campos",
+      imagen: "/images/lizethperfil.webp",
+      titulo: "Cirujana Dentista",
+      experiencia: "2 años de experiencia",
+      cedula: "14864659",
+      formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
       horario: "Lunes a Jueves: 8:00 - 17:00",
-      bio: "Experto en reconstrucción facial y cirugía ortognática. Realizó especialización en el extranjero y ha participado en numerosos congresos internacionales.",
-      especialidades: [
-        "Cirugía Ortognática",
-        "Reconstrucción Facial",
-        "Traumatismo Maxilofacial",
-      ],
-      certificaciones: [
-        "Fellow del Colegio Mexicano",
-        "Especialización en Harvard",
-      ],
+      bio: "Cirujana dentista con experiencia en tratamientos de ortodoncia y estética dental. Comprometida con la salud bucal y el bienestar de sus pacientes.",
+      especialidades: ["Estética", "Odontología General"],
     },
     {
       id: "DraItzel",
-      nombre: "Dra. Itzel Lyncet",
-      imagen: "/images/draitzel.JPG",
-      titulo: "Endodoncista",
-      experiencia: "6 años de experiencia",
-      formacion: "UABC Valle de las Palmas Gen II",
+      nombre: "Dra. Alejandra Yazmin Gonzalez Amezquita",
+      imagen: "/images/alejandraperfil.webp",
+      titulo: "Cirujana Dentista",
+      cedula: "12030675",
+      especialista: "especialista en ortodoncia",
+      formacionES: "INODET",
+      experiencia: "4 años de experiencia",
+      formacion: "Universidad Autónoma de Baja California Otay",
       horario: "Miércoles a Domingo: 11:00 - 20:00",
       bio: "Especialista en tratamientos de conductos con tecnología de vanguardia. Enfoque en procedimientos mínimamente invasivos para mayor comodidad del paciente.",
       especialidades: [
-        "Endodoncia Microscópica",
+        "Tratamiento de Conductos",
         "Retratamientos",
-        "Cirugía Apical",
+        "Endo Postes",
       ],
       certificaciones: [
         "Certificación en Endodoncia Avanzada",
@@ -90,7 +70,7 @@ export async function getStaticPaths() {
 
 const { doctor } = Astro.props;
 
-const allDoctors = ["DraKaren", "DrFrancisco"];
+const allDoctors = ["DraKaren", "DraLizeth", "DraItzel"];
 
 const currentIndex = allDoctors.indexOf(doctor.id);
 const prevIndex = (currentIndex - 1 + allDoctors.length) % allDoctors.length;
@@ -100,478 +80,215 @@ const nextDoctorId = allDoctors[nextIndex];
 ---
 
 <Layout title={doctor.nombre} description={doctor.bio}>
-  <div class="doctor-detail" transition:animate={fade({ duration: "0.4s" })}>
-    <div class="doctor-container">
-      <div class="doctor-image-container">
+  <div class="max-w-screen-xl mx-auto p-6">
+    <div
+      class="bg-white rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2"
+    >
+      <div class="relative min-h-[400px] lg:min-h-[600px]">
         <img
           src={doctor.imagen}
           alt={doctor.nombre}
-          transition:name={doctor.nombre}
-          class="doctor-image"
+          class="w-full h-full object-cover"
         />
-        <div class="doctor-badge">{doctor.titulo}</div>
+        <div
+          class="absolute top-8 left-8 bg-reforma text-white px-4 py-2 rounded-full font-semibold text-lg"
+        >
+          {doctor.titulo}
+        </div>
       </div>
 
-      <div class="doctor-info">
-        <div class="doctor-header">
-          <h1 class="doctor-name">{doctor.nombre}</h1>
-          <p class="doctor-title">{doctor.experiencia}</p>
-          <div class="doctor-meta">
-            <div class="meta-item">
-              <div class="meta-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path
-                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="meta-content">
-                <h3>Formación Académica</h3>
-                <p>{doctor.formacion}</p>
-              </div>
-            </div>
+      <div class="p-8">
+        <div class="mb-10">
+          <h1 class="text-4xl font-bold text-gray-800 mb-2">{doctor.nombre}</h1>
+          <p class="text-reforma text-2xl font-semibold mb-6">
+            {doctor.experiencia}
+          </p>
+          <div class="md:flex gap-8 items-center">
+            {
+              doctor.cedula && (
+                <p class="text-lg font-semibold mb-2">
+                  <strong class="text-reforma">Cédula Profesional:</strong>
+                  <span class="text-black"> {doctor.cedula}</span>
+                </p>
+              )
+            }
+            {
+              doctor.cedula2 && (
+                <p class="text-lg font-semibold mb-2">
+                  <strong class="text-reforma">Cédula Especialidad:</strong>
+                  <span class="text-black"> {doctor.cedula2}</span>
+                </p>
+              )
+            }
+          </div>
+        </div>
 
-            <div class="meta-item">
-              <div class="meta-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-              </div>
-              <div class="meta-content">
-                <h3>Horario de Atención</h3>
-                <p>{doctor.horario}</p>
-              </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div class="flex items-start gap-4">
+            <div class="text-reforma">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path
+                  d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                ></path>
+              </svg>
             </div>
-
-            <div class="meta-item">
-              <div class="meta-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                  <path d="M2 17l10 5 10-5"></path>
-                  <path d="M2 12l10 5 10-5"></path>
-                </svg>
-              </div>
-              <div class="meta-content">
-                <h3>Certificaciones</h3>
-                <p>{doctor.certificaciones.join(", ")}</p>
-              </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-1">
+                Formación Académica
+              </h3>
+              <p class="text-gray-600">{doctor.formacion}</p>
             </div>
           </div>
 
-          <h2 class="section-title">Biografía Profesional</h2>
-          <p class="doctor-bio">{doctor.bio}</p>
+          <div class="flex items-start gap-4">
+            <div class="text-reforma">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-1">
+                Horario de Atención
+              </h3>
+              <p class="text-gray-600">{doctor.horario}</p>
+            </div>
+          </div>
 
-          <div class="specialties-container">
-            <h2 class="section-title">Especialidades</h2>
-            <div class="specialties-grid">
-              {
-                doctor.especialidades.map((especialidad, index) => (
-                  <div class="specialty-item">
-                    <div class="specialty-icon">{index + 1}</div>
-                    <div class="specialty-name">{especialidad}</div>
+          {
+            doctor.certificaciones && (
+              <div class="flex items-start gap-4 md:col-span-2">
+                <div class="text-reforma">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-800 mb-1">
+                    Certificaciones (Endodoncia)
+                  </h3>
+
+                  <p class="text-gray-600">{doctor.certificaciones}</p>
+                </div>
+              </div>
+            )
+          }
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+          Biografía Profesional
+        </h2>
+        <p class="text-gray-600 mb-12">{doctor.bio}</p>
+
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Especialidades</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {
+              doctor.especialidades.map((especialidad, index) => (
+                <div
+                  class={
+                    `bg-reforma/20 p-4 rounded-lg flex items-center gap-4` +
+                    (doctor.especialidades.length === 3 && index === 2
+                      ? " md:col-span-2"
+                      : "")
+                  }
+                >
+                  <div class="w-10 h-10 bg-reforma text-white flex items-center justify-center rounded-full">
+                    {index + 1}
                   </div>
-                ))
-              }
-            </div>
+                  <div class="font-semibold text-gray-800">{especialidad}</div>
+                </div>
+              ))
+            }
           </div>
+        </div>
 
-          <div class="doctor-navigation">
-            <a
-              title="Doctor anterior"
-              href={`/doctores/${prevDoctorId}`}
-              class="nav-button"
-              aria-label="Doctor anterior"
+        <div class="flex justify-between items-center mt-12 gap-4">
+          <a
+            href={`/doctores/${prevDoctorId}`}
+            class="flex items-center gap-2 px-6 py-3 bg-reforma text-white rounded-full font-semibold hover:bg-reforma-hover transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-              </svg>
-              Anterior
-            </a>
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Anterior
+          </a>
 
-            <a
-              title="Doctor"
-              href="/#doctores"
-              aria-label="Volver al equipo"
-              class="btn-back"
-            >
-              Volver al Equipo
-            </a>
+          <a
+            href="/#doctores"
+            class="px-6 py-3 bg-reforma text-white rounded-full font-semibold hover:bg-reforma-hover transition"
+          >
+            Volver al Equipo
+          </a>
 
-            <a
-              title="Siguiente doctor"
-              href={`/doctores/${nextDoctorId}`}
-              class="nav-button"
-              aria-label="Siguiente doctor"
+          <a
+            href={`/doctores/${nextDoctorId}`}
+            class="flex items-center gap-2 px-6 py-3 bg-reforma text-white rounded-full font-semibold hover:bg-reforma-hover transition"
+          >
+            Siguiente
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             >
-              Siguiente
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-          </div>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </Layout>
-
-<style>
-  :root {
-    --color-primary: #9cc115;
-    --color-primary-dark: #4f646f;
-    --color-text: #2d3748;
-    --color-text-light: #4a5568;
-    --color-bg: #f9fafb;
-    --color-white: #ffffff;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family:
-      "Poppins",
-      system-ui,
-      -apple-system,
-      sans-serif;
-  }
-
-  body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-
-  .doctor-detail {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-  }
-
-  .doctor-container {
-    background: var(--color-white);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-  }
-
-  .doctor-image-container {
-    position: relative;
-    min-height: 600px;
-  }
-
-  .doctor-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .doctor-badge {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    background: var(--color-primary);
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
-
-  .doctor-info {
-    padding: 3rem;
-  }
-
-  .doctor-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .doctor-name {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
-    line-height: 1.2;
-  }
-
-  .doctor-title {
-    color: var(--color-primary);
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-
-  .doctor-stats {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-circle {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin: 0 auto 0.5rem;
-  }
-
-  .stat-label {
-    font-size: 0.9rem;
-    color: var(--color-text-light);
-  }
-
-  .doctor-meta {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .meta-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .meta-icon {
-    flex-shrink: 0;
-    color: var(--color-primary);
-    font-size: 1.5rem;
-    margin-top: 0.2rem;
-  }
-
-  .meta-content h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: var(--color-text);
-  }
-
-  .meta-content p {
-    font-size: 0.95rem;
-    color: var(--color-text-light);
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-  }
-
-  .section-title:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: var(--color-primary);
-  }
-
-  .doctor-bio {
-    margin-bottom: 3rem;
-    color: var(--color-text-light);
-    font-size: 1.05rem;
-    line-height: 1.8;
-  }
-
-  .specialties-container {
-    margin-bottom: 3rem;
-  }
-
-  .specialties-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .specialty-item {
-    background: #f5f9f0;
-    padding: 1.2rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .specialty-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .specialty-name {
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .btn-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem 2rem;
-    background: var(--color-primary);
-    color: white;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-
-  .btn-back:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-2px);
-  }
-
-  .doctor-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    gap: 1rem;
-  }
-
-  .nav-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem 1.5rem;
-    background: var(--color-primary);
-    color: white;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    flex: 1;
-    justify-content: center;
-  }
-
-  .nav-button:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-2px);
-  }
-
-  .nav-button[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background: var(--color-text-light);
-  }
-
-  @media (max-width: 1200px) {
-    .doctor-container {
-      grid-template-columns: 1fr;
-    }
-
-    .doctor-image-container {
-      min-height: 400px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .doctor-detail {
-      padding: 2rem 1rem;
-    }
-
-    .doctor-name {
-      font-size: 2rem;
-    }
-
-    .doctor-stats {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .doctor-meta {
-      grid-template-columns: 1fr;
-    }
-
-    .specialties-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .doctor-navigation {
-      flex-direction: column;
-    }
-  }
-</style>

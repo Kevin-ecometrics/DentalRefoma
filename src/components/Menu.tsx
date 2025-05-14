@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaPlus,
   FaFacebook,
@@ -9,10 +9,34 @@ import {
 
 const DockMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hideDock, setHideDock] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    // Función para actualizar estado según localStorage
+    const updateHideDock = () => {
+      const isOpen = JSON.parse(
+        localStorage.getItem("mobileMenuOpen") || "false"
+      );
+      setHideDock(isOpen);
+    };
+
+    updateHideDock(); // Lee el valor inicial
+
+    // Escucha eventos de cambio de storage (si cambia en otra pestaña)
+    window.addEventListener("storage", updateHideDock);
+
+    // Opcional: revisa periódicamente por si cambia dentro de la misma pestaña
+    const interval = setInterval(updateHideDock, 300);
+
+    return () => {
+      window.removeEventListener("storage", updateHideDock);
+      clearInterval(interval);
+    };
+  }, []);
 
   const whatsappNumber = "+52 (664) 535-8869"; // Reemplaza con tu número de WhatsApp
   const whatsappMessage = "¡Hola! Me gustaría obtener más información."; // Mensaje predeterminado
@@ -23,7 +47,12 @@ const DockMenu: React.FC = () => {
   const emailAddress = "dentistareforma@gmail.com"; // Reemplaza con tu correo electrónico
 
   return (
-    <div className="fixed bottom-6 right-6 flex flex-col items-center">
+    <div
+      className={`fixed bottom-6 right-6 flex flex-col items-center z-50 transition-all duration-300 ${
+        hideDock ? "opacity-0 pointer-events-none translate-y-4" : "opacity-100"
+      }`}
+    >
+      {" "}
       {/* Redes sociales (desplegables) */}
       <div
         className={`flex flex-col items-center space-y-4 mb-4 transition-all duration-500 ${
@@ -71,11 +100,10 @@ const DockMenu: React.FC = () => {
           <FaEnvelope size={20} />
         </a>
       </div>
-
       {/* Botón principal (Menú flotante) */}
       <button
         onClick={toggleMenu}
-        className="bg-[#aed136] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-[#4f646f] transition-transform duration-300 hover:scale-110"
+        className="bg-reforma hover:bg-reforma-hover cursor-pointer text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110"
         aria-label="Abrir menú de redes sociales"
       >
         <FaPlus

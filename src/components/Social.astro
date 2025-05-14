@@ -11,12 +11,14 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
   src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v22.0"
 ></script>
 
-<section class="social-section" id="redes">
-  <div class="container">
-    <h2 class="section-title">
+<section class="py-12 bg-[#f8fcec]" id="redes">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <h2 class="text-center mb-2 text-[#2d3748] text-[2.25rem] font-bold">
       {isEnglish ? "Our Social Networks" : "Nuestra Redes Sociales"}
     </h2>
-    <p class="section-subtitle">
+    <p
+      class="text-center text-[#4a5568] mb-10 text-[1.1rem] max-w-[600px] mx-auto"
+    >
       {
         isEnglish
           ? "Stay connected with our latest publications"
@@ -24,11 +26,15 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
       }
     </p>
 
-    <div class="social-grid">
+    <div
+      class="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8 justify-center"
+    >
       <!-- Publicación 1 -->
-      <div class="social-card h-[630px] w-full">
+      <div
+        class="bg-white rounded-[12px] overflow-hidden shadow-md transition-transform border border-[#e2e8f0] flex flex-col hover:translate-y-[-5px] hover:shadow-lg"
+      >
         <div
-          class="fb-post"
+          class="fb-post w-full max-w-[750px] mx-auto flex-1 mb-[-5px]"
           data-href="https://www.facebook.com/photo/?fbid=1247108386878805&set=a.797094705213511"
           data-width="750"
           data-show-text="true"
@@ -55,9 +61,11 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
       </div>
 
       <!-- Publicación 2 -->
-      <div class="social-card h-[550px] w-full">
+      <div
+        class="bg-white rounded-[12px] overflow-hidden shadow-md transition-transform border border-[#e2e8f0] flex flex-col hover:translate-y-[-5px] hover:shadow-lg"
+      >
         <div
-          class="fb-post"
+          class="fb-post w-full max-w-[750px] mx-auto flex-1 mb-[-5px]"
           data-href="https://www.facebook.com/photo?fbid=1237807401142237&set=a.797094705213511"
           data-width="750"
           data-show-text="true"
@@ -81,9 +89,11 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
       </div>
 
       <!-- Publicación 3 -->
-      <div class="social-card h-[600px] w-full">
+      <div
+        class="bg-white rounded-[12px] overflow-hidden shadow-md transition-transform border border-[#e2e8f0] flex flex-col hover:translate-y-[-5px] hover:shadow-lg"
+      >
         <div
-          class="fb-post"
+          class="fb-post w-full max-w-[750px] mx-auto flex-1 mb-[-5px]"
           data-href="https://www.facebook.com/photo?fbid=1222013052721672&set=a.797094705213511"
           data-width="750"
           data-show-text="true"
@@ -111,94 +121,3 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
     </div>
   </div>
 </section>
-
-<style>
-  .social-section {
-    padding: 3rem 0;
-    background-color: #f8fcec;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  .section-title {
-    text-align: center;
-    margin-bottom: 0.5rem;
-    color: #2d3748;
-    font-size: 2.25rem;
-    font-weight: 700;
-  }
-
-  .section-subtitle {
-    text-align: center;
-    color: #4a5568;
-    margin-bottom: 2.5rem;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .social-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    justify-content: center;
-  }
-
-  .social-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 0 !important;
-  }
-
-  .social-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  }
-
-  .fb-post {
-    width: 100% !important;
-    max-width: 750px;
-    margin: 0 auto;
-    flex: 1;
-    margin-bottom: -5px !important;
-  }
-
-  /* Estilos específicos para los elementos de Facebook */
-  .fb-post span,
-  .fb-post iframe {
-    display: block !important;
-    margin-bottom: 0 !important;
-    border: none !important;
-  }
-
-  /* Elimina el padding adicional que Facebook podría añadir */
-  .fb_iframe_widget,
-  .fb_iframe_widget span,
-  .fb_iframe_widget iframe {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    display: block !important;
-  }
-
-  @media (max-width: 768px) {
-    .social-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-    }
-  }
-</style>

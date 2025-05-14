@@ -1,6 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@/components/Header";
 import Hero from "@components/Hero.astro";
 import Mision from "@components/Mision.astro";
 import Instalaciones from "@components/Instalaciones.astro";
@@ -19,7 +18,6 @@ import { fade } from "astro:transitions";
   description="En Clinica Reforma Tijuana llevamos 35 años brindando soluciones odontológicas integrales con profesionalismo y calidez. Nuestro equipo certificado se especializa en alivio inmediato del dolor dental."
 >
   <div transition:animate={fade({ duration: "0.4s" })}>
-    <Header client:only="react" />
     <Hero />
     <Mision />
     <Instalaciones />

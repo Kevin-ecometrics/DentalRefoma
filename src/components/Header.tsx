@@ -39,27 +39,57 @@ const Header: React.FC = () => {
       const sections = links[currentLanguage].map((link) =>
         document.getElementById(link.id)
       );
+
+      let newActiveLink = activeLink; // para evitar llamadas repetidas si no cambia
+
       sections.forEach((section) => {
         if (section) {
           const rect = section.getBoundingClientRect();
           if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveLink(section.id);
+            newActiveLink = section.id;
           }
         }
       });
+
+      if (newActiveLink !== activeLink) {
+        setActiveLink(newActiveLink);
+
+        // Actualizar el hash sin recargar ni agregar historial nuevo
+        if (window.location.hash !== `#${newActiveLink}`) {
+          window.history.replaceState(null, "", `#${newActiveLink}`);
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [currentLanguage]);
+  }, [currentLanguage, activeLink, links]);
 
   const toggleLanguage = () => {
     const newLang = currentLanguage === "es" ? "en" : "es";
     setCurrentLanguage(newLang);
-    window.location.pathname = newLang === "es" ? "/" : "/en/";
+
+    const { hash, pathname } = window.location;
+
+    let newPath =
+      newLang === "es"
+        ? pathname.replace(/^\/en/, "") || "/"
+        : "/en" + pathname;
+
+    // Concatenamos hash para conservarlo
+    const fullPath = newPath + hash;
+
+    setTimeout(() => {
+      // Cambia la ruta manualmente con hash
+      window.location.href = fullPath;
+    }, 200);
   };
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    const newState = !isMenuOpen;
+    setIsMenuOpen(newState);
+    localStorage.setItem("mobileMenuOpen", JSON.stringify(newState));
+  };
 
   return (
     <motion.header
@@ -81,15 +111,20 @@ const Header: React.FC = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img title="logo" src="/images/logo.webp" alt="Logo" className="h-10 w-auto" />
+          <img
+            title="logo"
+            src="/images/logo.webp"
+            alt="Logo"
+            className="h-10 w-auto"
+          />
         </motion.a>
 
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
           <div className="flex items-center space-x-1">
             {links[currentLanguage].map((link) => (
               <motion.a
-              title="link.title"
-              aria-label="link.title"
+                title="link.title"
+                aria-label="link.title"
                 key={link.id}
                 href={`#${link.id}`}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
@@ -107,18 +142,32 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="hidden md:flex items-center">
-          <motion.button
+          <div
             onClick={toggleLanguage}
-            className="flex items-center text-gray-700 hover:text-[#aed136] transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="relative flex items-center bg-gray-200 rounded-full p-1 cursor-pointer"
           >
-            <FaGlobeAmericas className="mr-1" />
-            <span className="text-sm font-medium">
-              {currentLanguage === "es" ? "ES" : "EN"}
-            </span>
-            <HiChevronDown className="ml-1" />
-          </motion.button>
+            <motion.div
+              className="absolute top-0 left-0 h-full w-1/2 bg-white rounded-full shadow-sm"
+              animate={{ x: currentLanguage === "es" ? 0 : "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
+            <div className="relative z-10 flex w-full text-xs font-medium">
+              <span
+                className={`w-10 text-center px-2 py-1 transition-colors duration-200 ${
+                  currentLanguage === "es" ? "text-black" : "text-gray-500"
+                }`}
+              >
+                ES
+              </span>
+              <span
+                className={`w-10 text-center px-2 py-1 transition-colors duration-200 ${
+                  currentLanguage === "en" ? "text-black" : "text-gray-500"
+                }`}
+              >
+                EN
+              </span>
+            </div>
+          </div>
         </div>
 
         <motion.button
@@ -144,18 +193,18 @@ const Header: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-[9998] md:hidden"
+              className="fixed inset-0 bg-black z-10 md:hidden"
               onClick={toggleMenu}
             />
 
             <motion.div
-            title="header"
+              title="header"
               aria-label="header"
               initial={{ x: "100%" }}
               animate={{ x: "3%" }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 w-1/2 h-full bg-white shadow-xl z-[9999] md:hidden"
+              className="fixed top-0 right-0 w-[60%] h-full bg-white shadow-xl z-[9999] md:hidden"
             >
               <div className="h-full flex flex-col">
                 <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
@@ -190,22 +239,52 @@ const Header: React.FC = () => {
                     </motion.a>
                   ))}
                 </div>
-
                 <div className="px-4 py-3 border-t border-gray-200">
                   <motion.button
-                                title="link.title"
-              aria-label="link.title"
                     onClick={toggleLanguage}
-                    className="w-full px-4 py-3 flex items-center justify-center bg-gray-100 text-gray-700 rounded-lg font-medium"
+                    className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-reforma-background text-gray-700 font-medium rounded-lg px-4 py-3 transition-colors duration-200 cursor-pointer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    aria-label="Toggle language"
                   >
-                    <FaGlobeAmericas className="mr-2" />
-                    
+                    <FaGlobeAmericas className="text-xl text-[#aed136]" />
                     {currentLanguage === "es"
                       ? "Cambiar a inglés"
                       : "Switch to Spanish"}
                   </motion.button>
+                </div>
+                <div className="">
+                  <div className="px-4 py-3 border-t border-gray-200">
+                    <div className="text-center text-sm text-gray-500">
+                      {currentLanguage === "es" ? (
+                        <p>
+                          © {new Date().getFullYear()} Dental Reforma. Todos los
+                          derechos reservados. <br />
+                          Diseñado por{" "}
+                          <a
+                            href="https://ecommetrica.com/"
+                            className="text-[#aed136] hover:underline"
+                          >
+                            Ecommetrica
+                          </a>
+                          .
+                        </p>
+                      ) : (
+                        <p>
+                          © {new Date().getFullYear()} Dental Reforma. All
+                          rights reserved. <br />
+                          Designed by{" "}
+                          <a
+                            href="https://ecommetrica.com/"
+                            className="text-[#aed136] hover:underline"
+                          >
+                            Ecommetrica
+                          </a>
+                          .
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
