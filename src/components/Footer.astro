@@ -16,12 +16,15 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
     class="max-w-screen-xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 relative"
   >
     <div class="flex flex-col items-start">
-      <img
-        title={isEnglish ? "Dentist Reforma" : "Dentista Reforma"}
-        src="/images/logofooter.webp"
-        alt={isEnglish ? "Dentist Reforma" : "Dentista Reforma"}
-        class="w-44 mb-6 drop-shadow-md"
-      />
+      <figure>
+        <img
+          title={isEnglish ? "Dentist Reforma" : "Dentista Reforma"}
+          src="/images/logofooter.webp"
+          alt={isEnglish ? "Dentist Reforma" : "Dentista Reforma"}
+          class="size-32 mb-6 drop-shadow-md"
+        />
+      </figure>
+
       <p class="text-[#4f646f] text-base leading-relaxed max-w-xs mb-6">
         {
           isEnglish
