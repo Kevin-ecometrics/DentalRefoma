@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.2.3",
     "@astrojs/sitemap": "^3.3.1",
     "@fontsource-variable/archivo-narrow": "^5.2.5",
