@@ -9,6 +9,7 @@ const doctores_es = [
     nombre: "Dra. Karen Haylin Pérez Álvarez",
     imagen: "/images/drkaren.webp",
     titulo: "Ortodoncista",
+    url: "karen-haylin-perez-alvarez",
     experiencia: "12 años de experiencia",
     formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
     especialistaES: "Universidad Autónoma de Baja California Otay",
@@ -22,6 +23,7 @@ const doctores_es = [
     titulo: "Cirujana Dentista",
     experiencia: "2 años de experiencia",
     cedula: "14864659",
+    url: "lizeth-rocha-campos",
     formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
     horario: "Lunes a Jueves: 8:00 - 17:00",
     bio: "Cirujana dentista con experiencia en tratamientos de ortodoncia y estética dental. Comprometida con la salud bucal y el bienestar de sus pacientes.",
@@ -32,6 +34,7 @@ const doctores_es = [
     imagen: "/images/alejandra.webp",
     titulo: "Cirujana Dentista",
     cedula: "12030675",
+    url: "alejandra-yazmin-gonzalez-amezquita",
     especialista: "especialista en ortodoncia",
     formacionES: "INODET",
     experiencia: "4 años de experiencia",
@@ -48,6 +51,7 @@ const doctores_en = [
     imagen: "/images/drkaren.webp",
     titulo: "Orthodontist",
     experiencia: "12 years of experience",
+    url: "karen-haylin-perez-alvarez",
     formacion: "Autonomous University of Baja California Valle de las Palmas",
     especialistaES: "Autonomous University of Baja California Otay",
     horario: "Monday to Friday: 9:00 AM - 6:00 PM",
@@ -60,6 +64,7 @@ const doctores_en = [
     titulo: "Dental Surgeon",
     experiencia: "2 years of experience",
     cedula: "14864659",
+    url: "lizeth-rocha-campos",
     formacion: "AAutonomous University of Baja California Valle de las Palmas",
     horario: "Monday to Thursday: 8:00 AM - 5:00 PM",
     bio: "Dental surgeon with experience in orthodontic and cosmetic dental treatments. Committed to oral health and patient well-being.",
@@ -70,6 +75,7 @@ const doctores_en = [
     imagen: "/images/alejandra.webp",
     titulo: "Dental Surgeon",
     cedula: "12030675",
+    url: "alejandra-yazmin-gonzalez-amezquita",
     especialista: "orthodontics specialist",
     formacionES: "INODET",
     experiencia: "4 years of experience",
@@ -106,7 +112,7 @@ const doctores = isEnglish ? doctores_en : doctores_es;
         <a
           title={isEnglish ? "Show profile" : "Ver perfil completo"}
           href={
-            isEnglish ? `/en/doctores/${doctor.id}` : `/doctores/${doctor.id}`
+            isEnglish ? `/en/doctores/${doctor.url}` : `/doctores/${doctor.url}`
           }
           class="bg-white rounded-lg overflow-hidden shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg flex flex-col border border-gray-200"
           aria-label={isEnglish ? "Show profile" : "Ver perfil completo"}

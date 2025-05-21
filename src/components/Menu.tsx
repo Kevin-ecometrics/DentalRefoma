@@ -7,7 +7,11 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
-const DockMenu: React.FC = () => {
+interface MenuProps {
+  URL: string;
+}
+
+const DockMenu: React.FC<MenuProps> = ({ URL }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hideDock, setHideDock] = useState(false);
 
@@ -38,13 +42,15 @@ const DockMenu: React.FC = () => {
     };
   }, []);
 
-  const whatsappNumber = "+52 (664) 535-8869"; // Reemplaza con tu número de WhatsApp
-  const whatsappMessage = "¡Hola! Me gustaría obtener más información."; // Mensaje predeterminado
+  const whatsappNumber = "+526631995492";
+  const whatsappMessage = URL
+    ? "Hello! I would like to get more information."
+    : "¡Hola! Me gustaría obtener más información.";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
 
-  const emailAddress = "dentistareforma@gmail.com"; // Reemplaza con tu correo electrónico
+  const emailAddress = "pacientes@dentistareforma.com"; // Reemplaza con tu correo electrónico
 
   return (
     <div

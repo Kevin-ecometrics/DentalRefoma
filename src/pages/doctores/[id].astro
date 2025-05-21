@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { fade } from "astro:transitions";
-
+import VCardButton from "@/components/doctors/VCardButton";
 export async function getStaticPaths() {
   const doctores = [
     {
@@ -13,6 +13,7 @@ export async function getStaticPaths() {
       formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
       cedula: "9964413",
       cedula2: "12255010",
+      url: "karen-haylin-perez-alvarez",
       especialistaES: "Universidad Autónoma de Baja California Otay",
       horario: "Lunes a Viernes: 9:00 - 18:00",
       bio: "Especialista en endodoncia con más de 10 años de experiencia transformando sonrisas. Miembro activo de la Asociación Dental Mexicana y pionera en técnicas de ortodoncia invisible.",
@@ -33,6 +34,7 @@ export async function getStaticPaths() {
       titulo: "Cirujana Dentista",
       experiencia: "2 años de experiencia",
       cedula: "14864659",
+      url: "lizeth-rocha-campos",
       formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
       horario: "Lunes a Jueves: 8:00 - 17:00",
       bio: "Cirujana dentista con experiencia en tratamientos de ortodoncia y estética dental. Comprometida con la salud bucal y el bienestar de sus pacientes.",
@@ -44,6 +46,7 @@ export async function getStaticPaths() {
       imagen: "/images/alejandraperfil.webp",
       titulo: "Cirujana Dentista",
       cedula: "12030675",
+      url: "alejandra-yazmin-gonzalez-amezquita",
       especialista: "especialista en ortodoncia",
       formacionES: "INODET",
       experiencia: "4 años de experiencia",
@@ -63,16 +66,20 @@ export async function getStaticPaths() {
   ];
 
   return doctores.map((doctor) => ({
-    params: { id: doctor.id },
+    params: { id: doctor.url },
     props: { doctor },
   }));
 }
 
 const { doctor } = Astro.props;
 
-const allDoctors = ["DraKaren", "DraLizeth", "DraItzel"];
+const allDoctors = [
+  "karen-haylin-perez-alvarez",
+  "lizeth-rocha-campos",
+  "alejandra-yazmin-gonzalez-amezquita",
+];
 
-const currentIndex = allDoctors.indexOf(doctor.id);
+const currentIndex = allDoctors.indexOf(doctor.url);
 const prevIndex = (currentIndex - 1 + allDoctors.length) % allDoctors.length;
 const nextIndex = (currentIndex + 1) % allDoctors.length;
 const prevDoctorId = allDoctors[prevIndex];
@@ -80,7 +87,10 @@ const nextDoctorId = allDoctors[nextIndex];
 ---
 
 <Layout title={"Dentista | " + doctor.nombre} description={doctor.bio}>
-  <div class="max-w-screen-xl mx-auto p-6">
+  <div
+    transition:animate={fade({ duration: "0.4s" })}
+    class="max-w-screen-xl mx-auto p-6"
+  >
     <div
       class="bg-white rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2"
     >
@@ -236,6 +246,20 @@ const nextDoctorId = allDoctors[nextIndex];
               ))
             }
           </div>
+        </div>
+
+        <div class="mt-12 mb-6 cursor-pointer">
+          <VCardButton
+            client:only="react"
+            nombre={doctor.nombre}
+            titulo={doctor.titulo}
+            telefono="6631995492"
+            email="pacientes@dentistareforma.com"
+            sitioWeb="https://dentistareforma.com"
+            direccion="Av. Paseo Reforma 5304, La Esperanza, 22186 Tijuana, B.C."
+            notaAdicional={`Especialista en ${doctor.especialidades[0]}`}
+            imagenUrl={doctor.imagen}
+          />
         </div>
 
         <div class="flex justify-between items-center mt-12 gap-4">

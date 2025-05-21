@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { fade } from "astro:transitions";
+import VCardButton from "@/components/doctors/VCardButton";
 
 export async function getStaticPaths() {
   const doctors = [
@@ -12,6 +13,8 @@ export async function getStaticPaths() {
       experience: "12 years of experience",
       education: "Autonomous University of Baja California Valle de las Palmas",
       license: "9964413",
+      url: "karen-haylin-perez-alvarez",
+
       specialtyLicense: "12255010",
       specialtyEducation: "Autonomous University of Baja California Otay",
       schedule: "Monday to Friday: 9:00 AM - 6:00 PM",
@@ -31,6 +34,7 @@ export async function getStaticPaths() {
       name: "Lizeth Rocha Campos",
       image: "/images/lizethperfil.webp",
       title: "Dental Surgeon",
+      url: "lizeth-rocha-campos",
       experience: "2 years of experience",
       license: "14864659",
       education: "Autonomous University of Baja California Valle de las Palmas",
@@ -44,6 +48,8 @@ export async function getStaticPaths() {
       image: "/images/alejandraperfil.webp",
       title: "Dental Surgeon",
       license: "12030675",
+      url: "alejandra-yazmin-gonzalez-amezquita",
+
       specialty: "Orthodontics Specialist",
       specialtyEducation: "INODET",
       experience: "4 years of experience",
@@ -59,23 +65,31 @@ export async function getStaticPaths() {
   ];
 
   return doctors.map((doctor) => ({
-    params: { id: doctor.id },
+    params: { id: doctor.url },
     props: { doctor },
   }));
 }
 
 const { doctor } = Astro.props;
 
-const allDoctors = ["DraKaren", "DraLizeth", "DraItzel"];
+const allDoctors = [
+  "karen-haylin-perez-alvarez",
+  "lizeth-rocha-campos",
+  "alejandra-yazmin-gonzalez-amezquita",
+];
 
-const currentIndex = allDoctors.indexOf(doctor.id);
+const currentIndex = allDoctors.indexOf(doctor.url);
 const prevIndex = (currentIndex - 1 + allDoctors.length) % allDoctors.length;
 const nextIndex = (currentIndex + 1) % allDoctors.length;
 const prevDoctorId = allDoctors[prevIndex];
 const nextDoctorId = allDoctors[nextIndex];
 ---
 
-<Layout title={"Dentist | " + doctor.name} description={doctor.bio}>
+<Layout
+  transition:animate={fade({ duration: "0.4s" })}
+  title={"Dentist | " + doctor.name}
+  description={doctor.bio}
+>
   <div class="max-w-screen-xl mx-auto p-6">
     <div
       class="bg-white rounded-lg shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2"
@@ -230,6 +244,20 @@ const nextDoctorId = allDoctors[nextIndex];
               ))
             }
           </div>
+        </div>
+
+        <div class="mt-12 mb-6 cursor-pointer">
+          <VCardButton
+            client:load
+            nombre={doctor.name}
+            titulo={doctor.title}
+            telefono="6631995492"
+            email="pacientes@dentistareforma.com"
+            sitioWeb="https://dentistareforma.com"
+            direccion="Av. Paseo Reforma 5304, La Esperanza, 22186 Tijuana, B.C."
+            notaAdicional={`Especialista en ${doctor.specialties[0]}`}
+            imagenUrl={doctor.image}
+          />
         </div>
 
         <div class="flex justify-between items-center mt-12 gap-4">

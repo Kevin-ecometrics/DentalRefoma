@@ -172,7 +172,7 @@ const DentalCarousel: React.FC = () => {
               >
                 <div className="w-full h-48 relative">
                   <img
-                  title={isEnglish ? "Booking" : "Boton de reserva"}
+                    title={isEnglish ? "Booking" : "Boton de reserva"}
                     src={slide.img}
                     alt={slide.alt}
                     className="w-full h-full object-cover rounded-t-xl"
@@ -202,7 +202,7 @@ const DentalCarousel: React.FC = () => {
                       <FaCalendarAlt />
                       {slide.cta}
                     </a>
-                    
+
                     <div className="flex justify-between items-center">
                       <div className="flex gap-2">
                         {slides.map((_, idx) => (
@@ -222,14 +222,14 @@ const DentalCarousel: React.FC = () => {
                       <div className="flex gap-3">
                         <button
                           onClick={prevSlide}
-                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          className=" cursor-pointer p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
                           aria-label="Previous slide"
                         >
                           <FaChevronLeft size={18} />
                         </button>
                         <button
                           onClick={nextSlide}
-                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          className=" cursor-pointer p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
                           aria-label="Next slide"
                         >
                           <FaChevronRight size={18} />
@@ -257,7 +257,7 @@ const DentalCarousel: React.FC = () => {
               >
                 <div className="w-1/2 h-full relative">
                   <img
-                  title={isEnglish ? "Booking" : "Boton de reserva"}
+                    title={isEnglish ? "Booking" : "Boton de reserva"}
                     src={slide.img}
                     alt={slide.alt}
                     className="w-full h-full object-cover rounded-l-2xl"
@@ -275,13 +275,14 @@ const DentalCarousel: React.FC = () => {
                   <p className="text-lg text-gray-600 mb-8">
                     {slide.description}
                   </p>
-                  
+
                   <div className="space-y-8">
                     <a
-                    title={isEnglish ? "Booking" : "Boton de reserva"}
+                      title={isEnglish ? "Booking" : "Boton de reserva"}
                       href="#reserva"
                       className="flex items-center justify-center gap-2 bg-[#aed136] hover:bg-[#4f646f] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl w-64"
-                      aria-label={isEnglish ? "Booking" : "Boton de reserva"}>
+                      aria-label={isEnglish ? "Booking" : "Boton de reserva"}
+                    >
                       <FaCalendarAlt />
                       {slide.cta}
                     </a>
@@ -305,14 +306,14 @@ const DentalCarousel: React.FC = () => {
                       <div className="flex gap-4">
                         <button
                           onClick={prevSlide}
-                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          className=" cursor-pointer p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
                           aria-label="Previous slide"
                         >
                           <FaChevronLeft size={20} />
                         </button>
                         <button
                           onClick={nextSlide}
-                          className="p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
+                          className=" cursor-pointer p-3 rounded-full bg-white text-[#aed136] shadow-md hover:bg-[#4f646f] hover:text-white transition-all duration-300"
                           aria-label="Next slide"
                         >
                           <FaChevronRight size={20} />

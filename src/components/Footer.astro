@@ -55,7 +55,7 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
         </a>
         <a
           title="WhatsApp"
-          href="https://wa.me/525512345678"
+          href="https://wa.me/526631995492"
           target="_blank"
           rel="noopener noreferrer"
           class="text-gray-500 hover:text-[#aed136] transition-colors duration-300"
@@ -75,7 +75,7 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
         <li>
           <a
             title={isEnglish ? "Phone" : "Teléfono"}
-            href="tel:+525512345678"
+            href="tel:+526631995492"
             aria-label={isEnglish ? "Phone" : "Teléfono"}
             class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
           >
@@ -88,13 +88,13 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
                 d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z"
               ></path>
             </svg>
-            +52 (664) 535-8869
+            +52 (663) 199 5492
           </a>
         </li>
         <li>
           <a
             title={isEnglish ? "Email" : "Correo electrónico"}
-            href="mailto:hola@dentistareforma.com"
+            href="mailto:pacientes@dentistareforma.com"
             aria-label={isEnglish ? "Email" : "Correo electrónico"}
             class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
           >
@@ -107,7 +107,7 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
                 d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
               ></path>
             </svg>
-            dentistareforma@gmail.com
+            pacientes@dentistareforma.com
           </a>
         </li>
         <li>
@@ -132,7 +132,7 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
         <li>
           <a
             title={isEnglish ? "Schedule" : "Horario"}
-            href="reserva"
+            href="#reserva"
             aria-label="Horario"
             class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
           >
@@ -197,6 +197,21 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
       &copy; {YEAR}
       {isEnglish ? "Dentist Reforma" : "Dentista Reforma"}.
       {isEnglish ? "All rights reserved." : "Todos los derechos reservados."}
+      <br />
+      <br />
+      <a
+        href="https://ecommetrica.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-[#4f646f] hover:text-[#aed136] transition-colors duration-300
+        hover:underline"
+      >
+        {
+          isEnglish
+            ? "Developed by Ecommetrica"
+            : "Desarrollado por Ecommetrica"
+        }
+      </a>
     </p>
   </div>
 </footer>

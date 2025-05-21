@@ -68,8 +68,8 @@ const homePage = Astro.url.pathname === "/" || Astro.url.pathname === "/en/";
           "latitude": "32.5149",
           "longitude": "-117.0382"
         },
-        "telephone": "+52 (664) 535-8869",
-        "email": "dentistareforma@gmail.com",
+        "telephone": "+526631995492",
+        "email": "pacientes@dentistareforma.com",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
@@ -233,7 +233,7 @@ const homePage = Astro.url.pathname === "/" || Astro.url.pathname === "/en/";
         "sameAs": [
           "https://www.facebook.com/DentistaReforma",
           "https://www.instagram.com/dentistareforma/",
-          "https://api.whatsapp.com/send/?phone=526645358869&text&type=phone_number&app_absent=0"
+          "https://api.whatsapp.com/send/?phone=526631995492&text&type=phone_number&app_absent=0"
         ]
       }
     </script>
@@ -278,7 +278,7 @@ const homePage = Astro.url.pathname === "/" || Astro.url.pathname === "/en/";
   <body>
     {homePage && <Header client:only="react" />}
     <slot />
-    <Whatsapp client:load />
+    <Whatsapp client:load URL={lang} />
   </body>
 </html>
 
