@@ -62,6 +62,24 @@ export async function getStaticPaths() {
         "Member of the AAE",
       ],
     },
+    {
+      id: "DraCarolina",
+      name: "Dr. Carolina Isabel Morales Vázquez",
+      image: "/images/carolinaperfil.webp",
+      title: "Periodontist",
+      url: "carolina-isabel-morales-vazquez",
+      specialty: "Periodontics Specialist",
+      specialtyEducation: "University of Guadalajara",
+      experience: "7 years of experience",
+      education: "Autonomous University of Baja California Otay",
+      schedule: "Tuesday to Saturday: 10:00 AM - 7:00 PM",
+      bio: "Specialist in periodontics and gum surgery with a focus on regenerative treatments. Certified in laser techniques for periodontal disease treatment and gingival aesthetics.",
+      specialties: ["Periodontics", "Gum Surgery", "Laser Treatments"],
+      certifications: [
+        "Advanced Periodontics Certification",
+        "Member of the Mexican Society of Periodontics",
+      ],
+    },
   ];
 
   return doctors.map((doctor) => ({
@@ -76,6 +94,7 @@ const allDoctors = [
   "karen-haylin-perez-alvarez",
   "lizeth-rocha-campos",
   "alejandra-yazmin-gonzalez-amezquita",
+  "carolina-isabel-morales-vazquez",
 ];
 
 const currentIndex = allDoctors.indexOf(doctor.url);

@@ -159,6 +159,26 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
       <ul class="space-y-4">
         <li>
           <a
+            title={isEnglish ? "Home" : "Inicio"}
+            href={isEnglish ? "/en/#home" : "/#home"}
+            aria-label={isEnglish ? "Home" : "Inicio"}
+            class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
+          >
+            {isEnglish ? "Home" : "Inicio"}
+          </a>
+        </li>
+        <li>
+          <a
+            title={isEnglish ? "Mission" : "Misión"}
+            href="#mision"
+            aria-label={isEnglish ? "Mission" : "Misión"}
+            class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
+          >
+            {isEnglish ? "Mission" : "Misión"}
+          </a>
+        </li>
+        <li>
+          <a
             title={isEnglish ? "Facilities" : "Instalaciones"}
             href="#instalaciones"
             aria-label={isEnglish ? "Facilities" : "Instalaciones"}
@@ -179,12 +199,22 @@ const isEnglish = Astro.url.pathname.startsWith("/en/");
         </li>
         <li>
           <a
-            title={isEnglish ? "Book" : "Reserva"}
-            href="#reserva"
-            aria-label={isEnglish ? "Book" : "Reserva"}
+            title={isEnglish ? "Doctors" : "Doctores"}
+            href="#doctores"
+            aria-label={isEnglish ? "Doctors" : "Doctores"}
             class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
           >
-            {isEnglish ? "Book" : "Reserva"}
+            {isEnglish ? "Doctors" : "Doctores"}
+          </a>
+        </li>
+        <li>
+          <a
+            title={isEnglish ? "Booking" : "Reserva"}
+            href="#reserva"
+            aria-label={isEnglish ? "Booking" : "Reserva"}
+            class="text-[#4f646f] hover:text-[#aed136] flex items-center gap-2 transition-transform duration-300 hover:translate-x-1"
+          >
+            {isEnglish ? "Booking" : "Reserva"}
           </a>
         </li>
       </ul>

@@ -10,25 +10,25 @@ const misionContent = {
     subheading: "Construimos nuestros Valores con dedicación",
     cards: [
       {
-        icon: "🦷",
+        icon: "/images/Profesionalismo en Reforma Dental tu especialista en sonrisas.webp",
         title: "Profesionalismo",
         description:
           "El personal que conforma Dental Reforma es ampliamente capacitado en la salud integral. Entrenado para dar las mejores soluciones a cualquier procedimiento odontológico con la mayor calidez.",
       },
       {
-        icon: "🎖️",
+        icon: "/images/Experiencia  en Reforma Dental tu especialista en sonrisas.webp",
         title: "Experiencia",
         description:
           "Además de que cada miembro cuenta con su cédula, título y certificados, los 35 años de la clínica dan el respaldo de que cualquier procedimiento es integral. No sólo para tu boca sino para tu salud general.",
       },
       {
-        icon: "❤️",
+        icon: "/images/Alivio  en Reforma Dental tu especialista en sonrisas.webp",
         title: "Aliviamos el dolor",
         description:
           "La herencia de proteger a la población vulnerable de la zona generó que el principal enfoque de la clínica sea aliviar el sufrimiento y el dolor que conlleva una gran infección, una mala praxis o una urgencia dental.",
       },
       {
-        icon: "😁",
+        icon: "/images/Sonrisas y Estetica  en Reforma Dental tu especialista en sonrisas.webp",
         title: "Sonrisas y Estética",
         description:
           "Cuidamos primero tu salud y el estado funcional de tu boca. Una vez logrado, hacemos todo tipo de procedimiento estético relacionado con tus dientes, maxilares y cachetes.",
@@ -41,25 +41,25 @@ const misionContent = {
     subheading: "We Build Our Values with Dedication",
     cards: [
       {
-        icon: "🦷",
+        icon: "/images/Profesionalismo en Reforma Dental tu especialista en sonrisas.webp",
         title: "Professionalism",
         description:
           "The staff at Dental Reforma is highly trained in holistic health. Prepared to offer the best solutions for any dental procedure with the utmost warmth and professionalism.",
       },
       {
-        icon: "🎖️",
+        icon: "/images/Experiencia  en Reforma Dental tu especialista en sonrisas.webp",
         title: "Experience",
         description:
           "In addition to having degrees, licenses, and certifications, the clinic's 35 years provide solid backing for every procedure, not just for your mouth, but for your overall health.",
       },
       {
-        icon: "❤️",
+        icon: "/images/Alivio  en Reforma Dental tu especialista en sonrisas.webp",
         title: "Pain Relief",
         description:
           "The legacy of caring for the vulnerable population of the area made pain and suffering relief the main focus of the clinic, especially in cases of severe infection, malpractice, or dental emergencies.",
       },
       {
-        icon: "😁",
+        icon: "/images/Sonrisas y Estetica  en Reforma Dental tu especialista en sonrisas.webp",
         title: "Smiles and Aesthetics",
         description:
           "We first care for your health and your mouth's function. Once that's ensured, we offer a variety of aesthetic treatments for your teeth, jaw, and cheeks.",
@@ -83,7 +83,13 @@ const { heading, subtitle, subheading, cards } = misionContent[currentLang];
     {
       cards.map((card) => (
         <div class="mision-card">
-          <div class="text-5xl mb-5 text-reforma">{card.icon}</div>
+          <img
+            src={card.icon}
+            alt={card.title}
+            class="w-16 h-16 mb-4 mx-auto"
+            width="64"
+            height="64"
+          />
           <h4 class="text-xl text-reforma mb-4 font-semibold">{card.title}</h4>
           <p class="text-[#2e2e2f] leading-relaxed text-xl">
             {card.description}

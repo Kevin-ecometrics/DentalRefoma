@@ -63,6 +63,29 @@ export async function getStaticPaths() {
         "Miembro de la AAE",
       ],
     },
+    {
+      id: "DraCarolina",
+      nombre: "Dra. Carolina Isabel Morales Vázquez",
+      imagen: "/images/carolinaperfil.webp",
+      titulo: "Periodoncista",
+
+      url: "carolina-isabel-morales-vazquez",
+      especialista: "especialista en periodoncia",
+      formacionES: "Universidad de Guadalajara",
+      experiencia: "7 años de experiencia",
+      formacion: "Universidad Autónoma de Baja California Otay",
+      horario: "Martes a Sábado: 10:00 - 19:00",
+      bio: "Especialista en periodoncia y cirugía de encías con enfoque en tratamientos regenerativos. Certificada en técnicas láser para el tratamiento de enfermedades periodontales y estética gingival.",
+      especialidades: [
+        "Periodoncia",
+        "Cirugía de Encías",
+        "Tratamientos Láser",
+      ],
+      certificaciones: [
+        "Certificación en Periodoncia Avanzada",
+        "Miembro de la Sociedad Mexicana de Periodoncia",
+      ],
+    },
   ];
 
   return doctores.map((doctor) => ({
@@ -77,6 +100,7 @@ const allDoctors = [
   "karen-haylin-perez-alvarez",
   "lizeth-rocha-campos",
   "alejandra-yazmin-gonzalez-amezquita",
+  "carolina-isabel-morales-vazquez",
 ];
 
 const currentIndex = allDoctors.indexOf(doctor.url);
