@@ -362,8 +362,8 @@ const DoctoresList: React.FC<DoctoresProps> = ({
                       className="block relative overflow-hidden aspect-[4/3] cursor-pointer"
                       href={`${
                         isEnglish
-                          ? `/en/doctores/${doctor.url}`
-                          : `/doctores/${doctor.url}`
+                          ? `/en/doctores/${doctor.url}/`
+                          : `/doctores/${doctor.url}/`
                       }`}
                       tabIndex={0}
                       aria-label={
@@ -415,8 +415,8 @@ const DoctoresList: React.FC<DoctoresProps> = ({
                       <a
                         href={`${
                           isEnglish
-                            ? `/en/doctores/${doctor.url}`
-                            : `/doctores/${doctor.url}`
+                            ? `/en/doctores/${doctor.url}/`
+                            : `/doctores/${doctor.url}/`
                         }`}
                         className="group"
                         tabIndex={0}
@@ -487,8 +487,8 @@ const DoctoresList: React.FC<DoctoresProps> = ({
                       <motion.a
                         href={`${
                           isEnglish
-                            ? `/en/doctores/${doctor.url}`
-                            : `/doctores/${doctor.url}`
+                            ? `/en/doctores/${doctor.url}/`
+                            : `/doctores/${doctor.url}/`
                         }`}
                         className="mt-auto w-full bg-gradient-to-r from-[#9cc115] to-[#8abf14] text-white font-semibold rounded-xl px-6 py-3 transition-all duration-300 hover:from-[#8abf14] hover:to-[#9cc115] focus:outline-none focus:ring-4 focus:ring-[#f8fcec] shadow-lg hover:shadow-xl group relative overflow-hidden"
                         whileHover={{ scale: 1.02 }}

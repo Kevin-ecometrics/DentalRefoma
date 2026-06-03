@@ -15,10 +15,11 @@ import partytown from "@astrojs/partytown";
 export default defineConfig({
   vite: {
     esbuild: {
-      charset: "utf8", // Esto fuerza UTF-8
+      charset: "utf8",
     },
     plugins: [tailwindcss()],
   },
   site: "https://www.dentistareforma.com/",
+  trailingSlash: "always",
   integrations: [react(), sitemap(), robotsTxt(), partytown()],
 });
