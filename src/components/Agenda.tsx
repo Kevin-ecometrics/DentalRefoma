@@ -321,7 +321,7 @@ export default function Agenda() {
     return date < today && !isToday(date);
   };
 
-  // Generar horas disponibles (filtra las ocupadas)
+  // Generar horas disponibles (incluye ocupadas en rojo)
   const generateAvailableHours = (date: Date | null) => {
     const hours = [];
     const startHour = 9;
@@ -339,14 +339,12 @@ export default function Agenda() {
 
     const formattedDate = formatDate(date);
 
-    // Obtener todas las horas ocupadas para esta fecha
     const horasOcupadasParaFecha = citasOcupadas
       .filter((cita) => {
-        // Asegurarse de que la fecha coincida exactamente
-        const citaFecha = cita.fecha.split("T")[0]; // Extraer solo la parte de la fecha (YYYY-MM-DD)
+        const citaFecha = cita.fecha.split("T")[0];
         return citaFecha === formattedDate;
       })
-      .map((cita) => cita.hora.substring(0, 5)); // Solo comparamos HH:MM
+      .map((cita) => cita.hora.substring(0, 5));
 
     for (let hour = startHour; hour < endHour; hour++) {
       const timeValue = `${hour.toString().padStart(2, "0")}:00:00`;
@@ -355,15 +353,15 @@ export default function Agenda() {
       );
       const isPastHour =
         isToday &&
-        (hour < currentHour || (hour === currentHour && currentMinutes >= 0)); // Si es la hora actual, ya no está disponible
+        (hour < currentHour || (hour === currentHour && currentMinutes >= 0));
 
-      if (!isOccupied && !isPastHour) {
-        hours.push({
-          value: timeValue,
-          label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
-          hour: hour,
-        });
-      }
+      hours.push({
+        value: timeValue,
+        label: `${hour}:00 ${hour < 12 ? t.am : t.pm}`,
+        hour: hour,
+        isOccupied: isOccupied,
+        isPastHour: isPastHour,
+      });
     }
 
     return hours;
@@ -397,7 +395,7 @@ export default function Agenda() {
       setLoading(true);
       setError(null);
       const response = await fetch(
-        `${import.meta.env.PUBLIC_URL}api/citas/ocupadas`
+        `https://dentistareforma.com/api/citas/ocupadas`
       );
 
       if (!response.ok) {
@@ -489,8 +487,8 @@ export default function Agenda() {
 
     const endpoint =
       lang === "en"
-        ? `${import.meta.env.PUBLIC_URL}api/citas/agendar-en`
-        : `${import.meta.env.PUBLIC_URL}api/citas/agendar`;
+        ? `https://dentistareforma.com/api/citas/agendar-en`
+        : `https://dentistareforma.com/api/citas/agendar`;
 
     try {
       const response = await fetch(endpoint, {
@@ -653,11 +651,19 @@ export default function Agenda() {
                     <option value="" disabled>
                       {t.selectHour}
                     </option>
-                    {availableHours.map((horario) => (
-                      <option key={horario.value} value={horario.value}>
-                        {horario.label}
-                      </option>
-                    ))}
+                    {availableHours.map((horario) => {
+                      const isDisabled = horario.isOccupied || horario.isPastHour;
+                      return (
+                        <option
+                          key={horario.value}
+                          value={horario.value}
+                          disabled={isDisabled}
+                          style={horario.isOccupied ? { color: "red", fontWeight: "bold" } : horario.isPastHour ? { color: "#ccc" } : {}}
+                        >
+                          {horario.label}{horario.isOccupied ? " (Ocupada)" : ""}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               )}
