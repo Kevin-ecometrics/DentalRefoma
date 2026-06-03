@@ -1,6 +1,5 @@
 ---
-// src/components/Doctores.astro
-
+import DoctoresList from "@/components/DoctoresList";
 const isEnglish = Astro.url.pathname.startsWith("/en/");
 
 const doctores_es = [
@@ -54,6 +53,62 @@ const doctores_es = [
     formacion: "Universidad Autónoma de Baja California Otay",
     horario: "Martes a Sábado: 10:00 - 19:00",
     bio: "Especialista en periodoncia y cirugía de encías con enfoque en tratamientos regenerativos. Certificada en técnicas láser para el tratamiento de enfermedades periodontales y estética gingival.",
+  },
+  {
+    id: "francisco",
+    nombre: "Dr. Francisco Javier Mendoza Rivera",
+    imagen: "/images/francisco.webp",
+    titulo: "Cirujano Maxilofacial",
+    cedula: "11584730",
+    url: "francisco-javier-mendoza-rivera",
+    especialista: "especialista en cirugía maxilofacial",
+    experiencia: "9 años de experiencia",
+    formacion: "Universidad Autónoma de Baja California Otay",
+    formacionES: "Hospital General de México",
+    horario: "Lunes a Viernes: 10:00 - 18:00",
+    bio: "Cirujano maxilofacial especializado en cirugía reconstructiva y estética facial. Experto en implantes dentales y cirugía de ATM. Certificado en técnicas avanzadas de cirugía oral con sedación consciente.",
+  },
+  {
+    id: "pamela",
+    nombre: "Dra. Pamela Cristina Herrera Santos",
+    imagen: "/images/pamela.webp",
+    titulo: "Cirujana Plástica Facial",
+    cedula: "10792456",
+    url: "pamela-cristina-herrera-santos",
+    especialista: "especialista en rinoplastia",
+    experiencia: "8 años de experiencia",
+    formacion: "Universidad Nacional Autónoma de México",
+    formacionES: "Instituto Nacional de Cirugía Plástica",
+    horario: "Martes a Viernes: 9:00 - 17:00",
+    bio: "Especialista en rinoplastia con personalización absoluta. Redefine la armonía de tu rostro, resalta tu singularidad con un aspecto natural. Experta en refinamiento del perfil y armonización estética del conjunto nasal, logrando resultados que respetan la individualidad de cada paciente.",
+  },
+  {
+    id: "DrRoberto",
+    nombre: "Dr. Roberto Carlos Vega Moreno",
+    imagen: "/images/doctor1.webp",
+    titulo: "Endodoncista",
+    cedula: "12945638",
+    url: "roberto-carlos-vega-moreno",
+    especialista: "especialista en endodoncia",
+    experiencia: "6 años de experiencia",
+    formacion: "Universidad Autónoma de Baja California Otay",
+    formacionES: "Centro de Estudios en Endodoncia",
+    horario: "Lunes a Viernes: 8:00 - 16:00",
+    bio: "Especialista en endodoncia con amplia experiencia en tratamientos de conductos complejos. Certificado en técnicas de microcirugía endodóntica y uso de microscopio dental. Enfocado en la preservación dental y manejo del dolor.",
+  },
+  {
+    id: "DraValentina",
+    nombre: "Dra. Valentina López Castillo",
+    imagen: "/images/doctor2.webp",
+    titulo: "Odontopediatra",
+    cedula: "13076429",
+    url: "valentina-lopez-castillo",
+    especialista: "especialista en odontopediatría",
+    experiencia: "5 años de experiencia",
+    formacion: "Universidad Autónoma de Baja California Valle de las Palmas",
+    formacionES: "Hospital Infantil de México",
+    horario: "Martes a Sábado: 9:00 - 17:00",
+    bio: "Odontopediatra especializada en el cuidado dental de niños y adolescentes. Experta en técnicas de manejo conductual y sedación pediátrica. Comprometida con crear experiencias positivas que fomenten hábitos de salud oral desde temprana edad.",
   },
 ];
 
@@ -109,6 +164,62 @@ const doctores_en = [
     horario: "Tuesday to Saturday: 10:00 AM - 7:00 PM",
     bio: "Specialist in periodontics and gum surgery with a focus on regenerative treatments. Certified in laser techniques for periodontal disease treatment and gingival aesthetics.",
   },
+  {
+    id: "francisco",
+    nombre: "Dr. Francisco Javier Mendoza Rivera",
+    imagen: "/images/francisco.webp",
+    titulo: "Maxillofacial Surgeon",
+    cedula: "11584730",
+    url: "francisco-javier-mendoza-rivera",
+    especialista: "maxillofacial surgery specialist",
+    experiencia: "9 years of experience",
+    formacion: "Autonomous University of Baja California Otay",
+    formacionES: "General Hospital of Mexico",
+    horario: "Monday to Friday: 10:00 AM - 6:00 PM",
+    bio: "Maxillofacial surgeon specialized in reconstructive and facial aesthetic surgery. Expert in dental implants and TMJ surgery. Certified in advanced oral surgery techniques with conscious sedation.",
+  },
+  {
+    id: "pamela",
+    nombre: "Dr. Pamela Cristina Herrera Santos",
+    imagen: "/images/pamela.webp",
+    titulo: "Facial Plastic Surgeon",
+    cedula: "10792456",
+    url: "pamela-cristina-herrera-santos",
+    especialista: "rhinoplasty specialist",
+    experiencia: "8 years of experience",
+    formacion: "National Autonomous University of Mexico",
+    formacionES: "National Institute of Plastic Surgery",
+    horario: "Tuesday to Friday: 9:00 AM - 5:00 PM",
+    bio: "Rhinoplasty specialist with absolute personalization. Redefines facial harmony, highlights your uniqueness with a natural appearance. Expert in profile refinement and aesthetic harmonization of the nasal complex, achieving results that respect each patient's individuality.",
+  },
+  {
+    id: "DrRoberto",
+    nombre: "Dr. Roberto Carlos Vega Moreno",
+    imagen: "/images/doctor1.webp",
+    titulo: "Endodontist",
+    cedula: "12945638",
+    url: "roberto-carlos-vega-moreno",
+    especialista: "endodontics specialist",
+    experiencia: "6 years of experience",
+    formacion: "Autonomous University of Baja California Otay",
+    formacionES: "Center for Endodontic Studies",
+    horario: "Monday to Friday: 8:00 AM - 4:00 PM",
+    bio: "Endodontics specialist with extensive experience in complex root canal treatments. Certified in endodontic microsurgery techniques and dental microscope use. Focused on dental preservation and pain management.",
+  },
+  {
+    id: "DraValentina",
+    nombre: "Dr. Valentina López Castillo",
+    imagen: "/images/doctor2.webp",
+    titulo: "Pediatric Dentist",
+    cedula: "13076429",
+    url: "valentina-lopez-castillo",
+    especialista: "pediatric dentistry specialist",
+    experiencia: "5 years of experience",
+    formacion: "Autonomous University of Baja California Valle de las Palmas",
+    formacionES: "Children's Hospital of Mexico",
+    horario: "Tuesday to Saturday: 9:00 AM - 5:00 PM",
+    bio: "Pediatric dentist specialized in dental care for children and adolescents. Expert in behavioral management techniques and pediatric sedation. Committed to creating positive experiences that foster oral health habits from an early age.",
+  },
 ];
 
 const doctores = isEnglish ? doctores_en : doctores_es;
@@ -132,79 +243,5 @@ const doctores = isEnglish ? doctores_en : doctores_es;
     }
   </p>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-    {
-      doctores.map((doctor) => (
-        <a
-          title={isEnglish ? "Show profile" : "Ver perfil completo"}
-          href={
-            isEnglish ? `/en/doctores/${doctor.url}` : `/doctores/${doctor.url}`
-          }
-          class="bg-white rounded-lg overflow-hidden shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg flex flex-col border border-gray-200"
-          aria-label={isEnglish ? "Show profile" : "Ver perfil completo"}
-        >
-          <div class="relative">
-            <img
-              title="Doctor"
-              transition:name={doctor.nombre}
-              src={doctor.imagen}
-              alt={doctor.nombre}
-              class="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
-            />
-            <span class="absolute top-4 right-4 bg-reforma text-white px-3 py-1 rounded-full text-sm font-semibold">
-              {doctor.titulo}
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <h3 class="text-gray-700 text-xl font-bold mb-2">
-              {doctor.nombre}
-            </h3>
-            <p class="text-gray-700 font-semibold mb-4 text-base">
-              {doctor.experiencia}
-            </p>
-
-            <div class="text-gray-700 mb-4 text-sm flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-4 h-4 text-reforma"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                />
-              </svg>
-              <span>{doctor.formacion}</span>
-            </div>
-
-            <div class="text-gray-700 mb-4 text-sm flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-4 h-4 text-reforma"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>{doctor.horario}</span>
-            </div>
-
-            <button class="mt-auto inline-block px-6 py-3 bg-reforma text-white rounded-md font-semibold text-center transition-colors hover:bg-reforma/80 w-full cursor-pointer">
-              {isEnglish ? "View full profile" : "Ver perfil completo"}
-            </button>
-          </div>
-        </a>
-      ))
-    }
-  </div>
+  <DoctoresList doctores={doctores} isEnglish={isEnglish} client:visible />
 </section>
